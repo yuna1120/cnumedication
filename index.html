@@ -2,29 +2,34 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>전남대병원 입원 서비스</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         /* 기본 설정 */
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { margin: 0; padding: 0; background-color: #e2e8f0; display: flex; justify-content: center; align-items: center; min-height: 100vh; font-family: 'Noto Sans KR', sans-serif; }
+        
+        /* 배경을 부드러운 회색으로 두고 중앙 정렬 (PC 화면 대비) */
+        body { margin: 0; padding: 0; background-color: #f1f5f9; display: flex; justify-content: center; min-height: 100vh; font-family: 'Noto Sans KR', sans-serif; overflow: hidden; }
 
-        /* 스마트폰 디바이스 프레임 */
-        .device-frame {
-            width: 390px; height: 844px;
-            background-color: #fff; border-radius: 45px; border: 12px solid #1e272e;
+        /* ----- 실제 앱처럼 꽉 차는 프레임 (기존 기기 테두리 제거) ----- */
+        .app-frame {
+            width: 100%; 
+            max-width: 450px; /* PC 접속 시 너무 넓어지지 않게 제한 */
+            height: 100vh; /* 브라우저 꽉 차게 */
+            height: 100dvh; /* 모바일 브라우저 상하단 바 고려 */
+            background-color: #fff;
             position: relative; overflow: hidden; display: flex; flex-direction: column;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+            box-shadow: 0 0 20px rgba(0,0,0,0.05);
         }
 
         /* ----- 첫 번째 화면: 입원 서비스 메뉴 ----- */
         #page1 { display: flex; flex-direction: column; height: 100%; width: 100%; position: absolute; top: 0; left: 0; transition: transform 0.4s ease; z-index: 10; background: #fff; }
-        .header-blue { background: #1a2a6c; color: white; padding: 50px 20px 15px; display: flex; align-items: center; justify-content: space-between; }
+        .header-blue { background: #1a2a6c; color: white; padding: 25px 20px 15px; display: flex; align-items: center; justify-content: space-between; }
         .header-blue h1 { font-size: 22px; margin: 0; font-weight: 700; }
         
-        .service-list { flex: 1; overflow-y: auto; }
+        .service-list { flex: 1; overflow-y: auto; padding-bottom: 90px; }
         .info-banner { background: #f8fafc; padding: 15px 20px; font-size: 14px; color: #475569; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #f1f5f9; }
         .info-banner i { color: #1a2a6c; }
         .sort-tab { padding: 15px 20px; display: flex; gap: 15px; border-bottom: 1px solid #eee; font-size: 14px; font-weight: 500; }
@@ -38,7 +43,7 @@
 
         /* ----- 두 번째 화면: 처방약 대시보드 ----- */
         #page2 { display: flex; flex-direction: column; height: 100%; width: 100%; position: absolute; top: 0; left: 100%; transition: transform 0.4s ease; z-index: 20; background: #f4f6f9; }
-        .header-white { background: #fff; padding: 50px 25px 20px; display: flex; justify-content: space-between; align-items: flex-start; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .header-white { background: #fff; padding: 25px 25px 20px; display: flex; justify-content: space-between; align-items: flex-start; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
         .patient-info h2 { font-size: 24px; margin: 0 0 5px 0; color: #1e293b; font-weight: 900; }
         .patient-info p { margin: 0; color: #64748b; font-size: 14px; font-weight: 500; }
         .current-clock { font-size: 14px; color: #1a2a6c; font-weight: 700; background: #eef2ff; padding: 6px 12px; border-radius: 20px; border: 1px solid #c7d2fe; }
@@ -71,7 +76,7 @@
         .action-btn { background: rgba(255,255,255,0.1); border: 1.5px solid rgba(255,255,255,0.4); padding: 8px 14px; border-radius: 20px; font-weight: 800; font-size: 13px; transition: all 0.3s; color: white; display: flex; align-items: center; gap: 4px; }
         .action-checkbox input[type="checkbox"]:checked + .action-btn { background: #fff; color: #1a2a6c; border-color: #fff; box-shadow: 0 3px 8px rgba(0,0,0,0.15); }
 
-        .description-box { background: #fff; border-radius: 20px; padding: 20px; border: 1px solid #e2e2f0; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+        .description-box { background: #fff; border-radius: 20px; padding: 20px; border: 1px solid #e2e8f0; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
         .description-box h3 { font-size: 16px; color: #1a2a6c; margin: 0 0 15px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
         .med-detail { background: #f8fafc; padding: 12px; border-radius: 12px; margin-bottom: 10px; border-left: 4px solid #1a2a6c; }
         .med-detail:last-child { margin-bottom: 0; }
@@ -87,7 +92,7 @@
 
         /* ----- 세 번째 화면: AI 챗봇 화면 ----- */
         #page3 { display: flex; flex-direction: column; height: 100%; width: 100%; position: absolute; top: 0; left: 200%; transition: transform 0.4s ease; z-index: 40; background: #f4f6f9; }
-        .chat-header-robot { background: #fff; padding: 50px 25px 20px; display: flex; align-items: center; gap: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .chat-header-robot { background: #fff; padding: 25px 25px 20px; display: flex; align-items: center; gap: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
         .chat-header-robot i.fa-chevron-left { color: #94a3b8; font-size: 22px; cursor: pointer; }
         
         .robot-icon-wrap { background: #eef2ff; width: 50px; height: 50px; border-radius: 50%; display: flex; justify-content: center; align-items: center; color: #1a2a6c; font-size: 24px; }
@@ -127,7 +132,7 @@
 </head>
 <body>
 
-<div class="device-frame" id="appFrame">
+<div class="app-frame" id="appFrame">
     
     <div id="page1">
         <div class="header-blue">
@@ -389,7 +394,7 @@
         }
     }
 
-    // 4. 챗봇 대화 시뮬레이션 및 STT 음성 인식 연계 로직
+    // 4. 챗봇 대화 시뮬레이션 및 STT 연속 음성 인식 로직
     const chatInput = document.getElementById('chatInput');
     const micBtn = document.getElementById('micBtn');
     let isRecording = false;
@@ -465,7 +470,7 @@
             appendMessage(aiResponse, 'ai');
 
             // ★ 봇 대답이 끝난 후 1.5초 뒤 마이크 자동 재실행 (연속 대화) ★
-            // 단, 사용자가 챗봇 화면에 있을 때만 실행합니다.
+            // 사용자가 챗봇 화면에 있을 때만 작동하게 제한
             setTimeout(() => {
                 if(document.getElementById('appFrame').classList.contains('show-page3')) {
                     startDictation();
