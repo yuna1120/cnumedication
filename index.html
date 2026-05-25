@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>전남대병원 입원 서비스</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* 기본 설정 */
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { margin: 0; padding: 0; background-color: #e2e8f0; display: flex; justify-content: center; align-items: center; min-height: 100vh; font-family: 'Noto Sans KR', sans-serif; }
+
+        /* 스마트폰 디바이스 프레임 */
+        .device-frame {
+            width: 390px; height: 844px;
+            background-color: #fff; border-radius: 45px; border: 12px solid #1e272e;
+            position: relative; overflow: hidden; display: flex; flex-direction: column;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+        }
+
+        /* ----- 첫 번째 화면: 입원 서비스 메뉴 ----- */
+        #page1 { display: flex; flex-direction: column; height: 100%; width: 100%; position: absolute; top: 0; left: 0; transition: transform 0.4s ease; z-index: 10; background: #fff; }
+        .header-blue { background: #1a2a6c; color: white; padding: 50px 20px 15px; display: flex; align-items: center; justify-content: space-between; }
+        .header-blue h1 { font-size: 22px; margin: 0; font-weight: 700; }
+        
+        .service-list { flex: 1; overflow-y: auto; }
+        .info-banner { background: #f8fafc; padding: 15px 20px; font-size: 14px; color: #475569; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #f1f5f9; }
+        .info-banner i { color: #1a2a6c; }
+        .sort-tab { padding: 15px 20px; display: flex; gap: 15px; border-bottom: 1px solid #eee; font-size: 14px; font-weight: 500; }
+        .sort-tab span.active { color: #1a2a6c; border-bottom: 2px solid #1a2a6c; padding-bottom: 5px; }
+        
+        .menu-item { padding: 22px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f1f5f9; cursor: pointer; transition: background 0.2s; }
+        .menu-item:active { background: #f1f5f9; }
+        .menu-item span { font-size: 17px; font-weight: 500; color: #334155; }
+        .menu-item i { color: #cbd5e1; font-size: 18px; }
+        .highlight-menu { background: #f8fafc; font-weight: bold; }
+
+        /* ----- 두 번째 화면: 처방약 대시보드 ----- */
+        #page2 { display: flex; flex-direction: column; height: 100%; width: 100%; position: absolute; top: 0; left: 100%; transition: transform 0.4s ease; z-index: 20; background: #f4f6f9; }
+        .header-white { background: #fff; padding: 50px 25px 20px; display: flex; justify-content: space-between; align-items: flex-start; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .patient-info h2 { font-size: 24px; margin: 0 0 5px 0; color: #1e293b; font-weight: 900; }
+        .patient-info p { margin: 0; color: #64748b; font-size: 14px; font-weight: 500; }
+        .current-clock { font-size: 14px; color: #1a2a6c; font-weight: 700; background: #eef2ff; padding: 6px 12px; border-radius: 20px; border: 1px solid #c7d2fe; }
+
+        .dashboard-content { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; padding-bottom: 110px; }
+        
+        /* 파란색 메인 카드 */
+        .med-card { background: linear-gradient(135deg, #1a2a6c, #2a48ad); border-radius: 25px; padding: 22px; color: white; box-shadow: 0 10px 25px rgba(26,42,108,0.25); position: relative; }
+        .med-card .label { font-size: 15px; opacity: 0.9; margin-bottom: 5px; font-weight: 500; display: flex; justify-content: space-between; align-items: center;}
+        
+        .med-card .main-time { font-size: 32px; font-weight: 900; margin-bottom: 20px; letter-spacing: -1px; color: #fff; transition: all 0.3s; }
+        .status-badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; transition: all 0.3s; }
+        .status-badge.wait { background: rgba(255,255,255,0.2); color: #fff; }
+        .status-badge.done { background: #00b894; color: #fff; box-shadow: 0 2px 10px rgba(0,184,148,0.4); }
+
+        .gauge-container { margin-bottom: 20px; }
+        .progress-track { height: 8px; background: rgba(255,255,255,0.2); border-radius: 10px; overflow: hidden; margin-bottom: 8px; }
+        .progress-bar { height: 100%; background: #00b894; width: 0%; transition: width 0.4s ease-in-out; }
+        .status-labels { display: flex; justify-content: space-between; font-size: 11px; font-weight: 500; opacity: 0.8; }
+
+        .inner-check-list { display: flex; flex-direction: column; gap: 12px; border-top: 1px solid rgba(255,255,255,0.15); padding-top: 15px; }
+        .check-item-white { display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.12); padding: 10px 15px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.05); transition: all 0.3s; }
+        .check-info-white { display: flex; align-items: center; gap: 12px; transition: 0.3s; }
+        .check-info-white i { font-size: 24px; width: 25px; text-align: center; }
+        .time-text { font-size: 11px; opacity: 0.7; font-weight: normal; margin-top: 2px; }
+        .title-text { font-size: 15px; font-weight: 700; }
+        
+        .action-checkbox { cursor: pointer; display: inline-block; }
+        .action-checkbox input[type="checkbox"] { display: none; }
+        .action-btn { background: rgba(255,255,255,0.1); border: 1.5px solid rgba(255,255,255,0.4); padding: 8px 14px; border-radius: 20px; font-weight: 800; font-size: 13px; transition: all 0.3s; color: white; display: flex; align-items: center; gap: 4px; }
+        .action-checkbox input[type="checkbox"]:checked + .action-btn { background: #fff; color: #1a2a6c; border-color: #fff; box-shadow: 0 3px 8px rgba(0,0,0,0.15); }
+
+        .description-box { background: #fff; border-radius: 20px; padding: 20px; border: 1px solid #e2e2f0; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+        .description-box h3 { font-size: 16px; color: #1a2a6c; margin: 0 0 15px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+        .med-detail { background: #f8fafc; padding: 12px; border-radius: 12px; margin-bottom: 10px; border-left: 4px solid #1a2a6c; }
+        .med-detail:last-child { margin-bottom: 0; }
+        .med-detail strong { display: block; font-size: 15px; color: #1e293b; margin-bottom: 5px; }
+        .med-detail p { font-size: 13px; color: #475569; line-height: 1.5; margin: 0; }
+
+        /* AI FAB 버튼 */
+        .ai-fab { position: absolute; bottom: 100px; right: 20px; width: 70px; height: 70px; background: #fff; border-radius: 50%; box-shadow: 0 10px 25px rgba(0,0,0,0.15); display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; z-index: 100; border: 2px solid #f1f5f9; transition: transform 0.2s; }
+        .ai-fab:active { transform: scale(0.95); }
+        .ai-fab i { font-size: 30px; color: #1a2a6c; margin-bottom: 2px; }
+        .ai-fab span { font-size: 11px; font-weight: 800; color: #1a2a6c; letter-spacing: -0.5px; }
+        .fab-badge { position: absolute; top: -5px; right: -5px; background: #ef4444; color: white; font-size: 10px; font-weight: bold; padding: 3px 6px; border-radius: 10px; border: 2px solid #fff; }
+
+        /* ----- 세 번째 화면: AI 챗봇 화면 ----- */
+        #page3 { display: flex; flex-direction: column; height: 100%; width: 100%; position: absolute; top: 0; left: 200%; transition: transform 0.4s ease; z-index: 40; background: #f4f6f9; }
+        .chat-header-robot { background: #fff; padding: 50px 25px 20px; display: flex; align-items: center; gap: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .chat-header-robot i.fa-chevron-left { color: #94a3b8; font-size: 22px; cursor: pointer; }
+        
+        .robot-icon-wrap { background: #eef2ff; width: 50px; height: 50px; border-radius: 50%; display: flex; justify-content: center; align-items: center; color: #1a2a6c; font-size: 24px; }
+        
+        .chat-header-robot h2 { font-size: 22px; margin: 0; color: #1e293b; font-weight: 900; }
+        .chat-header-robot p { margin: 3px 0 0; color: #64748b; font-size: 13px; }
+
+        .chat-area { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; padding-bottom: 90px; scroll-behavior: smooth; }
+        .msg { padding: 12px 16px; border-radius: 18px; font-size: 14px; max-width: 80%; box-shadow: 0 2px 5px rgba(0,0,0,0.05); line-height: 1.5; word-wrap: break-word; }
+        .msg.ai { background: #fff; align-self: flex-start; border-left: 4px solid #1a2a6c; border-bottom-left-radius: 4px; }
+        .msg.user { background: #1a2a6c; color: white; align-self: flex-end; border-bottom-right-radius: 4px; }
+        
+        .chat-input-bar { background: #fff; padding: 15px 20px; display: flex; gap: 10px; align-items: center; border-top: 1px solid #e2e8f0; position: absolute; bottom: 0; width: 100%; z-index: 50; }
+        .chat-input-bar i { color: #1a2a6c; font-size: 24px; cursor: pointer; transition: 0.2s; }
+        .chat-input-bar i.fa-microphone.recording { color: #ef4444; animation: pulse mic-pulse 1.5s infinite; }
+        .chat-input-bar input { flex: 1; background: #f1f5f9; border: none; padding: 12px 15px; border-radius: 20px; font-size: 14px; outline: none; }
+        .chat-input-bar .send-btn { background: #1a2a6c; color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: 0.2s; }
+        .chat-input-bar .send-btn:active { transform: scale(0.9); }
+
+        @keyframes mic-pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
+
+        /* 하단 공통 네비게이션 바 */
+        .nav-bar { background: #fff; height: 80px; border-top: 1px solid #eee; display: flex; justify-content: space-around; align-items: center; padding-bottom: 15px; position: absolute; bottom: 0; width: 100%; z-index: 30; }
+        .nav-item { text-align: center; color: #94a3b8; font-size: 11px; font-weight: 500; flex: 1; cursor: pointer; }
+        .nav-item i { font-size: 22px; display: block; margin-bottom: 4px; }
+        .nav-item.active { color: #1a2a6c; }
+
+        /* 슬라이드 애니메이션 제어 */
+        .show-page2 #page1 { transform: translateX(-100%); }
+        .show-page2 #page2 { transform: translateX(-100%); }
+        .show-page2 #page3 { transform: translateX(-100%); }
+        
+        .show-page3 #page1 { transform: translateX(-200%); }
+        .show-page3 #page2 { transform: translateX(-200%); }
+        .show-page3 #page3 { transform: translateX(-200%); }
+    </style>
+</head>
+<body>
+
+<div class="device-frame" id="appFrame">
+    
+    <div id="page1">
+        <div class="header-blue">
+            <i class="fa-solid fa-chevron-left"></i>
+            <h1>입원 서비스</h1>
+            <i class="fa-solid fa-bars"></i>
+        </div>
+        <div class="service-list">
+            <div class="info-banner"><i class="fa-solid fa-volume-high"></i>입원진료 안내 및 편의 서비스 이용이 가능합니다.</div>
+            <div class="sort-tab"><span class="active">기본순</span><span>가나다순</span></div>
+            <div class="menu-item"><span>입원생활안내</span><i class="fa-solid fa-chevron-right"></i></div>
+            <div class="menu-item"><span>식단안내</span><i class="fa-solid fa-chevron-right"></i></div>
+            
+            <div class="menu-item"><span>검사결과조회</span><i class="fa-solid fa-chevron-right"></i></div>
+            
+            <div class="menu-item highlight-menu" onclick="goToPrescription()">
+                <span style="color: #1a2a6c;"><i class="fa-solid fa-pills" style="margin-right: 10px;"></i>처방약조회 (스마트 복약)</span>
+                <i class="fa-solid fa-chevron-right" style="color: #1a2a6c;"></i>
+            </div>
+            
+            <div class="menu-item"><span>수술안내</span><i class="fa-solid fa-chevron-right"></i></div>
+            <div class="menu-item"><span>진료내역조회</span><i class="fa-solid fa-chevron-right"></i></div>
+        </div>
+    </div>
+
+    <div id="page2">
+        <div class="header-white">
+            <div class="patient-info">
+                <h2 onclick="goBackToMenu()" style="cursor: pointer;"><i class="fa-solid fa-chevron-left" style="font-size: 18px; color: #94a3b8; margin-right: 5px;"></i>백OO 어르신</h2>
+                <p>8W12F 병동 | 입원 4일차</p>
+            </div>
+            <div class="current-clock" id="clock">00:00:00</div>
+        </div>
+
+        <div class="dashboard-content">
+            <div class="med-card">
+                <div class="label">
+                    <span id="cardLabelText">다가오는 투약 시간</span>
+                    <span class="status-badge wait" id="statusBadge">미복용</span>
+                </div>
+                
+                <div class="main-time" id="mainTimeDisplay">오전 08:00 (아침)</div>
+                
+                <div class="gauge-container">
+                    <div class="progress-track"><div class="progress-bar" id="progressBar"></div></div>
+                    <div class="status-labels">
+                        <span id="lblMorning">아침 (미복용)</span>
+                        <span id="lblLunch">점심 (미복용)</span>
+                        <span id="lblDinner">저녁 (미복용)</span>
+                    </div>
+                </div>
+
+                <div class="inner-check-list">
+                    <div class="check-item-white" id="mRow">
+                        <div class="check-info-white" id="mgetText">
+                            <i class="fa-solid fa-sun" style="color:#fcd34d"></i>
+                            <div>
+                                <div class="title-text">아침 식후</div>
+                                <div class="time-text">오전 08:00</div>
+                            </div>
+                        </div>
+                        <label class="action-checkbox">
+                            <input type="checkbox" id="morningCheck" onchange="toggleMedication()">
+                            <div class="action-btn" id="mbtnText"><i class="fa-solid fa-xmark"></i> 미복용</div>
+                        </label>
+                    </div>
+
+                    <div class="check-item-white" id="lRow">
+                        <div class="check-info-white" id="lgetText">
+                            <i class="fa-solid fa-cloud-sun" style="color:#fb923c"></i>
+                            <div>
+                                <div class="title-text">점심 식후</div>
+                                <div class="time-text">오후 01:00</div>
+                            </div>
+                        </div>
+                        <label class="action-checkbox">
+                            <input type="checkbox" id="lunchCheck" onchange="toggleMedication()">
+                            <div class="action-btn" id="lbtnText"><i class="fa-solid fa-xmark"></i> 미복용</div>
+                        </label>
+                    </div>
+
+                    <div class="check-item-white" id="dRow">
+                        <div class="check-info-white" id="dgetText">
+                            <i class="fa-solid fa-moon" style="color:#a5b4fc"></i>
+                            <div>
+                                <div class="title-text">저녁 식후</div>
+                                <div class="time-text">오후 07:00</div>
+                            </div>
+                        </div>
+                        <label class="action-checkbox">
+                            <input type="checkbox" id="dinnerCheck" onchange="toggleMedication()">
+                            <div class="action-btn" id="dbtnText"><i class="fa-solid fa-xmark"></i> 미복용</div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="description-box">
+                <h3><i class="fa-solid fa-capsules"></i> 오늘 처방된 주요 약물 지침</h3>
+                <div class="med-detail">
+                    <strong>💊 트라마돌 (진통제)</strong>
+                    <p>수술 부위의 심한 통증을 줄여주는 약입니다. 드신 후 약간의 어지러움이 있을 수 있으니 침대에 기대어 천천히 움직이세요.</p>
+                </div>
+                <div class="med-detail" style="border-left-color: #00b894;">
+                    <strong>💊 테고프라잔 (위장약)</strong>
+                    <p>진통제로 인해 위가 상하지 않도록 보호막을 만들어줍니다. 속 쓰림을 예방하기 위해 꼭 같이 드셔야 합니다.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="ai-fab" onclick="goToChatbot()">
+            <div class="fab-badge">N</div>
+            <i class="fa-solid fa-robot"></i>
+            <span>로봇비서</span>
+        </div>
+    </div>
+
+    <div id="page3">
+        <div class="chat-header-robot">
+            <i class="fa-solid fa-chevron-left" onclick="leaveChatbot()" style="cursor: pointer;"></i>
+            <div class="robot-icon-wrap"><i class="fa-solid fa-robot"></i></div>
+            <div>
+                <h2>AI 로봇비서</h2>
+                <p>무엇이든 물어보세요! (음성 지원)</p>
+            </div>
+        </div>
+        
+        <div class="chat-area" id="chatBox">
+            <div style="text-align:center; color:#94a3b8; font-size:12px; margin-bottom: 5px;">오늘</div>
+            <div class="msg ai">
+                백OO 어르신, 안녕하세요! 약에 대해 궁금한 점이 있으신가요?<br><br>글씨를 쓰기 힘들면 아래의 <strong>마이크</strong> 버튼을 누르고 편하게 말씀해 주셔도 됩니다.
+            </div>
+        </div>
+
+        <div class="chat-input-bar">
+            <i class="fa-solid fa-microphone" id="micBtn" onclick="startDictation()" title="음성으로 물어보기"></i>
+            <input type="text" id="chatInput" placeholder="약에 대해 물어보세요..." onkeypress="handleEnter(event)">
+            <div class="send-btn" onclick="sendMessage()"><i class="fa-solid fa-paper-plane"></i></div>
+        </div>
+    </div>
+
+    <div class="nav-bar">
+        <div class="nav-item"><i class="fa-solid fa-house"></i>홈</div>
+        <div class="nav-item"><i class="fa-solid fa-stethoscope"></i>외래</div>
+        <div class="nav-item active"><i class="fa-solid fa-bed"></i>입원</div>
+        <div class="nav-item"><i class="fa-solid fa-file-medical"></i>건강검진</div>
+        <div class="nav-item"><i class="fa-solid fa-ellipsis"></i>안내</div>
+    </div>
+</div>
+
+<script>
+    // 1. 화면 전환 함수
+    function goToPrescription() { document.getElementById('appFrame').classList.add('show-page2'); }
+    function goBackToMenu() { document.getElementById('appFrame').classList.remove('show-page2'); }
+    function goToChatbot() { document.getElementById('appFrame').classList.add('show-page3'); }
+    function leaveChatbot() { 
+        document.getElementById('appFrame').classList.remove('show-page3'); 
+        if(isRecording && recognition) {
+            recognition.stop();
+        }
+    }
+
+    // 2. 실시간 시계 기능
+    function updateTime() {
+        const now = new Date();
+        document.getElementById('clock').innerText = now.toLocaleTimeString('ko-KR', { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    }
+    setInterval(updateTime, 1000); updateTime();
+
+    // 3. 복약 진행도 로직
+    function toggleMedication() {
+        const mChecked = document.getElementById('morningCheck').checked;
+        const lChecked = document.getElementById('lunchCheck').checked;
+        const dChecked = document.getElementById('dinnerCheck').checked;
+        
+        const bar = document.getElementById('progressBar');
+        const badge = document.getElementById('statusBadge');
+        const mainTimeDisplay = document.getElementById('mainTimeDisplay');
+        const cardLabelText = document.getElementById('cardLabelText');
+        
+        const lblMorning = document.getElementById('lblMorning');
+        const lblLunch = document.getElementById('lblLunch');
+        const lblDinner = document.getElementById('lblDinner');
+        
+        const mbtnText = document.getElementById('mbtnText');
+        const lbtnText = document.getElementById('lbtnText');
+        const dbtnText = document.getElementById('dbtnText');
+        const mgetText = document.getElementById('mgetText');
+        const lgetText = document.getElementById('lgetText');
+        const dgetText = document.getElementById('dgetText');
+
+        let score = 0;
+
+        if (mChecked) {
+            score += 1;
+            lblMorning.innerText = "아침 (복용)";
+            mbtnText.innerHTML = '<i class="fa-solid fa-check"></i> 복용 완료';
+            mgetText.style.opacity = "0.5";
+            mgetText.style.textDecoration = "line-through";
+        } else {
+            lblMorning.innerText = "아침 (미복용)";
+            mbtnText.innerHTML = '<i class="fa-solid fa-xmark"></i> 미복용';
+            mgetText.style.opacity = "1";
+            mgetText.style.textDecoration = "none";
+        }
+
+        if (lChecked) {
+            score += 1;
+            lblLunch.innerText = "점심 (복용)";
+            lbtnText.innerHTML = '<i class="fa-solid fa-check"></i> 복용 완료';
+            lgetText.style.opacity = "0.5";
+            lgetText.style.textDecoration = "line-through";
+        } else {
+            lblLunch.innerText = "점심 (미복용)";
+            lbtnText.innerHTML = '<i class="fa-solid fa-xmark"></i> 미복용';
+            lgetText.style.opacity = "1";
+            lgetText.style.textDecoration = "none";
+        }
+
+        if (dChecked) {
+            score += 1;
+            lblDinner.innerText = "저녁 (복용)";
+            dbtnText.innerHTML = '<i class="fa-solid fa-check"></i> 복용 완료';
+            dgetText.style.opacity = "0.5";
+            dgetText.style.textDecoration = "line-through";
+        } else {
+            lblDinner.innerText = "저녁 (미복용)";
+            dbtnText.innerHTML = '<i class="fa-solid fa-xmark"></i> 미복용';
+            dgetText.style.opacity = "1";
+            dgetText.style.textDecoration = "none";
+        }
+
+        if (!mChecked) {
+            mainTimeDisplay.innerText = "오전 08:00 (아침)";
+            cardLabelText.innerText = "다가오는 투약 시간";
+        } else if (!lChecked) {
+            mainTimeDisplay.innerText = "오후 01:00 (점심)";
+            cardLabelText.innerText = "다가오는 투약 시간";
+        } else if (!dChecked) {
+            mainTimeDisplay.innerText = "오후 07:00 (저녁)";
+            cardLabelText.innerText = "다가오는 투약 시간";
+        } else {
+            mainTimeDisplay.innerText = "오늘 복약 완료! 🎉";
+            cardLabelText.innerText = "상태 안내";
+        }
+
+        let percent = Math.round((score / 3) * 100);
+        bar.style.width = percent + "%";
+
+        if (score === 3) {
+            badge.innerText = "완료";
+            badge.className = "status-badge done";
+        } else if (score > 0) {
+            badge.innerText = "복용 중";
+            badge.className = "status-badge done";
+        } else {
+            badge.innerText = "미복용";
+            badge.className = "status-badge wait";
+        }
+    }
+
+    // 4. 챗봇 대화 시뮬레이션 및 STT 음성 인식 연계 로직
+    const chatInput = document.getElementById('chatInput');
+    const micBtn = document.getElementById('micBtn');
+    let isRecording = false;
+    let recognition = null;
+
+    // 브라우저 음성인식 API 초기화
+    if (('webkitSpeechRecognition' in window) || ('SpeechRecognition' in window)) {
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        recognition = new SpeechRecognition();
+        recognition.continuous = false;
+        recognition.interimResults = false;
+        recognition.lang = 'ko-KR';
+
+        recognition.onstart = function() {
+            isRecording = true;
+            micBtn.classList.add('recording');
+            chatInput.placeholder = "듣고 있습니다... 말씀해 주세요.";
+        };
+
+        recognition.onerror = function(event) {
+            console.error(event.error);
+            stopRecordingState();
+        };
+
+        recognition.onend = function() {
+            stopRecordingState();
+        };
+
+        recognition.onresult = function(event) {
+            const spokenText = event.results[0][0].transcript;
+            chatInput.value = spokenText;
+            
+            // 음성 인식 완료 후 0.5초 뒤 자동 메시지 전송
+            setTimeout(sendMessage, 500);
+        };
+    }
+
+    function startDictation() {
+        if (!recognition) {
+            alert("이 브라우저는 음성 인식 기능을 지원하지 않습니다. 크롬(Chrome)이나 엣지(Edge)를 사용해 주세요.");
+            return;
+        }
+        if (isRecording) return;
+        try {
+            recognition.start();
+        } catch(e) {
+            console.log("마이크가 이미 실행 중입니다.");
+        }
+    }
+
+    function stopRecordingState() {
+        isRecording = false;
+        micBtn.classList.remove('recording');
+        chatInput.placeholder = "약에 대해 물어보세요...";
+    }
+
+    function handleEnter(e) { if (e.key === 'Enter') { sendMessage(); } }
+
+    function sendMessage() {
+        const userText = chatInput.value.trim();
+        if (userText === "") return;
+        
+        // 전송 시 마이크가 켜져 있다면 강제 종료
+        if (isRecording && recognition) {
+            recognition.stop();
+        }
+
+        appendMessage(userText, 'user');
+        chatInput.value = "";
+        
+        setTimeout(() => {
+            const aiResponse = generateAIResponse(userText);
+            appendMessage(aiResponse, 'ai');
+
+            // ★ 봇 대답이 끝난 후 1.5초 뒤 마이크 자동 재실행 (연속 대화) ★
+            // 단, 사용자가 챗봇 화면에 있을 때만 실행합니다.
+            setTimeout(() => {
+                if(document.getElementById('appFrame').classList.contains('show-page3')) {
+                    startDictation();
+                }
+            }, 1500);
+
+        }, 1000);
+    }
+
+    function appendMessage(text, sender) {
+        const chatBox = document.getElementById('chatBox');
+        const msgDiv = document.createElement('div');
+        msgDiv.className = `msg ${sender}`;
+        msgDiv.innerHTML = text;
+        chatBox.appendChild(msgDiv);
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    // 키워드 기반 AI 응답 시뮬레이션
+    function generateAIResponse(text) {
+        if (text.includes("트라마돌") || text.includes("진통제") || text.includes("아파") || text.includes("통증")) {
+            return "처방받으신 <strong>트라마돌</strong>은 심한 통증을 줄여주는 약이에요. 드시고 약간 어지러울 수 있으니 화장실 가실 땐 꼭 보호자와 함께 가세요! 👨‍⚕️";
+        } else if (text.includes("위장약") || text.includes("테고프라잔") || text.includes("속") || text.includes("하얀")) {
+            return "<strong>테고프라잔</strong>은 진통제 때문에 속이 쓰리지 않게 위벽을 보호해주는 위장약입니다. 진통제와 함께 꼭 챙겨 드셔야 해요! 💊";
+        } else if (text.includes("안먹어") || text.includes("싫어") || text.includes("거부") || text.includes("안 먹어")) {
+            return "약이 많아서 힘드시죠 😢 하지만 상처가 빨리 낫고 얼른 퇴원하시려면 시간에 맞춰 드셔야 합니다. 궁금한 점이 있으면 언제든 물어보세요!";
+        } else if (text.includes("음성") || text.includes("목소리") || text.includes("말")) {
+            return "네, 어르신! 목소리로도 편하게 질문하실 수 있습니다. 무엇이 궁금하신가요?";
+        } else {
+            return "질문을 확인했습니다. 더 자세한 내용이나 몸이 많이 불편하시다면 간호사 선생님을 병실로 호출해 드릴까요? 🏥";
+        }
+    }
+</script>
+
+</body>
+</html>
