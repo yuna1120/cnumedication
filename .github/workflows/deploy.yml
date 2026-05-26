@@ -6,13 +6,18 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
     steps:
       - uses: actions/checkout@v3
-      # 1. index.html의 'YOUR_API_KEY_HERE'라는 글자를 비밀 키로 교체
       - name: Replace API Key
+        # index.html의 'YOUR_API_KEY_HERE'라는 글자를 secrets에 있는 진짜 키로 바꿔치기합니다.
         run: |
-          sed -i 's/YOUR_API_KEY_HERE/${{ secrets.GEMINI_API_KEY }}/g' index.html
-      # 2. 웹사이트 배포
-      - uses: actions/deploy-pages@v2
+          sed -i "s/YOUR_API_KEY_HERE/${{ secrets.GEMINI_API_KEY }}/g" index.html
+      - uses: actions/configure-pages@v3
+      - uses: actions/upload-pages-artifact@v2
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          path: '.'
+      - uses: actions/deploy-pages@v2
