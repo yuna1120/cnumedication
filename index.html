@@ -398,49 +398,160 @@
 
     // 아침, 점심, 저녁 처방 가이드 데이터
     const medGuides = {
-        morning: `
-            <div class="med-detail" onclick="toggleDetail(this)">
-                <div class="med-header"><strong>💊 트라마돌 (진통제) - 아침약</strong><i class="fa-solid fa-chevron-down"></i></div>
-                <p class="main-desc">수술 부위의 심한 통증을 줄여주는 약입니다. 누르면 자세한 주의사항이 보입니다.</p>
-                <div class="med-extra">
-                    <div class="info-row">
-                        <div class="info-row-title"><i class="fa-solid fa-triangle-exclamation" style="color:#f59e0b;"></i> 대표적인 부작용</div>
-                        <div class="pictogram-group">
-                            <div class="pictogram-item"><i class="fa-solid fa-arrows-spin" style="color:#3b82f6;"></i><span>어지러움</span></div>
-                            <div class="pictogram-item"><i class="fa-solid fa-face-frown-open" style="color:#10b981;"></i><span>구역 및 구토</span></div>
-                            <div class="pictogram-item"><i class="fa-solid fa-bed" style="color:#8b5cf6;"></i><span>졸음 유발</span></div>
-                        </div>
+    morning: `
+        <div class="med-detail" onclick="toggleDetail(this)">
+            <div class="med-header"><strong>💊 트라마돌 37.5mg (진통제)</strong><i class="fa-solid fa-chevron-down"></i></div>
+            <p class="main-desc">수술 후 통증 완화 목적. 아침 식사 직후 복용하세요.</p>
+            <div class="med-extra">
+                <div class="info-row">
+                    <div class="info-row-title"><i class="fa-solid fa-triangle-exclamation" style="color:#f59e0b;"></i> 주요 부작용</div>
+                    <div class="pictogram-group">
+                        <div class="pictogram-item"><i class="fa-solid fa-arrows-spin" style="color:#3b82f6;"></i><span>어지러움</span></div>
+                        <div class="pictogram-item"><i class="fa-solid fa-face-frown-open" style="color:#10b981;"></i><span>구역·구토</span></div>
+                        <div class="pictogram-item"><i class="fa-solid fa-bed" style="color:#8b5cf6;"></i><span>졸음 유발</span></div>
                     </div>
-                    <div class="info-row">
-                        <div class="info-row-title"><i class="fa-solid fa-circle-exclamation" style="color:#ef4444;"></i> 꼭 지켜야 할 주의사항</div>
-                        <div class="pictogram-group">
-                            <div class="pictogram-item"><i class="fa-solid fa-person-falling" style="color:#ef4444;"></i><span>낙상 주의<br>(보호자 동행)</span></div>
-                        </div>
+                </div>
+                <div class="info-row">
+                    <div class="info-row-title"><i class="fa-solid fa-circle-exclamation" style="color:#ef4444;"></i> 주의사항</div>
+                    <div class="pictogram-group">
+                        <div class="pictogram-item"><i class="fa-solid fa-person-falling" style="color:#ef4444;"></i><span>낙상 주의<br>(보호자 동행)</span></div>
+                        <div class="pictogram-item"><i class="fa-solid fa-car" style="color:#f59e0b;"></i><span>운전·기계<br>조작 금지</span></div>
                     </div>
                 </div>
             </div>
-            <div class="med-detail" style="border-left-color: #00b894;" onclick="toggleDetail(this)">
-                <div class="med-header"><strong>💊 테고프라잔 (위장약) - 아침약</strong><i class="fa-solid fa-chevron-down"></i></div>
-                <p class="main-desc">진통제로 인해 위가 상하지 않도록 보호막을 만들어줍니다.</p>
+        </div>
+        <div class="med-detail" style="border-left-color: #00b894;" onclick="toggleDetail(this)">
+            <div class="med-header"><strong>💊 테고프라잔 50mg (위장 보호제)</strong><i class="fa-solid fa-chevron-down"></i></div>
+            <p class="main-desc">진통제로 인한 위점막 손상 방지. 아침 식전 30분에 복용하세요.</p>
+            <div class="med-extra">
+                <div class="info-row">
+                    <div class="info-row-title"><i class="fa-solid fa-triangle-exclamation" style="color:#f59e0b;"></i> 주요 부작용</div>
+                    <div class="pictogram-group">
+                        <div class="pictogram-item"><i class="fa-solid fa-head-side-cough" style="color:#64748b;"></i><span>두통<br>(드물게)</span></div>
+                        <div class="pictogram-item"><i class="fa-solid fa-toilet" style="color:#a78bfa;"></i><span>설사·<br>변비</span></div>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <div class="info-row-title"><i class="fa-solid fa-circle-info" style="color:#3b82f6;"></i> 복용 팁</div>
+                    <div class="pictogram-group">
+                        <div class="pictogram-item"><i class="fa-solid fa-droplet" style="color:#38bdf8;"></i><span>물 충분히<br>함께 복용</span></div>
+                    </div>
+                </div>
             </div>
-        `,
-        lunch: `
-            <div class="med-detail" onclick="toggleDetail(this)">
-                <div class="med-header"><strong>💊 트라마돌 (진통제) - 점심약</strong><i class="fa-solid fa-chevron-down"></i></div>
-                <p class="main-desc">점심 식사 후 복용하는 통증 완화 목적의 약물입니다.</p>
+        </div>
+        <div class="med-detail" style="border-left-color: #f59e0b;" onclick="toggleDetail(this)">
+            <div class="med-header"><strong>💊 아스피린 100mg (혈전 예방)</strong><i class="fa-solid fa-chevron-down"></i></div>
+            <p class="main-desc">혈액이 굳지 않도록 도와주는 약. 반드시 아침 식후 복용하세요.</p>
+            <div class="med-extra">
+                <div class="info-row">
+                    <div class="info-row-title"><i class="fa-solid fa-triangle-exclamation" style="color:#f59e0b;"></i> 주요 부작용</div>
+                    <div class="pictogram-group">
+                        <div class="pictogram-item"><i class="fa-solid fa-droplet" style="color:#ef4444;"></i><span>출혈<br>주의</span></div>
+                        <div class="pictogram-item"><i class="fa-solid fa-stomach" style="color:#fb923c;"></i><span>위장 불편<br>가능</span></div>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <div class="info-row-title"><i class="fa-solid fa-ban" style="color:#ef4444;"></i> 주의사항</div>
+                    <div class="pictogram-group">
+                        <div class="pictogram-item"><i class="fa-solid fa-wine-bottle" style="color:#7c3aed;"></i><span>음주 절대<br>금지</span></div>
+                        <div class="pictogram-item"><i class="fa-solid fa-scissors" style="color:#ef4444;"></i><span>출혈 시<br>즉시 보고</span></div>
+                    </div>
+                </div>
             </div>
-        `,
-        dinner: `
-            <div class="med-detail" onclick="toggleDetail(this)">
-                <div class="med-header"><strong>💊 트라마돌 (진통제) - 저녁약</strong><i class="fa-solid fa-chevron-down"></i></div>
-                <p class="main-desc">수술 부위의 밤 통증 완화를 위한 약물 지침입니다.</p>
+        </div>
+    `,
+    lunch: `
+        <div class="med-detail" onclick="toggleDetail(this)">
+            <div class="med-header"><strong>💊 트라마돌 37.5mg (진통제)</strong><i class="fa-solid fa-chevron-down"></i></div>
+            <p class="main-desc">점심 식사 후 복용하는 통증 완화 약물입니다.</p>
+            <div class="med-extra">
+                <div class="info-row">
+                    <div class="info-row-title"><i class="fa-solid fa-triangle-exclamation" style="color:#f59e0b;"></i> 주요 부작용</div>
+                    <div class="pictogram-group">
+                        <div class="pictogram-item"><i class="fa-solid fa-arrows-spin" style="color:#3b82f6;"></i><span>어지러움</span></div>
+                        <div class="pictogram-item"><i class="fa-solid fa-bed" style="color:#8b5cf6;"></i><span>졸음 유발</span></div>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <div class="info-row-title"><i class="fa-solid fa-circle-exclamation" style="color:#ef4444;"></i> 주의사항</div>
+                    <div class="pictogram-group">
+                        <div class="pictogram-item"><i class="fa-solid fa-person-falling" style="color:#ef4444;"></i><span>낙상 주의<br>(보호자 동행)</span></div>
+                    </div>
+                </div>
             </div>
-            <div class="med-detail" style="border-left-color: #00b894;" onclick="toggleDetail(this)">
-                <div class="med-header"><strong>💊 테고프라잔 (위장약) - 저녁약</strong><i class="fa-solid fa-chevron-down"></i></div>
-                <p class="main-desc">속쓰림 방지를 위해 복용하는 위장 보호막 생성용 약물입니다.</p>
+        </div>
+        <div class="med-detail" style="border-left-color: #3b82f6;" onclick="toggleDetail(this)">
+            <div class="med-header"><strong>💊 세파클러 250mg (항생제)</strong><i class="fa-solid fa-chevron-down"></i></div>
+            <p class="main-desc">수술 후 감염 예방을 위한 항생제입니다. 점심 식후 반드시 복용하세요.</p>
+            <div class="med-extra">
+                <div class="info-row">
+                    <div class="info-row-title"><i class="fa-solid fa-triangle-exclamation" style="color:#f59e0b;"></i> 주요 부작용</div>
+                    <div class="pictogram-group">
+                        <div class="pictogram-item"><i class="fa-solid fa-face-frown-open" style="color:#10b981;"></i><span>구역·<br>구토</span></div>
+                        <div class="pictogram-item"><i class="fa-solid fa-toilet" style="color:#a78bfa;"></i><span>설사<br>가능</span></div>
+                        <div class="pictogram-item"><i class="fa-solid fa-allergies" style="color:#ef4444;"></i><span>알레르기<br>반응 주의</span></div>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <div class="info-row-title"><i class="fa-solid fa-circle-info" style="color:#3b82f6;"></i> 복용 팁</div>
+                    <div class="pictogram-group">
+                        <div class="pictogram-item"><i class="fa-solid fa-clock" style="color:#f59e0b;"></i><span>정해진 시간<br>꼭 지키기</span></div>
+                        <div class="pictogram-item"><i class="fa-solid fa-droplet" style="color:#38bdf8;"></i><span>물 충분히<br>함께 복용</span></div>
+                    </div>
+                </div>
             </div>
-        `
-    };
+        </div>
+    `,
+    dinner: `
+        <div class="med-detail" onclick="toggleDetail(this)">
+            <div class="med-header"><strong>💊 트라마돌 37.5mg (진통제)</strong><i class="fa-solid fa-chevron-down"></i></div>
+            <p class="main-desc">저녁 식사 후 복용하는 야간 통증 완화 약물입니다.</p>
+            <div class="med-extra">
+                <div class="info-row">
+                    <div class="info-row-title"><i class="fa-solid fa-triangle-exclamation" style="color:#f59e0b;"></i> 주요 부작용</div>
+                    <div class="pictogram-group">
+                        <div class="pictogram-item"><i class="fa-solid fa-arrows-spin" style="color:#3b82f6;"></i><span>어지러움</span></div>
+                        <div class="pictogram-item"><i class="fa-solid fa-bed" style="color:#8b5cf6;"></i><span>졸음 유발</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="med-detail" style="border-left-color: #00b894;" onclick="toggleDetail(this)">
+            <div class="med-header"><strong>💊 테고프라잔 50mg (위장 보호제)</strong><i class="fa-solid fa-chevron-down"></i></div>
+            <p class="main-desc">저녁 진통제로 인한 위 손상 방지. 저녁 식전에 복용하세요.</p>
+            <div class="med-extra">
+                <div class="info-row">
+                    <div class="info-row-title"><i class="fa-solid fa-circle-info" style="color:#3b82f6;"></i> 복용 팁</div>
+                    <div class="pictogram-group">
+                        <div class="pictogram-item"><i class="fa-solid fa-droplet" style="color:#38bdf8;"></i><span>물 충분히<br>함께 복용</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="med-detail" style="border-left-color: #a78bfa;" onclick="toggleDetail(this)">
+            <div class="med-header"><strong>💊 졸피뎀 5mg (수면 유도제)</strong><i class="fa-solid fa-chevron-down"></i></div>
+            <p class="main-desc">수술 후 회복을 위한 숙면을 돕는 약. 취침 30분 전 복용하세요.</p>
+            <div class="med-extra">
+                <div class="info-row">
+                    <div class="info-row-title"><i class="fa-solid fa-triangle-exclamation" style="color:#f59e0b;"></i> 주요 부작용</div>
+                    <div class="pictogram-group">
+                        <div class="pictogram-item"><i class="fa-solid fa-person-falling" style="color:#ef4444;"></i><span>낙상 위험<br>매우 높음!</span></div>
+                        <div class="pictogram-item"><i class="fa-solid fa-bed" style="color:#8b5cf6;"></i><span>강한<br>졸음</span></div>
+                        <div class="pictogram-item"><i class="fa-solid fa-head-side-cough" style="color:#64748b;"></i><span>어지러움<br>주의</span></div>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <div class="info-row-title"><i class="fa-solid fa-ban" style="color:#ef4444;"></i> 절대 주의</div>
+                    <div class="pictogram-group">
+                        <div class="pictogram-item"><i class="fa-solid fa-wine-bottle" style="color:#7c3aed;"></i><span>음주 절대<br>금지</span></div>
+                        <div class="pictogram-item"><i class="fa-solid fa-bell" style="color:#f59e0b;"></i><span>복용 후<br>즉시 누울 것</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `
+};
+
 
     let previousClass = 'app-frame';
     let checkedSlots = { morning: false, lunch: false, dinner: false };
@@ -500,33 +611,59 @@
     }
 
     // 4. '이전 복용약 확인' 버튼을 눌렀을 때 작동하는 함수 (시간대별 약 목록 반영)
-    function viewHistory(slot) {
-        const descBoxTitle = document.getElementById('descBoxTitle');
-        const container = document.getElementById('medGuideContainer');
-        
-        let slotName = slot === 'morning' ? '아침' : slot === 'lunch' ? '점심' : '저녁';
-        
-        // 시간대별로 실제 먹은 약 목록을 다르게 표시
-        let medList = "";
-        if (slot === 'morning') medList = '💊 트라마돌 (진통제)<br>💊 테고프라잔 (위장약)';
-        else if (slot === 'lunch') medList = '💊 트라마돌 (진통제)';
-        else medList = '💊 트라마돌 (진통제)<br>💊 테고프라잔 (위장약)';
-        
-        descBoxTitle.innerHTML = `<i class="fa-solid fa-clock-rotate-left"></i> 이전 복용약 확인 (${slotName})`;
-        container.innerHTML = `
-            <div style="background: #f8fafc; padding: 20px; border-radius: 15px; border-left: 5px solid #00b894; text-align: center;">
-                <i class="fa-solid fa-circle-check" style="font-size: 35px; color: #00b894; margin-bottom: 10px;"></i>
-                <h4 style="margin: 0 0 5px 0; color: #1e293b; font-size: 15px;">${slotName} 복약 완료 기록</h4>
-                <p style="margin: 0 0 12px 0; color: #64748b; font-size: 12px;">환자 어르신께서 안전하게 정량 복용하셨습니다.</p>
-                <div style="background: #fff; padding: 12px; border-radius: 8px; border: 1px solid #e2e8f0; font-size: 13px; font-weight: bold; color: #1a2a6c; line-height: 1.6;">
-                    [안전 확인된 약물]<br>${medList}
-                </div>
-                <button onclick="renderMedGuide('${slot}')" style="margin-top: 15px; background: #1a2a6c; color: #fff; border: none; padding: 8px 14px; border-radius: 6px; font-size: 12px; font-weight: bold; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 5px; width: 100%;">
-                    <i class="fa-solid fa-eye"></i> 복용 약물 지침 다시보기
-                </button>
+   function viewHistory(slot) {
+    const descBoxTitle = document.getElementById('descBoxTitle');
+    const container = document.getElementById('medGuideContainer');
+    
+    let slotName = slot === 'morning' ? '아침' : slot === 'lunch' ? '점심' : '저녁';
+
+    // 시간대별 복용 약물 목록 (카드 형태로 상세 표시)
+    const historyData = {
+        morning: [
+            { name: '트라마돌 37.5mg', type: '진통제', color: '#1a2a6c', icon: 'fa-syringe' },
+            { name: '테고프라잔 50mg', type: '위장 보호제', color: '#00b894', icon: 'fa-shield-halved' },
+            { name: '아스피린 100mg', type: '혈전 예방제', color: '#f59e0b', icon: 'fa-heart-pulse' }
+        ],
+        lunch: [
+            { name: '트라마돌 37.5mg', type: '진통제', color: '#1a2a6c', icon: 'fa-syringe' },
+            { name: '세파클러 250mg', type: '항생제', color: '#3b82f6', icon: 'fa-bacteria' }
+        ],
+        dinner: [
+            { name: '트라마돌 37.5mg', type: '진통제', color: '#1a2a6c', icon: 'fa-syringe' },
+            { name: '테고프라잔 50mg', type: '위장 보호제', color: '#00b894', icon: 'fa-shield-halved' },
+            { name: '졸피뎀 5mg', type: '수면 유도제', color: '#a78bfa', icon: 'fa-moon' }
+        ]
+    };
+
+    const meds = historyData[slot];
+    const medCardsHTML = meds.map(med => `
+        <div style="display:flex; align-items:center; gap:12px; background:#fff; padding:12px 14px; border-radius:12px; border:1px solid #e2e8f0; margin-bottom:8px; box-shadow:0 2px 6px rgba(0,0,0,0.04);">
+            <div style="width:40px; height:40px; border-radius:10px; background:${med.color}22; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+                <i class="fa-solid ${med.icon}" style="color:${med.color}; font-size:18px;"></i>
             </div>
-        `;
-    }
+            <div style="flex:1;">
+                <div style="font-size:14px; font-weight:800; color:#1e293b;">${med.name}</div>
+                <div style="font-size:11px; color:#64748b; margin-top:2px;">${med.type}</div>
+            </div>
+            <div style="background:${med.color}; color:#fff; font-size:10px; font-weight:700; padding:3px 8px; border-radius:20px;">복용완료</div>
+        </div>
+    `).join('');
+
+    descBoxTitle.innerHTML = `<i class="fa-solid fa-clock-rotate-left" style="color:#1a2a6c;"></i> ${slotName} 복용 기록 확인`;
+    container.innerHTML = `
+        <div style="background:#f0fdf4; border:1px solid #bbf7d0; border-radius:15px; padding:16px; margin-bottom:14px; display:flex; align-items:center; gap:12px;">
+            <i class="fa-solid fa-circle-check" style="font-size:28px; color:#00b894; flex-shrink:0;"></i>
+            <div>
+                <div style="font-size:14px; font-weight:800; color:#065f46;">${slotName} 복약 완료 ✅</div>
+                <div style="font-size:12px; color:#047857; margin-top:2px;">안전하게 정량 복용하셨습니다.</div>
+            </div>
+        </div>
+        ${medCardsHTML}
+        <button onclick="renderMedGuide('${slot}')" style="margin-top:6px; background:#f1f5f9; color:#1a2a6c; border:1.5px solid #c7d2fe; padding:10px 14px; border-radius:10px; font-size:13px; font-weight:bold; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px; width:100%;">
+            <i class="fa-solid fa-eye"></i> 복용 약물 지침 다시보기
+        </button>
+    `;
+}
 
     // 5. 체크박스를 누를 때 발생하는 이벤트 함수
     function toggleMedication(slot) {
