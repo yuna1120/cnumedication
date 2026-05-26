@@ -8,16 +8,23 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      pages: write    # 이 권한이 꼭 있어야 합니다
-      id-token: write # 이 권한도 꼭 있어야 합니다!
+      pages: write
+      id-token: write
     steps:
       - uses: actions/checkout@v4
       - name: Replace API Key
-        shell: bash
         run: |
           sed -i "s/YOUR_API_KEY_HERE/${{ secrets.GEMINI_API_KEY }}/g" index.html
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
           path: '.'
-      - uses: actions/deploy-pages@v4
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
