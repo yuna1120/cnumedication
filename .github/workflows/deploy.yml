@@ -10,6 +10,9 @@ jobs:
       contents: read
     steps:
       - uses: actions/checkout@v4
+      - name: Replace API Key
+        run: |
+          sed -i "s/YOUR_API_KEY_HERE/${{ secrets.GEMINI_API_KEY }}/g" index.html
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
