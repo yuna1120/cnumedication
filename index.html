@@ -462,7 +462,7 @@
     // 발급받은 새 키를 3등분 해서 여기에 나누어 적으세요!
     // (이전 키는 이미 정지되었으므로 반드시 "새 키"를 발급받아야 합니다)
     
-   const GEMINI_API_KEY = "AIzaSyCycqwzooPY1FrFBYeBYDiwortRJW9D7Z8";
+   const GEMINI_API_KEY = "AIzaSyDkgvF89Esd1_qZKN76Wp9JjMEl98Y12Yk";
     // ==========================================
 
     let previousClass = 'app-frame';
@@ -684,7 +684,7 @@
 
     async function getGeminiResponse(text) {
         // 호출 경로를 가장 기본형으로 바꿉니다.
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro-latest:generateContent?key=${GEMINI_API_KEY}`;
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`;
         
         // 프롬프트는 그대로 두세요. 아주 좋습니다!
         const systemPrompt = `당신은 병동에 입원 중인 어르신 환자분들을 돕는 친절하고 다정한 AI 복약 비서입니다. 
