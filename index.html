@@ -430,7 +430,7 @@
             <i class="fa-solid fa-chevron-left" onclick="leaveChatbot()" style="cursor: pointer;"></i>
             
             <div class="robot-icon-wrap">
-                <img src="hakdungi.gif" style="width: 60px; height: 60px; margin-bottom: 2px; object-fit: contain;">
+                <video src="hakdungi.mp4" autoplay loop muted playsinline style="width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply;"></video>
             </div>
             
             <div>
@@ -456,7 +456,7 @@
     <div class="global-fab" onclick="goToChatbot()">
         <div class="fab-badge">N</div>
         
-        <img src="hakdungi.gif" style="width: 100%; height: 100%; object-fit: contain;">
+        <video src="hakdungi.mp4" autoplay loop muted playsinline style="width: 60px; height: 60px; margin-bottom: 2px; object-fit: contain; mix-blend-mode: multiply;"></video>
         
         <span>학둥이</span>
     </div>
@@ -699,7 +699,7 @@
 
     async function getGeminiResponse(text) {
         // [수정 완료] 모델명 에러 수정: 2.5-flash -> 1.5-flash
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`;
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
         
         const systemPrompt = `당신은 병동에 입원 중인 어르신 환자분들을 돕는 친절하고 다정한 AI 복약 비서입니다. 
         전문적인 의학 용어보다는 이해하기 쉬운 말로, 따뜻하게 답변해 주세요. 
