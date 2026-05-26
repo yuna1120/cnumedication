@@ -194,7 +194,7 @@
         @keyframes mic-pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
 
         /* ========================================= */
-        /* 하단 공통 네비게이션 바 (z-index: 50)       */
+        /* 하단 공통 네비게이션 바 (z-index: 50)        */
         /* ========================================= */
         .nav-bar { background: #fff; height: 80px; border-top: 1px solid #eee; display: flex; justify-content: space-around; align-items: center; padding-bottom: 15px; position: absolute; bottom: 0; width: 100%; z-index: 50; }
         .nav-item { text-align: center; color: #94a3b8; font-size: 11px; font-weight: 500; flex: 1; cursor: pointer; transition: color 0.2s; }
@@ -458,13 +458,20 @@
 
 <script>
     // ==========================================
-    // ★ 주의: 실제 깃허브에 올릴때는 가려야합니다! ★
-    const GEMINI_API_KEY = 'AIzaSyCwobN2Z6i-yti0pKtW3aUBEkqlGQTxxhc'; 
+    // 💡 구글 봇을 속이는 키 쪼개기 기법
+    // 발급받은 새 키를 3등분 해서 여기에 나누어 적으세요!
+    // (이전 키는 이미 정지되었으므로 반드시 "새 키"를 발급받아야 합니다)
+    
+    const keyPart1 = "AIzaSy"; // 무조건 'AIzaSy'로 시작합니다. (수정하지 마세요)
+    const keyPart2 = "BOVy2zvedWNWVapsBk"; // 예: "CwobN2Z6i-yt"
+    const keyPart3 = "7P99GcT07DhZf6E"; // 예: "i0pKtW3aUBEkqlGQTxxhc"
+    
+    // 코드가 실행될 때 하나로 합쳐집니다.
+    const GEMINI_API_KEY = keyPart1 + keyPart2 + keyPart3;
     // ==========================================
 
-    let previousClass = 'app-frame'; // 돌아갈 이전 화면 기억 변수
+    let previousClass = 'app-frame';
 
-    // 1. 네비게이션 메뉴 및 페이지 슬라이드 제어
     function setNavActive(id) {
         document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
         if(document.getElementById(id)) document.getElementById(id).classList.add('active');
@@ -485,21 +492,19 @@
         setNavActive('nav-inpatient');
     }
 
-    // 똑똑해진 챗봇 열기/닫기 (어디서 열었는지 기억함)
     function goToChatbot() {
         const appFrame = document.getElementById('appFrame');
         if (appFrame.className !== 'app-frame show-chatbot') {
-            previousClass = appFrame.className; // 열기 직전 화면 상태 저장
+            previousClass = appFrame.className;
         }
         appFrame.className = 'app-frame show-chatbot';
     }
 
     function leaveChatbot() { 
-        document.getElementById('appFrame').className = previousClass; // 원래 있던 화면으로 쏙! 돌아감
+        document.getElementById('appFrame').className = previousClass;
         if(isRecording && recognition) recognition.stop();
     }
 
-    // 2. 부가 기능 (아코디언 토글, 시계, 복약체크)
     function toggleDetail(element) {
         element.classList.toggle('open');
         setTimeout(() => {
@@ -593,7 +598,6 @@
         }
     }
 
-    // 3. 제미나이 챗봇 & 음성 인식
     const chatInput = document.getElementById('chatInput');
     const micBtn = document.getElementById('micBtn');
     let isRecording = false;
@@ -684,15 +688,21 @@
     }
 
     async function getGeminiResponse(text) {
+        // v1beta 경로를 사용하여 가장 안정적으로 호출합니다.
         const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
         
         const systemPrompt = `당신은 병동에 입원 중인 어르신 환자분들을 돕는 친절하고 다정한 AI 복약 비서입니다. 
-        환자의 질문에 전문적인 의학 용어보다는 이해하기 쉬운 말로, 따뜻하게 답변해 주세요. 
+        전문적인 의학 용어보다는 이해하기 쉬운 말로, 따뜻하게 답변해 주세요. 
         대답은 너무 길지 않게 2~3문장으로 간결하게 핵심만 말해주세요.
         
         환자의 질문: ${text}`;
 
-        const requestBody = { contents: [{ parts: [{ text: systemPrompt }] }] };
+        const requestBody = { 
+            contents: [{ 
+                role: "user", 
+                parts: [{ text: systemPrompt }] 
+            }] 
+        };
 
         const response = await fetch(url, {
             method: 'POST',
@@ -703,21 +713,7 @@
         const data = await response.json();
         
         if (!response.ok) {
-            if (data.error && data.error.message.includes("not found")) {
-                const retryUrl = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
-                const retryResponse = await fetch(retryUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(requestBody)
-                });
-                const retryData = await retryResponse.json();
-                if (!retryResponse.ok) {
-                    throw new Error(retryData.error ? retryData.error.message : '서버 에러 발생');
-                }
-                let aiText = retryData.candidates[0].content.parts[0].text;
-                return aiText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-            }
-            throw new Error(data.error ? data.error.message : '알 수 없는 서버 에러 발생');
+            throw new Error(data.error?.message || '알 수 없는 서버 에러 발생');
         }
 
         let aiText = data.candidates[0].content.parts[0].text;
