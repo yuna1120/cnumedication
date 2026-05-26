@@ -485,24 +485,16 @@
         const now = new Date();
         const hour = now.getHours();
         
-        document.getElementById('mRow').style.display = 'none';
-        document.getElementById('lRow').style.display = 'none';
-        document.getElementById('dRow').style.display = 'none';
-        
-        if (hour >= 5 && hour < 11) {
-            activeSlot = 'morning';
-            document.getElementById('mRow').style.display = 'flex';
-        } else if (hour >= 11 && hour < 17) {
-            activeSlot = 'lunch';
-            document.getElementById('lRow').style.display = 'flex';
-        } else {
-            activeSlot = 'dinner';
-            document.getElementById('dRow').style.display = 'flex';
-        }
-        
-        if (!checkedSlots[activeSlot]) {
-            renderMedGuide(activeSlot);
-        }
+        // [함수 수정] 시간대별로 슥삭 숨기는 게 아니라, 그냥 현재 시간대만 강조하도록!
+function checkTimeAndShowRow() {
+    const now = new Date();
+    const hour = now.getHours();
+    
+    // 이제 숨기지 않고 항상 보입니다!
+    document.getElementById('mRow').style.opacity = (hour >= 5 && hour < 11) ? "1" : "0.5";
+    document.getElementById('lRow').style.opacity = (hour >= 11 && hour < 17) ? "1" : "0.5";
+    document.getElementById('dRow').style.opacity = (hour >= 17 || hour < 5) ? "1" : "0.5";
+}
     }
 
     function renderMedGuide(slot) {
