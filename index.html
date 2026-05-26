@@ -684,7 +684,7 @@
     }
 
     async function getGeminiResponse(text) {
-        const url =`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
         
         const systemPrompt = `당신은 병동에 입원 중인 어르신 환자분들을 돕는 친절하고 다정한 AI 복약 비서입니다. 
         환자의 질문에 전문적인 의학 용어보다는 이해하기 쉬운 말로, 따뜻하게 답변해 주세요. 
