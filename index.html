@@ -320,56 +320,55 @@
                     </div>
                 </div>
 
-                <div class="inner-check-list">
-                    <div class="check-item-white" id="mRow" style="display:none;">
-                        <div class="check-info-white" id="mgetText">
-                            <i class="fa-solid fa-sun" style="color:#fcd34d"></i>
-                            <div><div class="title-text">아침 식후</div><div class="time-text">오전 08:00</div></div>
-                        </div>
-                        <div id="mActionArea">
-                            <label class="action-checkbox" id="mCheckLabel">
-                                <input type="checkbox" id="morningCheck" onchange="toggleMedication('morning')">
-                                <div class="action-btn" id="mbtnText"><i class="fa-solid fa-xmark"></i> 미복용</div>
-                            </label>
-                            <div class="action-btn" id="mHistoryBtn" style="display:none; background:#fff; color:#1a2a6c; border-color:#fff; cursor:pointer;" onclick="viewHistory('morning')">
-                                <i class="fa-solid fa-clock-rotate-left"></i> 이전 복용약 확인
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="check-item-white" id="lRow" style="display:none;">
-                        <div class="check-info-white" id="lgetText">
-                            <i class="fa-solid fa-cloud-sun" style="color:#fb923c"></i>
-                            <div><div class="title-text">점심 식후</div><div class="time-text">오후 01:00</div></div>
-                        </div>
-                        <div id="lActionArea">
-                            <label class="action-checkbox" id="lCheckLabel">
-                                <input type="checkbox" id="lunchCheck" onchange="toggleMedication('lunch')">
-                                <div class="action-btn" id="lbtnText"><i class="fa-solid fa-xmark"></i> 미복용</div>
-                            </label>
-                            <div class="action-btn" id="lHistoryBtn" style="display:none; background:#fff; color:#1a2a6c; border-color:#fff; cursor:pointer;" onclick="viewHistory('lunch')">
-                                <i class="fa-solid fa-clock-rotate-left"></i> 이전 복용약 확인
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="check-item-white" id="dRow" style="display:none;">
-                        <div class="check-info-white" id="dgetText">
-                            <i class="fa-solid fa-moon" style="color:#a5b4fc"></i>
-                            <div><div class="title-text">저녁 식후</div><div class="time-text">오후 07:00</div></div>
-                        </div>
-                        <div id="dActionArea">
-                            <label class="action-checkbox" id="dCheckLabel">
-                                <input type="checkbox" id="dinnerCheck" onchange="toggleMedication('dinner')">
-                                <div class="action-btn" id="dbtnText"><i class="fa-solid fa-xmark"></i> 미복용</div>
-                            </label>
-                            <div class="action-btn" id="dHistoryBtn" style="display:none; background:#fff; color:#1a2a6c; border-color:#fff; cursor:pointer;" onclick="viewHistory('dinner')">
-                                <i class="fa-solid fa-clock-rotate-left"></i> 이전 복용약 확인
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<div class="inner-check-list">
+    <div class="check-item-white" id="mRow" style="display:flex; opacity:1;">
+        <div class="check-info-white" id="mgetText">
+            <i class="fa-solid fa-sun" style="color:#fcd34d"></i>
+            <div><div class="title-text">아침 식후</div><div class="time-text">오전 08:00</div></div>
+        </div>
+        <div id="mActionArea">
+            <label class="action-checkbox" id="mCheckLabel">
+                <input type="checkbox" id="morningCheck" onchange="toggleMedication('morning')">
+                <div class="action-btn" id="mbtnText"><i class="fa-solid fa-xmark"></i> 미복용</div>
+            </label>
+            <div class="action-btn" id="mHistoryBtn" style="display:none; background:#fff; color:#1a2a6c; border-color:#fff; cursor:pointer;" onclick="viewHistory('morning')">
+                <i class="fa-solid fa-clock-rotate-left"></i> 이전 복용약 확인
             </div>
+        </div>
+    </div>
+
+    <div class="check-item-white" id="lRow" style="display:flex; opacity:1;">
+        <div class="check-info-white" id="lgetText">
+            <i class="fa-solid fa-cloud-sun" style="color:#fb923c"></i>
+            <div><div class="title-text">점심 식후</div><div class="time-text">오후 01:00</div></div>
+        </div>
+        <div id="lActionArea">
+            <label class="action-checkbox" id="lCheckLabel">
+                <input type="checkbox" id="lunchCheck" onchange="toggleMedication('lunch')">
+                <div class="action-btn" id="lbtnText"><i class="fa-solid fa-xmark"></i> 미복용</div>
+            </label>
+            <div class="action-btn" id="lHistoryBtn" style="display:none; background:#fff; color:#1a2a6c; border-color:#fff; cursor:pointer;" onclick="viewHistory('lunch')">
+                <i class="fa-solid fa-clock-rotate-left"></i> 이전 복용약 확인
+            </div>
+        </div>
+    </div>
+
+    <div class="check-item-white" id="dRow" style="display:flex; opacity:1;">
+        <div class="check-info-white" id="dgetText">
+            <i class="fa-solid fa-moon" style="color:#a5b4fc"></i>
+            <div><div class="title-text">저녁 식후</div><div class="time-text">오후 07:00</div></div>
+        </div>
+        <div id="dActionArea">
+            <label class="action-checkbox" id="dCheckLabel">
+                <input type="checkbox" id="dinnerCheck" onchange="toggleMedication('dinner')">
+                <div class="action-btn" id="dbtnText"><i class="fa-solid fa-xmark"></i> 미복용</div>
+            </label>
+            <div class="action-btn" id="dHistoryBtn" style="display:none; background:#fff; color:#1a2a6c; border-color:#fff; cursor:pointer;" onclick="viewHistory('dinner')">
+                <i class="fa-solid fa-clock-rotate-left"></i> 이전 복용약 확인
+            </div>
+        </div>
+    </div>
+</div>
 
             <div class="description-box">
                 <h3 id="descBoxTitle"><i class="fa-solid fa-capsules"></i> 오늘 처방된 주요 약물 지침</h3>
