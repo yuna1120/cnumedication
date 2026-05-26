@@ -484,28 +484,31 @@
 
     // [기능 추가] 현재 시간에 매칭되는 복용 영역 단 1개만 활성화 및 가이드 로드
     function checkTimeAndShowRow() {
-        const now = new Date();
-        const hour = now.getHours();
-        
-        document.getElementById('mRow').style.display = 'none';
-        document.getElementById('lRow').style.display = 'none';
-        document.getElementById('dRow').style.display = 'none';
-        
-        if (hour >= 5 && hour < 11) {
-            activeSlot = 'morning';
-            document.getElementById('mRow').style.display = 'flex';
-        } else if (hour >= 11 && hour < 17) {
-            activeSlot = 'lunch';
-            document.getElementById('lRow').style.display = 'flex';
-        } else {
-            activeSlot = 'dinner';
-            document.getElementById('dRow').style.display = 'flex';
-        }
-        
-        if (!checkedSlots[activeSlot]) {
-            renderMedGuide(activeSlot);
-        }
+    const now = new Date();
+    const hour = now.getHours();
+    
+    document.getElementById('mRow').style.display = 'none';
+    document.getElementById('lRow').style.display = 'none';
+    document.getElementById('dRow').style.display = 'none';
+    
+    if (hour >= 5 && hour < 11) {
+        activeSlot = 'morning';
+        document.getElementById('mRow').style.display = 'flex';
+    } else if (hour >= 11 && hour < 17) {
+        activeSlot = 'lunch';
+        document.getElementById('lRow').style.display = 'flex';
+    } else {
+        activeSlot = 'dinner';
+        document.getElementById('dRow').style.display = 'flex';
     }
+    
+    // ★ 변경점: 미복용 상태면 약을 보여주고, 이미 먹은 상태면 안내 화면을 보여줌
+    if (!checkedSlots[activeSlot]) {
+        renderMedGuide(activeSlot);
+    } else {
+        renderEmptyGuide();
+    }
+}
 
     function renderMedGuide(slot) {
         const descBoxTitle = document.getElementById('descBoxTitle');
@@ -538,47 +541,63 @@
             </div>
         `;
     }
+    // [기능 추가] 복용 완료 시 하단 약물 지침을 숨기고 완료 메시지를 띄우는 함수
+    function renderEmptyGuide() {
+        const descBoxTitle = document.getElementById('descBoxTitle');
+        const container = document.getElementById('medGuideContainer');
+        
+        descBoxTitle.innerHTML = `<i class="fa-solid fa-clipboard-check" style="color:#00b894;"></i> 현재 시간 복약 완료`;
+        container.innerHTML = `
+            <div style="background: #f8fafc; padding: 40px 20px; border-radius: 15px; text-align: center; border: 1px dashed #cbd5e1;">
+                <i class="fa-solid fa-shield-heart" style="font-size: 45px; color: #00b894; margin-bottom: 15px;"></i>
+                <h4 style="margin: 0 0 8px 0; color: #1e293b; font-size: 16px;">약을 잘 챙겨 드셨군요!</h4>
+                <p style="margin: 0; color: #64748b; font-size: 13px; line-height: 1.5;">어떤 약을 드셨는지 확인하시려면<br>상단의 <strong>'이전 복용약 확인'</strong> 버튼을 눌러주세요.</p>
+            </div>
+        `;
+    }
 
     function toggleMedication(slot) {
-        const isChecked = document.getElementById(slot + 'Check').checked;
-        checkedSlots[slot] = isChecked;
+    const isChecked = document.getElementById(slot + 'Check').checked;
+    checkedSlots[slot] = isChecked;
+    
+    const bar = document.getElementById('progressBar');
+    const badge = document.getElementById('statusBadge');
+    const mainTimeDisplay = document.getElementById('mainTimeDisplay');
+    const cardLabelText = document.getElementById('cardLabelText');
+    
+    if (isChecked) {
+        document.getElementById(slot + 'CheckLabel').style.display = 'none';
+        document.getElementById(slot + 'HistoryBtn').style.display = 'flex';
+        document.getElementById('lbl' + slot.charAt(0).toUpperCase() + slot.slice(1)).innerText = 
+            (slot === 'morning' ? '아침' : slot === 'lunch' ? '점심' : '저녁') + " (복용 완료)";
+        document.getElementById(slot + 'getText').style.opacity = "0.5";
+        document.getElementById(slot + 'getText').style.textDecoration = "line-through";
         
-        const bar = document.getElementById('progressBar');
-        const badge = document.getElementById('statusBadge');
-        const mainTimeDisplay = document.getElementById('mainTimeDisplay');
-        const cardLabelText = document.getElementById('cardLabelText');
-        
-        if (isChecked) {
-            document.getElementById(slot + 'CheckLabel').style.display = 'none';
-            document.getElementById(slot + 'HistoryBtn').style.display = 'flex';
-            document.getElementById('lbl' + slot.charAt(0).toUpperCase() + slot.slice(1)).innerText = 
-                (slot === 'morning' ? '아침' : slot === 'lunch' ? '점심' : '저녁') + " (복용 완료)";
-            document.getElementById(slot + 'getText').style.opacity = "0.5";
-            document.getElementById(slot + 'getText').style.textDecoration = "line-through";
-        }
-
-        let score = 0;
-        if (checkedSlots.morning) score++;
-        if (checkedSlots.lunch) score++;
-        if (checkedSlots.dinner) score++;
-
-        bar.style.width = Math.round((score / 3) * 100) + "%";
-
-        if (score === 3) {
-            badge.innerText = "완료";
-            badge.className = "status-badge done";
-            mainTimeDisplay.innerText = "오늘 복약 완료! 🎉";
-            cardLabelText.innerText = "상태 안내";
-        } else if (score > 0) {
-            badge.innerText = "복용 중";
-            badge.className = "status-badge done";
-        } else {
-            badge.innerText = "미복용";
-            badge.className = "status-badge wait";
-        }
-        
-        viewHistory(slot);
+        // ★ 핵심 변경: 바로 복용 기록을 보여주지 않고, 약 가이드 화면을 치워버림
+        renderEmptyGuide(); 
     }
+
+    let score = 0;
+    if (checkedSlots.morning) score++;
+    if (checkedSlots.lunch) score++;
+    if (checkedSlots.dinner) score++;
+
+    bar.style.width = Math.round((score / 3) * 100) + "%";
+
+    if (score === 3) {
+        badge.innerText = "완료";
+        badge.className = "status-badge done";
+        mainTimeDisplay.innerText = "오늘 복약 완료! 🎉";
+        cardLabelText.innerText = "상태 안내";
+    } else if (score > 0) {
+        badge.innerText = "복용 중";
+        badge.className = "status-badge done";
+    } else {
+        badge.innerText = "미복용";
+        badge.className = "status-badge wait";
+    }
+}
+
 
     function setNavActive(id) {
         document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
