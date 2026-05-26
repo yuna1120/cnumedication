@@ -10,14 +10,9 @@
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body { margin: 0; padding: 0; background-color: #f1f5f9; display: flex; justify-content: center; min-height: 100vh; font-family: 'Noto Sans KR', sans-serif; overflow: hidden; }
 
-        .app-frame {
-            width: 100%; max-width: 450px; height: 100vh; height: 100dvh;
-            background-color: #fff; position: relative; overflow: hidden; display: flex; flex-direction: column;
-            box-shadow: 0 0 20px rgba(0,0,0,0.05);
-        }
+        .app-frame { width: 100%; max-width: 450px; height: 100vh; height: 100dvh; background-color: #fff; position: relative; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 0 20px rgba(0,0,0,0.05); }
 
         .page-container { position: absolute; top: 0; width: 100%; height: 100%; display: flex; flex-direction: column; transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); background: #fff; }
-        
         #page-home { left: 0; background: #fff; z-index: 5; }
         #page-inpatient { left: 100%; z-index: 10; }
         #page-meddashboard { left: 200%; background: #f4f6f9; z-index: 20; }
@@ -74,58 +69,113 @@
         .highlight-menu { background: #f8fafc; font-weight: bold; }
 
         /* PAGE 2 */
-        .header-white { background: #fff; padding: 25px 25px 20px; display: flex; justify-content: space-between; align-items: flex-start; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-        .patient-info h2 { font-size: 24px; margin: 0 0 5px 0; color: #1e293b; font-weight: 900; }
-        .patient-info p { margin: 0; color: #64748b; font-size: 14px; font-weight: 500; }
-        .current-clock { font-size: 14px; color: #1a2a6c; font-weight: 700; background: #eef2ff; padding: 6px 12px; border-radius: 20px; border: 1px solid #c7d2fe; }
+        .header-white { background: #fff; padding: 20px 25px 18px; display: flex; justify-content: space-between; align-items: flex-start; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .patient-info h2 { font-size: 22px; margin: 0 0 4px 0; color: #1e293b; font-weight: 900; }
+        .patient-info p { margin: 0; color: #64748b; font-size: 13px; font-weight: 500; }
+        .current-clock { font-size: 13px; color: #1a2a6c; font-weight: 700; background: #eef2ff; padding: 6px 12px; border-radius: 20px; border: 1px solid #c7d2fe; }
         .dashboard-content { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; padding-bottom: 110px; scroll-behavior: smooth; }
+        
+        /* 메인 카드 */
         .med-card { background: linear-gradient(135deg, #1a2a6c, #2a48ad); border-radius: 25px; padding: 22px; color: white; box-shadow: 0 10px 25px rgba(26,42,108,0.25); }
-        .med-card .label { font-size: 15px; opacity: 0.9; margin-bottom: 5px; font-weight: 500; display: flex; justify-content: space-between; align-items: center; }
-        .med-card .main-time { font-size: 32px; font-weight: 900; margin-bottom: 20px; letter-spacing: -1px; color: #fff; transition: all 0.3s; }
-        .status-badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; transition: all 0.3s; }
+        .med-card .label { font-size: 14px; opacity: 0.9; margin-bottom: 5px; font-weight: 500; display: flex; justify-content: space-between; align-items: center; }
+        .med-card .main-time { font-size: 28px; font-weight: 900; margin-bottom: 18px; letter-spacing: -1px; color: #fff; }
+        .status-badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; }
         .status-badge.wait { background: rgba(255,255,255,0.2); color: #fff; }
         .status-badge.done { background: #00b894; color: #fff; box-shadow: 0 2px 10px rgba(0,184,148,0.4); }
-        .gauge-container { margin-bottom: 20px; }
+        .gauge-container { margin-bottom: 18px; }
         .progress-track { height: 8px; background: rgba(255,255,255,0.2); border-radius: 10px; overflow: hidden; margin-bottom: 8px; }
-        .progress-bar { height: 100%; background: #00b894; width: 0%; transition: width 0.4s ease-in-out; }
+        .progress-bar { height: 100%; background: #00b894; width: 0%; transition: width 0.5s ease-in-out; }
         .status-labels { display: flex; justify-content: space-between; font-size: 11px; font-weight: 500; opacity: 0.8; }
-        .inner-check-list { display: flex; flex-direction: column; gap: 12px; border-top: 1px solid rgba(255,255,255,0.15); padding-top: 15px; }
-        .check-item-white { display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.12); padding: 10px 15px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.05); transition: all 0.3s; }
-        .check-info-white { display: flex; align-items: center; gap: 12px; transition: 0.3s; }
-        .check-info-white i { font-size: 24px; width: 25px; text-align: center; }
-        .time-text { font-size: 11px; opacity: 0.7; margin-top: 2px; }
-        .title-text { font-size: 15px; font-weight: 700; }
-        .action-checkbox { cursor: pointer; display: inline-block; }
-        .action-checkbox input[type="checkbox"] { display: none; }
-        .action-btn { background: rgba(255,255,255,0.1); border: 1.5px solid rgba(255,255,255,0.4); padding: 8px 14px; border-radius: 20px; font-weight: 800; font-size: 13px; transition: all 0.3s; color: white; display: flex; align-items: center; gap: 4px; white-space: nowrap; }
-        .action-checkbox input[type="checkbox"]:checked + .action-btn { background: #fff; color: #1a2a6c; border-color: #fff; box-shadow: 0 3px 8px rgba(0,0,0,0.15); }
-        .history-btn { background: #fff; color: #1a2a6c; border: 1.5px solid #fff; padding: 8px 14px; border-radius: 20px; font-weight: 800; font-size: 13px; display: none; align-items: center; gap: 4px; cursor: pointer; white-space: nowrap; }
+
+        /* ★ 복약 행 (check-item-white) */
+        .inner-check-list { display: flex; flex-direction: column; gap: 10px; border-top: 1px solid rgba(255,255,255,0.15); padding-top: 14px; }
+        .check-item-white { display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.12); padding: 10px 14px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.05); transition: all 0.4s; }
+        .check-item-white.is-done { background: rgba(0,184,148,0.15); border-color: rgba(0,184,148,0.3); }
+        .check-info-white { display: flex; align-items: center; gap: 12px; transition: all 0.4s; }
+        .check-info-white.faded { opacity: 0.45; }
+        .check-info-white .slot-icon { font-size: 22px; width: 24px; text-align: center; }
+        .time-text { font-size: 11px; opacity: 0.75; margin-top: 2px; }
+        .title-text { font-size: 14px; font-weight: 700; transition: all 0.3s; }
+        .title-text.struck { text-decoration: line-through; opacity: 0.6; }
+
+        /* ★ 복용 완료 버튼 (활성 상태) */
+        .take-btn {
+            background: #fff;
+            color: #1a2a6c;
+            border: none;
+            padding: 9px 14px;
+            border-radius: 20px;
+            font-weight: 800;
+            font-size: 13px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            white-space: nowrap;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.12);
+            transition: all 0.2s;
+        }
+        .take-btn:active { transform: scale(0.95); }
+
+        /* ★ 복용 기록 버튼 (완료 후) */
+        .history-btn {
+            background: rgba(0,184,148,0.2);
+            color: #fff;
+            border: 1.5px solid rgba(0,184,148,0.6);
+            padding: 8px 13px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 12px;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            gap: 4px;
+            white-space: nowrap;
+        }
+        .history-btn.visible { display: flex; }
+
+        /* ★ 완료 뱃지 (체크 아이콘 + 텍스트) */
+        .done-badge {
+            display: none;
+            align-items: center;
+            gap: 6px;
+            background: rgba(0,184,148,0.25);
+            border: 1.5px solid rgba(0,184,148,0.5);
+            padding: 7px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 800;
+            color: #fff;
+        }
+        .done-badge.visible { display: flex; }
+
+        /* 약물 가이드 박스 */
         .description-box { background: #fff; border-radius: 20px; padding: 20px; border: 1px solid #e2e8f0; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
-        .description-box h3 { font-size: 16px; color: #1a2a6c; margin: 0 0 15px; font-weight: 700; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-        .med-detail { background: #f8fafc; padding: 15px; border-radius: 15px; margin-bottom: 12px; border-left: 5px solid #1a2a6c; cursor: pointer; transition: all 0.3s ease; }
+        .description-box h3 { font-size: 15px; color: #1a2a6c; margin: 0 0 15px; font-weight: 700; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+        .med-detail { background: #f8fafc; padding: 15px; border-radius: 15px; margin-bottom: 10px; border-left: 5px solid #1a2a6c; cursor: pointer; transition: all 0.3s; }
         .med-detail:last-child { margin-bottom: 0; }
         .med-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
-        .med-header strong { font-size: 15px; color: #1e293b; }
+        .med-header strong { font-size: 14px; color: #1e293b; }
         .med-header .fa-chevron-down { color: #94a3b8; transition: transform 0.3s; }
         .med-detail.open .fa-chevron-down { transform: rotate(180deg); }
         .med-detail p.main-desc { font-size: 13px; color: #475569; line-height: 1.5; margin: 0; }
         .med-extra { max-height: 0; overflow: hidden; opacity: 0; transition: max-height 0.4s ease-in-out, opacity 0.3s ease, margin-top 0.3s; }
         .med-detail.open .med-extra { max-height: 500px; opacity: 1; margin-top: 15px; padding-top: 15px; border-top: 1px dashed #cbd5e1; }
-        .info-row { display: flex; flex-direction: column; gap: 10px; margin-bottom: 18px; }
+        .info-row { display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px; }
         .info-row:last-child { margin-bottom: 0; }
         .info-row-title { font-size: 13px; font-weight: 800; color: #1e293b; display: flex; align-items: center; gap: 6px; }
-        .pictogram-group { display: flex; gap: 12px; }
-        .pictogram-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; background: #fff; padding: 12px; border-radius: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.04); border: 1px solid #f1f5f9; text-align: center; }
-        .pictogram-item i { font-size: 24px; }
-        .pictogram-item span { font-size: 12px; font-weight: 700; color: #475569; line-height: 1.2; }
+        .pictogram-group { display: flex; gap: 10px; }
+        .pictogram-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 7px; background: #fff; padding: 12px 8px; border-radius: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.04); border: 1px solid #f1f5f9; text-align: center; }
+        .pictogram-item i { font-size: 22px; }
+        .pictogram-item span { font-size: 11px; font-weight: 700; color: #475569; line-height: 1.3; }
 
-        /* ★ 복용 기록 탭 UI ★ */
-        .history-tab-wrap { display: flex; gap: 8px; margin-bottom: 15px; }
+        /* 복용 기록 탭 */
+        .history-tab-wrap { display: flex; gap: 8px; margin-bottom: 14px; }
         .history-tab { flex: 1; padding: 9px 4px; border-radius: 10px; font-size: 12px; font-weight: 700; text-align: center; cursor: pointer; border: 1.5px solid #e2e8f0; color: #94a3b8; background: #f8fafc; transition: all 0.2s; }
         .history-tab.active { background: #1a2a6c; color: #fff; border-color: #1a2a6c; }
         .history-tab.completed { border-color: #00b894; color: #00b894; }
         .history-tab.completed.active { background: #00b894; color: #fff; border-color: #00b894; }
-        .history-record-card { background: #f8fafc; padding: 18px; border-radius: 15px; border-left: 5px solid #00b894; }
+        .history-record-card { background: #f8fafc; padding: 16px; border-radius: 15px; border-left: 5px solid #00b894; }
         .history-record-card.not-yet { border-left-color: #cbd5e1; }
         .history-med-item { display: flex; align-items: center; gap: 10px; background: #fff; padding: 10px 12px; border-radius: 10px; border: 1px solid #e2e8f0; margin-bottom: 8px; }
         .history-med-item:last-child { margin-bottom: 0; }
@@ -140,37 +190,50 @@
         .fab-badge { position: absolute; top: -2px; right: 2px; background: #ef4444; color: white; font-size: 10px; font-weight: bold; padding: 3px 6px; border-radius: 10px; border: 2px solid #fff; z-index: 2; }
         .show-chatbot .global-fab { transform: scale(0); opacity: 0; pointer-events: none; }
 
-        /* PAGE 3 */
-        .chat-header-robot { background: #fff; padding: 25px 25px 20px; display: flex; align-items: center; gap: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        /* PAGE 3 챗봇 */
+        .chat-header-robot { background: #fff; padding: 22px 22px 18px; display: flex; align-items: center; gap: 14px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
         .chat-header-robot i.fa-chevron-left { color: #94a3b8; font-size: 22px; cursor: pointer; }
-        .robot-icon-wrap { width: 50px; height: 50px; display: flex; justify-content: center; align-items: center; overflow: hidden; border-radius: 50%; }
-        .chat-header-robot h2 { font-size: 22px; margin: 0; color: #1e293b; font-weight: 900; }
-        .chat-header-robot p { margin: 3px 0 0; color: #64748b; font-size: 13px; }
-        .chat-area { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; padding-bottom: 90px; scroll-behavior: smooth; }
-        .msg { padding: 12px 16px; border-radius: 18px; font-size: 14px; max-width: 80%; box-shadow: 0 2px 5px rgba(0,0,0,0.05); line-height: 1.5; word-wrap: break-word; }
+        .robot-icon-wrap { width: 48px; height: 48px; display: flex; justify-content: center; align-items: center; overflow: hidden; border-radius: 50%; }
+        .chat-header-robot h2 { font-size: 20px; margin: 0; color: #1e293b; font-weight: 900; }
+        .chat-header-robot p { margin: 3px 0 0; color: #64748b; font-size: 12px; }
+        .chat-area { flex: 1; padding: 18px; overflow-y: auto; display: flex; flex-direction: column; gap: 14px; padding-bottom: 85px; scroll-behavior: smooth; }
+        .msg { padding: 12px 16px; border-radius: 18px; font-size: 14px; max-width: 80%; box-shadow: 0 2px 5px rgba(0,0,0,0.05); line-height: 1.6; word-wrap: break-word; }
         .msg.ai { background: #fff; align-self: flex-start; border-left: 4px solid #1a2a6c; border-bottom-left-radius: 4px; }
         .msg.user { background: #1a2a6c; color: white; align-self: flex-end; border-bottom-right-radius: 4px; }
-        .chat-input-bar { background: #fff; padding: 15px 20px; display: flex; gap: 10px; align-items: center; border-top: 1px solid #e2e8f0; position: absolute; bottom: 0; width: 100%; z-index: 250; }
-        .chat-input-bar i { color: #1a2a6c; font-size: 24px; cursor: pointer; transition: 0.2s; }
+        .chat-input-bar { background: #fff; padding: 14px 18px; display: flex; gap: 10px; align-items: center; border-top: 1px solid #e2e8f0; position: absolute; bottom: 0; width: 100%; z-index: 250; }
+        .chat-input-bar i { color: #1a2a6c; font-size: 24px; cursor: pointer; }
         .chat-input-bar i.fa-microphone.recording { color: #ef4444; animation: mic-pulse 1.5s infinite; }
-        .chat-input-bar input { flex: 1; background: #f1f5f9; border: none; padding: 12px 15px; border-radius: 20px; font-size: 14px; outline: none; }
-        .chat-input-bar .send-btn { background: #1a2a6c; color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: 0.2s; }
-        .chat-input-bar .send-btn:active { transform: scale(0.9); }
-        @keyframes mic-pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
+        .chat-input-bar input { flex: 1; background: #f1f5f9; border: none; padding: 11px 15px; border-radius: 20px; font-size: 14px; outline: none; }
+        .chat-input-bar .send-btn { background: #1a2a6c; color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; }
+        @keyframes mic-pulse { 0%,100%{opacity:1}50%{opacity:0.4} }
 
         /* NAV */
-        .nav-bar { background: #fff; height: 80px; border-top: 1px solid #eee; display: flex; justify-content: space-around; align-items: center; padding-bottom: 15px; position: absolute; bottom: 0; width: 100%; z-index: 50; }
+        .nav-bar { background: #fff; height: 78px; border-top: 1px solid #eee; display: flex; justify-content: space-around; align-items: center; padding-bottom: 14px; position: absolute; bottom: 0; width: 100%; z-index: 50; }
         .nav-item { text-align: center; color: #94a3b8; font-size: 11px; font-weight: 500; flex: 1; cursor: pointer; transition: color 0.2s; }
-        .nav-item i { font-size: 22px; display: block; margin-bottom: 4px; transition: transform 0.2s; }
+        .nav-item i { font-size: 22px; display: block; margin-bottom: 4px; }
         .nav-item.active { color: #1a2a6c; font-weight: 800; }
-        .nav-item.active i { transform: scale(1.1); }
+
+        /* 확인 모달 */
+        .confirm-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 9999; display: none; justify-content: center; align-items: flex-end; }
+        .confirm-overlay.open { display: flex; animation: fadeIn 0.2s; }
+        .confirm-sheet { background: #fff; width: 100%; max-width: 450px; border-radius: 24px 24px 0 0; padding: 28px 24px 40px; }
+        .confirm-sheet .sheet-icon { font-size: 44px; text-align: center; margin-bottom: 10px; }
+        .confirm-sheet h3 { font-size: 18px; font-weight: 900; color: #1e293b; margin: 0 0 8px; text-align: center; }
+        .confirm-sheet p { font-size: 14px; color: #64748b; margin: 0 0 24px; text-align: center; line-height: 1.6; }
+        .confirm-sheet .sheet-meds { background: #f8fafc; border-radius: 12px; padding: 14px; margin-bottom: 22px; display: flex; flex-direction: column; gap: 8px; }
+        .confirm-sheet .sheet-med-row { display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 700; color: #334155; }
+        .sheet-btn-group { display: flex; gap: 10px; }
+        .sheet-btn { flex: 1; padding: 14px; border-radius: 14px; font-size: 15px; font-weight: 800; border: none; cursor: pointer; }
+        .sheet-btn.cancel { background: #f1f5f9; color: #64748b; }
+        .sheet-btn.confirm { background: #1a2a6c; color: #fff; }
+        .sheet-btn.confirm:active { background: #0f1d4a; }
+        @keyframes fadeIn { from{opacity:0} to{opacity:1} }
     </style>
 </head>
 <body>
-
 <div class="app-frame" id="appFrame">
 
-    <!-- PAGE 0: 홈 -->
+    <!-- ===== PAGE 0: 홈 ===== -->
     <div class="page-container" id="page-home">
         <div class="home-content">
             <div class="top-logo-area">
@@ -214,7 +277,7 @@
         </div>
     </div>
 
-    <!-- PAGE 1: 입원 서비스 -->
+    <!-- ===== PAGE 1: 입원 서비스 ===== -->
     <div class="page-container" id="page-inpatient">
         <div class="header-blue">
             <i class="fa-solid fa-chevron-left" onclick="goToHome()" style="cursor:pointer;"></i>
@@ -236,12 +299,12 @@
         </div>
     </div>
 
-    <!-- PAGE 2: 스마트 처방약 대시보드 -->
+    <!-- ===== PAGE 2: 스마트 처방약 대시보드 ===== -->
     <div class="page-container" id="page-meddashboard">
         <div class="header-white">
             <div class="patient-info">
                 <h2 onclick="goToInpatient()" style="cursor:pointer;">
-                    <i class="fa-solid fa-chevron-left" style="font-size:18px; color:#94a3b8; margin-right:5px;"></i>백OO 어르신
+                    <i class="fa-solid fa-chevron-left" style="font-size:16px; color:#94a3b8; margin-right:4px;"></i>백OO 님!
                 </h2>
                 <p>8W12F 병동 | 입원 4일차</p>
             </div>
@@ -249,76 +312,92 @@
         </div>
 
         <div class="dashboard-content" id="dashboardContent">
+            <!-- 메인 상태 카드 -->
             <div class="med-card">
                 <div class="label">
-                    <span id="cardLabelText">다가오는 투약 시간</span>
-                    <span class="status-badge wait" id="statusBadge">미복용</span>
+                    <span id="cardLabelText">오늘의 복약 현황</span>
+                    <span class="status-badge wait" id="statusBadge">대기 중</span>
                 </div>
                 <div class="main-time" id="mainTimeDisplay">오전 08:00 (아침)</div>
                 <div class="gauge-container">
                     <div class="progress-track"><div class="progress-bar" id="progressBar"></div></div>
                     <div class="status-labels">
-                        <span id="lblMorning">아침 (미복용)</span>
-                        <span id="lblLunch">점심 (미복용)</span>
-                        <span id="lblDinner">저녁 (미복용)</span>
+                        <span id="lblMorning">🌅 아침</span>
+                        <span id="lblLunch">☀️ 점심</span>
+                        <span id="lblDinner">🌙 저녁</span>
                     </div>
                 </div>
 
                 <div class="inner-check-list">
                     <!-- 아침 -->
                     <div class="check-item-white" id="mRow" style="display:none;">
-                        <div class="check-info-white" id="morninggetText">
-                            <i class="fa-solid fa-sun" style="color:#fcd34d"></i>
-                            <div><div class="title-text">아침 식후</div><div class="time-text">오전 08:00</div></div>
+                        <div class="check-info-white" id="morningInfo">
+                            <i class="slot-icon fa-solid fa-sun" style="color:#fcd34d;"></i>
+                            <div>
+                                <div class="title-text" id="morningTitle">아침 식후</div>
+                                <div class="time-text">오전 08:00</div>
+                            </div>
                         </div>
-                        <div id="mActionArea" style="display:flex; align-items:center;">
-                            <label class="action-checkbox" id="morningCheckLabel">
-                                <input type="checkbox" id="morningCheck" onchange="toggleMedication('morning')">
-                                <div class="action-btn"><i class="fa-solid fa-xmark"></i> 미복용</div>
-                            </label>
+                        <div style="display:flex; align-items:center; gap:6px;">
+                            <button class="take-btn" id="morningTakeBtn" onclick="confirmTake('morning')">
+                                <i class="fa-solid fa-check"></i> 복용 완료
+                            </button>
+                            <div class="done-badge" id="morningDoneBadge">
+                                <i class="fa-solid fa-circle-check"></i> 완료
+                            </div>
                             <div class="history-btn" id="morningHistoryBtn" onclick="viewHistory('morning')">
-                                <i class="fa-solid fa-clock-rotate-left"></i> 복용 기록
+                                <i class="fa-solid fa-clock-rotate-left"></i> 기록
                             </div>
                         </div>
                     </div>
 
                     <!-- 점심 -->
                     <div class="check-item-white" id="lRow" style="display:none;">
-                        <div class="check-info-white" id="lunchgetText">
-                            <i class="fa-solid fa-cloud-sun" style="color:#fb923c"></i>
-                            <div><div class="title-text">점심 식후</div><div class="time-text">오후 01:00</div></div>
+                        <div class="check-info-white" id="lunchInfo">
+                            <i class="slot-icon fa-solid fa-cloud-sun" style="color:#fb923c;"></i>
+                            <div>
+                                <div class="title-text" id="lunchTitle">점심 식후</div>
+                                <div class="time-text">오후 01:00</div>
+                            </div>
                         </div>
-                        <div id="lActionArea" style="display:flex; align-items:center;">
-                            <label class="action-checkbox" id="lunchCheckLabel">
-                                <input type="checkbox" id="lunchCheck" onchange="toggleMedication('lunch')">
-                                <div class="action-btn"><i class="fa-solid fa-xmark"></i> 미복용</div>
-                            </label>
+                        <div style="display:flex; align-items:center; gap:6px;">
+                            <button class="take-btn" id="lunchTakeBtn" onclick="confirmTake('lunch')">
+                                <i class="fa-solid fa-check"></i> 복용 완료
+                            </button>
+                            <div class="done-badge" id="lunchDoneBadge">
+                                <i class="fa-solid fa-circle-check"></i> 완료
+                            </div>
                             <div class="history-btn" id="lunchHistoryBtn" onclick="viewHistory('lunch')">
-                                <i class="fa-solid fa-clock-rotate-left"></i> 복용 기록
+                                <i class="fa-solid fa-clock-rotate-left"></i> 기록
                             </div>
                         </div>
                     </div>
 
                     <!-- 저녁 -->
                     <div class="check-item-white" id="dRow" style="display:none;">
-                        <div class="check-info-white" id="dinnergetText">
-                            <i class="fa-solid fa-moon" style="color:#a5b4fc"></i>
-                            <div><div class="title-text">저녁 식후</div><div class="time-text">오후 07:00</div></div>
+                        <div class="check-info-white" id="dinnerInfo">
+                            <i class="slot-icon fa-solid fa-moon" style="color:#a5b4fc;"></i>
+                            <div>
+                                <div class="title-text" id="dinnerTitle">저녁 식후</div>
+                                <div class="time-text">오후 07:00</div>
+                            </div>
                         </div>
-                        <div id="dActionArea" style="display:flex; align-items:center;">
-                            <label class="action-checkbox" id="dinnerCheckLabel">
-                                <input type="checkbox" id="dinnerCheck" onchange="toggleMedication('dinner')">
-                                <div class="action-btn"><i class="fa-solid fa-xmark"></i> 미복용</div>
-                            </label>
+                        <div style="display:flex; align-items:center; gap:6px;">
+                            <button class="take-btn" id="dinnerTakeBtn" onclick="confirmTake('dinner')">
+                                <i class="fa-solid fa-check"></i> 복용 완료
+                            </button>
+                            <div class="done-badge" id="dinnerDoneBadge">
+                                <i class="fa-solid fa-circle-check"></i> 완료
+                            </div>
                             <div class="history-btn" id="dinnerHistoryBtn" onclick="viewHistory('dinner')">
-                                <i class="fa-solid fa-clock-rotate-left"></i> 복용 기록
+                                <i class="fa-solid fa-clock-rotate-left"></i> 기록
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- 하단 약물 정보 박스 -->
+            <!-- 약물 지침 박스 -->
             <div class="description-box">
                 <h3 id="descBoxTitle"><i class="fa-solid fa-capsules"></i> 오늘 처방된 주요 약물 지침</h3>
                 <div id="medGuideContainer"></div>
@@ -326,13 +405,13 @@
         </div>
     </div>
 
-    <!-- PAGE 3: AI 챗봇 -->
+    <!-- ===== PAGE 3: AI 챗봇 ===== -->
     <div class="page-container" id="page-chatbot">
         <div class="chat-header-robot">
             <i class="fa-solid fa-chevron-left" onclick="leaveChatbot()"></i>
             <div class="robot-icon-wrap">
                 <video src="hakdungi.mp4" autoplay loop muted playsinline
-                    style="width:100%; height:100%; object-fit:cover; mix-blend-mode:multiply; border-radius:50%; clip-path:circle(50%);"></video>
+                    style="width:100%; height:100%; object-fit:cover; border-radius:50%; clip-path:circle(50%);"></video>
             </div>
             <div>
                 <h2>AI 학둥이</h2>
@@ -341,7 +420,7 @@
         </div>
         <div class="chat-area" id="chatBox">
             <div style="text-align:center; color:#94a3b8; font-size:12px; margin-bottom:5px;">오늘</div>
-            <div class="msg ai">백OO 어르신, 안녕하세요! 궁금한 점이 있으신가요?<br><br>아래의 <strong>마이크</strong> 버튼을 누르고 편하게 말씀해 주셔도 됩니다.</div>
+            <div class="msg ai">백OO 님!, 안녕하세요! 🙂<br><br>궁금하신 점이 있으시면 아래 <strong>마이크</strong> 버튼을 누르고 편하게 말씀해 주세요.</div>
         </div>
         <div class="chat-input-bar">
             <i class="fa-solid fa-microphone" id="micBtn" onclick="startDictation()"></i>
@@ -354,7 +433,7 @@
     <div class="global-fab" onclick="goToChatbot()">
         <div class="fab-badge">N</div>
         <video src="hakdungi.mp4" autoplay loop muted playsinline
-            style="width:60px; height:60px; margin-bottom:2px; object-fit:cover; mix-blend-mode:multiply; border-radius:50%; clip-path:circle(50%);"></video>
+            style="width:60px; height:60px; object-fit:cover; border-radius:50%; clip-path:circle(50%);"></video>
         <span>학둥이</span>
     </div>
 
@@ -368,20 +447,54 @@
     </div>
 </div>
 
+<!-- ===== 복용 확인 바텀 시트 모달 ===== -->
+<div class="confirm-overlay" id="confirmOverlay" onclick="closeConfirm(event)">
+    <div class="confirm-sheet" onclick="event.stopPropagation()">
+        <div class="sheet-icon" id="sheetIcon">💊</div>
+        <h3 id="sheetTitle">아침 약을 복용하셨나요?</h3>
+        <p id="sheetDesc">아래 약을 모두 드셨으면<br><strong>복용 완료</strong> 버튼을 눌러주세요.</p>
+        <div class="confirm-sheet .sheet-meds" id="sheetMeds"></div>
+        <div class="sheet-btn-group">
+            <button class="sheet-btn cancel" onclick="closeConfirmSheet()">아직 안 먹었어요</button>
+            <button class="sheet-btn confirm" onclick="completeTake()">✅ 복용 완료</button>
+        </div>
+    </div>
+</div>
+
 <script>
     const part1 = "AIzaSyD0";
     const part2 = "eOzNzjp_U-K48g";
     const part3 = "6Yu0lpo1w1hnKED6U";
     const GEMINI_API_KEY = part1 + part2 + part3;
 
-    // ============================================================
-    // 시간대별 약물 가이드 원본 데이터
-    // ============================================================
+    // ────────────────────────────────────────────
+    //  데이터
+    // ────────────────────────────────────────────
+    const slotMeta = {
+        morning: { name: '아침',  icon: '🌅', time: '오전 08:00', timeLabel: '아침 식후' },
+        lunch:   { name: '점심',  icon: '☀️', time: '오후 01:00', timeLabel: '점심 식후' },
+        dinner:  { name: '저녁',  icon: '🌙', time: '오후 07:00', timeLabel: '저녁 식후' }
+    };
+
+    const medHistory = {
+        morning: [
+            { icon: 'fa-solid fa-pills',  color: '#1a2a6c', name: '트라마돌 50mg',    type: '진통제 · 아침 식후' },
+            { icon: 'fa-solid fa-shield', color: '#00b894', name: '테고프라잔 50mg',  type: '위장 보호제 · 아침 식후' }
+        ],
+        lunch: [
+            { icon: 'fa-solid fa-pills',  color: '#1a2a6c', name: '트라마돌 50mg',    type: '진통제 · 점심 식후' }
+        ],
+        dinner: [
+            { icon: 'fa-solid fa-pills',  color: '#1a2a6c', name: '트라마돌 50mg',    type: '진통제 · 저녁 식후' },
+            { icon: 'fa-solid fa-shield', color: '#00b894', name: '테고프라잔 50mg',  type: '위장 보호제 · 저녁 식후' }
+        ]
+    };
+
     const medGuides = {
         morning: `
             <div class="med-detail" onclick="toggleDetail(this)">
-                <div class="med-header"><strong>💊 트라마돌 (진통제) - 아침약</strong><i class="fa-solid fa-chevron-down"></i></div>
-                <p class="main-desc">수술 부위의 심한 통증을 줄여주는 약입니다. 누르면 자세한 주의사항이 보입니다.</p>
+                <div class="med-header"><strong>💊 트라마돌 (진통제) — 아침</strong><i class="fa-solid fa-chevron-down"></i></div>
+                <p class="main-desc">수술 부위의 통증을 줄여주는 약입니다. 눌러서 자세한 주의사항을 확인하세요.</p>
                 <div class="med-extra">
                     <div class="info-row">
                         <div class="info-row-title"><i class="fa-solid fa-triangle-exclamation" style="color:#f59e0b;"></i> 대표적인 부작용</div>
@@ -392,7 +505,7 @@
                         </div>
                     </div>
                     <div class="info-row">
-                        <div class="info-row-title"><i class="fa-solid fa-circle-exclamation" style="color:#ef4444;"></i> 꼭 지켜야 할 주의사항</div>
+                        <div class="info-row-title"><i class="fa-solid fa-circle-exclamation" style="color:#ef4444;"></i> 주의사항</div>
                         <div class="pictogram-group">
                             <div class="pictogram-item"><i class="fa-solid fa-person-falling" style="color:#ef4444;"></i><span>낙상 주의<br>(보호자 동행)</span></div>
                         </div>
@@ -400,230 +513,247 @@
                 </div>
             </div>
             <div class="med-detail" style="border-left-color:#00b894;" onclick="toggleDetail(this)">
-                <div class="med-header"><strong>💊 테고프라잔 (위장약) - 아침약</strong><i class="fa-solid fa-chevron-down"></i></div>
-                <p class="main-desc">진통제로 인해 위가 상하지 않도록 보호막을 만들어줍니다.</p>
+                <div class="med-header"><strong>💊 테고프라잔 (위장약) — 아침</strong><i class="fa-solid fa-chevron-down"></i></div>
+                <p class="main-desc">진통제로 인한 위 손상을 예방하는 보호막 역할을 합니다.</p>
             </div>`,
         lunch: `
             <div class="med-detail" onclick="toggleDetail(this)">
-                <div class="med-header"><strong>💊 트라마돌 (진통제) - 점심약</strong><i class="fa-solid fa-chevron-down"></i></div>
-                <p class="main-desc">점심 식사 후 복용하는 통증 완화 목적의 약물입니다.</p>
+                <div class="med-header"><strong>💊 트라마돌 (진통제) — 점심</strong><i class="fa-solid fa-chevron-down"></i></div>
+                <p class="main-desc">점심 식사 후 복용하는 통증 완화 약물입니다.</p>
             </div>`,
         dinner: `
             <div class="med-detail" onclick="toggleDetail(this)">
-                <div class="med-header"><strong>💊 트라마돌 (진통제) - 저녁약</strong><i class="fa-solid fa-chevron-down"></i></div>
-                <p class="main-desc">수술 부위의 밤 통증 완화를 위한 약물 지침입니다.</p>
+                <div class="med-header"><strong>💊 트라마돌 (진통제) — 저녁</strong><i class="fa-solid fa-chevron-down"></i></div>
+                <p class="main-desc">밤 동안의 통증 완화를 위한 약물입니다.</p>
             </div>
             <div class="med-detail" style="border-left-color:#00b894;" onclick="toggleDetail(this)">
-                <div class="med-header"><strong>💊 테고프라잔 (위장약) - 저녁약</strong><i class="fa-solid fa-chevron-down"></i></div>
-                <p class="main-desc">속쓰림 방지를 위해 복용하는 위장 보호막 생성용 약물입니다.</p>
+                <div class="med-header"><strong>💊 테고프라잔 (위장약) — 저녁</strong><i class="fa-solid fa-chevron-down"></i></div>
+                <p class="main-desc">속쓰림 방지를 위한 위장 보호 약물입니다.</p>
             </div>`
     };
 
-    // 시간대별 복용 약 목록 데이터
-    const medHistory = {
-        morning: [
-            { icon: 'fa-solid fa-pills', color: '#1a2a6c', name: '트라마돌 50mg', type: '진통제 · 아침 식후' },
-            { icon: 'fa-solid fa-shield', color: '#00b894', name: '테고프라잔 50mg', type: '위장 보호제 · 아침 식후' }
-        ],
-        lunch: [
-            { icon: 'fa-solid fa-pills', color: '#1a2a6c', name: '트라마돌 50mg', type: '진통제 · 점심 식후' }
-        ],
-        dinner: [
-            { icon: 'fa-solid fa-pills', color: '#1a2a6c', name: '트라마돌 50mg', type: '진통제 · 저녁 식후' },
-            { icon: 'fa-solid fa-shield', color: '#00b894', name: '테고프라잔 50mg', type: '위장 보호제 · 저녁 식후' }
-        ]
-    };
-
-    const slotMeta = {
-        morning: { name: '아침', icon: '🌅', time: '오전 08:00' },
-        lunch:   { name: '점심', icon: '☀️', time: '오후 01:00' },
-        dinner:  { name: '저녁', icon: '🌙', time: '오후 07:00' }
-    };
-
-    let previousClass = 'app-frame';
+    // ────────────────────────────────────────────
+    //  상태
+    // ────────────────────────────────────────────
     let checkedSlots = { morning: false, lunch: false, dinner: false };
-    let activeSlot = 'morning';
+    let activeSlot   = 'morning';
+    let pendingSlot  = null;   // 확인 모달에서 처리 중인 슬롯
+    let previousClass = 'app-frame';
 
-    // ============================================================
-    // 시간 감지 → 해당 슬롯만 표시
-    // ============================================================
+    // ────────────────────────────────────────────
+    //  시간 감지 → 슬롯 행 표시
+    // ────────────────────────────────────────────
     function checkTimeAndShowRow() {
-        const hour = new Date().getHours();
-        document.getElementById('mRow').style.display = 'none';
-        document.getElementById('lRow').style.display = 'none';
-        document.getElementById('dRow').style.display = 'none';
+        const h = new Date().getHours();
+        ['mRow','lRow','dRow'].forEach(id => document.getElementById(id).style.display = 'none');
 
-        if (hour >= 5 && hour < 11)       { activeSlot = 'morning'; document.getElementById('mRow').style.display = 'flex'; }
-        else if (hour >= 11 && hour < 17) { activeSlot = 'lunch';   document.getElementById('lRow').style.display = 'flex'; }
-        else                               { activeSlot = 'dinner';  document.getElementById('dRow').style.display = 'flex'; }
+        if      (h >= 5  && h < 11) { activeSlot = 'morning'; document.getElementById('mRow').style.display = 'flex'; }
+        else if (h >= 11 && h < 17) { activeSlot = 'lunch';   document.getElementById('lRow').style.display = 'flex'; }
+        else                         { activeSlot = 'dinner';  document.getElementById('dRow').style.display = 'flex'; }
 
-        checkedSlots[activeSlot] ? renderEmptyGuide() : renderMedGuide(activeSlot);
+        // 이미 완료된 슬롯이면 완료 상태 UI 반영 후 칭찬 화면
+        if (checkedSlots[activeSlot]) {
+            applyDoneUI(activeSlot);
+            renderEmptyGuide();
+        } else {
+            renderMedGuide(activeSlot);
+        }
     }
 
-    // ============================================================
-    // 약물 지침 렌더링
-    // ============================================================
+    // ────────────────────────────────────────────
+    //  "복용 완료" 버튼 클릭 → 바텀시트 열기
+    // ────────────────────────────────────────────
+    function confirmTake(slot) {
+        pendingSlot = slot;
+        const meta = slotMeta[slot];
+        const meds = medHistory[slot];
+
+        document.getElementById('sheetIcon').innerText   = meta.icon;
+        document.getElementById('sheetTitle').innerText  = `${meta.name} 약을 복용하셨나요?`;
+        document.getElementById('sheetDesc').innerHTML   =
+            `아래 약을 모두 드셨으면<br><strong>복용 완료</strong> 버튼을 눌러주세요.`;
+
+        const medsHTML = meds.map(m => `
+            <div class="sheet-med-row">
+                <i class="${m.icon}" style="color:${m.color}; font-size:18px; width:22px; text-align:center;"></i>
+                <span>${m.name} <span style="font-weight:500; color:#64748b;">— ${m.type.split('·')[0].trim()}</span></span>
+            </div>`).join('');
+        document.getElementById('sheetMeds').innerHTML = `
+            <div style="background:#f8fafc; border-radius:12px; padding:14px; margin-bottom:20px; display:flex; flex-direction:column; gap:10px;">
+                ${medsHTML}
+            </div>`;
+
+        document.getElementById('confirmOverlay').classList.add('open');
+    }
+
+    // 모달 외부 클릭 닫기
+    function closeConfirm(e) { closeConfirmSheet(); }
+    function closeConfirmSheet() {
+        document.getElementById('confirmOverlay').classList.remove('open');
+        pendingSlot = null;
+    }
+
+    // ────────────────────────────────────────────
+    //  최종 복용 완료 처리
+    // ────────────────────────────────────────────
+    function completeTake() {
+        if (!pendingSlot) return;
+        const slot = pendingSlot;
+        closeConfirmSheet();
+
+        checkedSlots[slot] = true;
+        applyDoneUI(slot);
+        updateProgress();
+
+        // 현재 활성 슬롯이면 칭찬 화면으로
+        if (slot === activeSlot) renderEmptyGuide();
+    }
+
+    // ────────────────────────────────────────────
+    //  완료 후 UI 변경
+    // ────────────────────────────────────────────
+    function applyDoneUI(slot) {
+        const rowEl    = document.getElementById(slot === 'morning' ? 'mRow' : slot === 'lunch' ? 'lRow' : 'dRow');
+        const infoEl   = document.getElementById(slot + 'Info');
+        const titleEl  = document.getElementById(slot + 'Title');
+        const takeBtn  = document.getElementById(slot + 'TakeBtn');
+        const doneBadge = document.getElementById(slot + 'DoneBadge');
+        const histBtn  = document.getElementById(slot + 'HistoryBtn');
+
+        rowEl.classList.add('is-done');
+        infoEl.classList.add('faded');
+        titleEl.classList.add('struck');
+        takeBtn.style.display  = 'none';
+        doneBadge.classList.add('visible');
+        histBtn.classList.add('visible');
+
+        // 진행 레이블 업데이트
+        const lblMap = { morning: 'lblMorning', lunch: 'lblLunch', dinner: 'lblDinner' };
+        document.getElementById(lblMap[slot]).innerHTML = slotMeta[slot].icon + ' ' + slotMeta[slot].name + ' ✓';
+    }
+
+    // ────────────────────────────────────────────
+    //  진행률 게이지 & 상태 뱃지
+    // ────────────────────────────────────────────
+    function updateProgress() {
+        const score = Object.values(checkedSlots).filter(Boolean).length;
+        document.getElementById('progressBar').style.width = Math.round((score / 3) * 100) + '%';
+
+        const badge   = document.getElementById('statusBadge');
+        const display = document.getElementById('mainTimeDisplay');
+        const label   = document.getElementById('cardLabelText');
+
+        if (score === 3) {
+            badge.innerText = '완료 🎉'; badge.className = 'status-badge done';
+            display.innerText = '오늘 복약 모두 완료!'; label.innerText = '오늘 복약 현황';
+        } else if (score > 0) {
+            badge.innerText = '진행 중'; badge.className = 'status-badge done';
+        } else {
+            badge.innerText = '대기 중'; badge.className = 'status-badge wait';
+        }
+    }
+
+    // ────────────────────────────────────────────
+    //  약물 지침 렌더링
+    // ────────────────────────────────────────────
     function renderMedGuide(slot) {
         const meta = slotMeta[slot];
         document.getElementById('descBoxTitle').innerHTML =
-            `<i class="fa-solid fa-capsules"></i> ${meta.icon} ${meta.name} 처방 약물 지침
-             <span style="font-size:11px; font-weight:normal; color:#94a3b8; margin-left:auto;">(눌러서 확인)</span>`;
+            `<i class="fa-solid fa-capsules"></i> ${meta.icon} ${meta.name} 처방 약물 지침 <span style="font-size:11px;font-weight:normal;color:#94a3b8;margin-left:auto;">(눌러서 확인)</span>`;
         document.getElementById('medGuideContainer').innerHTML = medGuides[slot];
     }
 
-    // ============================================================
-    // 복용 완료 후 "칭찬 화면" 렌더링
-    // ============================================================
     function renderEmptyGuide() {
         document.getElementById('descBoxTitle').innerHTML =
             `<i class="fa-solid fa-clipboard-check" style="color:#00b894;"></i> 현재 시간 복약 완료`;
         document.getElementById('medGuideContainer').innerHTML = `
-            <div style="background:#f8fafc; padding:35px 20px; border-radius:15px; text-align:center; border:1px dashed #cbd5e1;">
-                <i class="fa-solid fa-shield-heart" style="font-size:45px; color:#00b894; margin-bottom:12px; display:block;"></i>
-                <h4 style="margin:0 0 8px; color:#1e293b; font-size:16px;">약을 잘 챙겨 드셨군요! 🎉</h4>
-                <p style="margin:0; color:#64748b; font-size:13px; line-height:1.6;">
-                    어떤 약을 드셨는지 확인하시려면<br>상단 카드의 <strong>'복용 기록'</strong> 버튼을 눌러주세요.
+            <div style="background:#f8fafc;padding:35px 20px;border-radius:15px;text-align:center;border:1px dashed #cbd5e1;">
+                <i class="fa-solid fa-shield-heart" style="font-size:45px;color:#00b894;margin-bottom:12px;display:block;"></i>
+                <h4 style="margin:0 0 8px;color:#1e293b;font-size:16px;">약을 잘 챙겨 드셨군요! 🎉</h4>
+                <p style="margin:0;color:#64748b;font-size:13px;line-height:1.6;">
+                    복용 기록은 상단 카드의<br><strong>'기록'</strong> 버튼을 눌러 확인하세요.
                 </p>
             </div>`;
     }
 
-    // ============================================================
-    // ★ 복용 기록 화면 (아침/점심/저녁 탭 전환 + 돌아가기 버튼) ★
-    // ============================================================
-    function viewHistory(openSlot) {
-        renderHistoryView(openSlot);
-    }
+    // ────────────────────────────────────────────
+    //  복용 기록 탭 뷰
+    // ────────────────────────────────────────────
+    function viewHistory(openSlot) { renderHistoryView(openSlot); }
 
     function renderHistoryView(openSlot) {
-        const slots = ['morning', 'lunch', 'dinner'];
+        const slots = ['morning','lunch','dinner'];
 
-        // 탭 버튼 생성
         let tabsHTML = `<div class="history-tab-wrap">`;
         slots.forEach(s => {
-            const meta = slotMeta[s];
-            const isDone = checkedSlots[s];
+            const isDone   = checkedSlots[s];
             const isActive = s === openSlot;
-            tabsHTML += `
-                <div class="history-tab ${isDone ? 'completed' : ''} ${isActive ? 'active' : ''}"
-                     onclick="renderHistoryView('${s}')">
-                    ${meta.icon} ${meta.name}${isDone ? ' ✓' : ''}
-                </div>`;
+            tabsHTML += `<div class="history-tab ${isDone?'completed':''} ${isActive?'active':''}"
+                onclick="renderHistoryView('${s}')">
+                ${slotMeta[s].icon} ${slotMeta[s].name}${isDone?' ✓':''}
+            </div>`;
         });
         tabsHTML += `</div>`;
 
-        // 선택된 슬롯 기록 카드 생성
         const isDone = checkedSlots[openSlot];
-        const meta = slotMeta[openSlot];
+        const meta   = slotMeta[openSlot];
         let cardHTML = '';
 
         if (isDone) {
-            let medsHTML = medHistory[openSlot].map(m => `
+            const medsHTML = medHistory[openSlot].map(m => `
                 <div class="history-med-item">
                     <i class="${m.icon}" style="color:${m.color};"></i>
-                    <div>
-                        <div class="med-name">${m.name}</div>
-                        <div class="med-type">${m.type}</div>
-                    </div>
-                    <i class="fa-solid fa-circle-check" style="color:#00b894; margin-left:auto;"></i>
+                    <div><div class="med-name">${m.name}</div><div class="med-type">${m.type}</div></div>
+                    <i class="fa-solid fa-circle-check" style="color:#00b894;margin-left:auto;"></i>
                 </div>`).join('');
-
             cardHTML = `
                 <div class="history-record-card">
-                    <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;">
-                        <i class="fa-solid fa-circle-check" style="font-size:20px; color:#00b894;"></i>
+                    <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+                        <i class="fa-solid fa-circle-check" style="font-size:20px;color:#00b894;"></i>
                         <div>
-                            <div style="font-size:14px; font-weight:800; color:#1e293b;">${meta.name} 복약 완료</div>
-                            <div style="font-size:11px; color:#64748b;">${meta.time} · 정량 복용 확인</div>
+                            <div style="font-size:14px;font-weight:800;color:#1e293b;">${meta.name} 복약 완료</div>
+                            <div style="font-size:11px;color:#64748b;">${meta.time} · 정량 복용 확인</div>
                         </div>
                     </div>
                     ${medsHTML}
                 </div>`;
         } else {
             cardHTML = `
-                <div class="history-record-card not-yet" style="text-align:center; padding:30px 20px;">
-                    <i class="fa-solid fa-clock" style="font-size:35px; color:#94a3b8; margin-bottom:10px; display:block;"></i>
-                    <div style="font-size:14px; font-weight:700; color:#64748b;">${meta.name} 복약 전입니다</div>
-                    <div style="font-size:12px; color:#94a3b8; margin-top:5px;">${meta.time} 복약 예정</div>
+                <div class="history-record-card not-yet" style="text-align:center;padding:28px 20px;">
+                    <i class="fa-solid fa-clock" style="font-size:34px;color:#94a3b8;margin-bottom:10px;display:block;"></i>
+                    <div style="font-size:14px;font-weight:700;color:#64748b;">${meta.name} 복약 전입니다</div>
+                    <div style="font-size:12px;color:#94a3b8;margin-top:5px;">${meta.time} 복약 예정</div>
                 </div>`;
         }
 
-        // 돌아가기 버튼 (약물 지침 or 완료 화면으로 복귀)
-        const backLabel = isDone && openSlot === activeSlot
-            ? `<i class="fa-solid fa-arrow-left"></i> 돌아가기`
-            : `<i class="fa-solid fa-arrow-left"></i> 돌아가기`;
-        const backAction = checkedSlots[activeSlot]
-            ? `renderEmptyGuide()`
-            : `renderMedGuide('${activeSlot}')`;
-
-        const backBtnHTML = `
-            <button onclick="${backAction}"
-                style="width:100%; margin-top:14px; background:#f1f5f9; color:#475569;
-                       border:none; padding:11px; border-radius:10px; font-size:13px;
-                       font-weight:700; cursor:pointer; display:flex; align-items:center;
-                       justify-content:center; gap:6px;">
-                <i class="fa-solid fa-arrow-left"></i> 돌아가기
-            </button>`;
-
-        // 현재 슬롯 약물 지침 다시보기 버튼 (완료 상태일 때만)
         const guideBtn = isDone ? `
             <button onclick="renderMedGuide('${openSlot}')"
-                style="width:100%; margin-top:8px; background:#1a2a6c; color:#fff;
-                       border:none; padding:11px; border-radius:10px; font-size:13px;
-                       font-weight:700; cursor:pointer; display:flex; align-items:center;
-                       justify-content:center; gap:6px;">
+                style="width:100%;margin-top:8px;background:#1a2a6c;color:#fff;border:none;padding:11px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;">
                 <i class="fa-solid fa-eye"></i> ${meta.name} 약물 지침 다시보기
             </button>` : '';
 
-        // 최종 조합
+        const backAction = checkedSlots[activeSlot] ? `renderEmptyGuide()` : `renderMedGuide('${activeSlot}')`;
+        const backBtnHTML = `
+            <button onclick="${backAction}"
+                style="width:100%;margin-top:8px;background:#f1f5f9;color:#475569;border:none;padding:11px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;">
+                <i class="fa-solid fa-arrow-left"></i> 돌아가기
+            </button>`;
+
         document.getElementById('descBoxTitle').innerHTML =
             `<i class="fa-solid fa-clock-rotate-left"></i> 오늘 복용 기록`;
         document.getElementById('medGuideContainer').innerHTML =
             tabsHTML + cardHTML + guideBtn + backBtnHTML;
     }
 
-    // ============================================================
-    // 체크박스 토글 (복용 완료 처리)
-    // ============================================================
-    function toggleMedication(slot) {
-        const isChecked = document.getElementById(slot + 'Check').checked;
-        checkedSlots[slot] = isChecked;
-
-        if (isChecked) {
-            document.getElementById(slot + 'CheckLabel').style.display = 'none';
-            document.getElementById(slot + 'HistoryBtn').style.display = 'flex';
-            document.getElementById('lbl' + slot.charAt(0).toUpperCase() + slot.slice(1)).innerText =
-                slotMeta[slot].name + ' (완료 ✓)';
-            document.getElementById(slot + 'getText').style.opacity = '0.4';
-            document.getElementById(slot + 'getText').style.textDecoration = 'line-through';
-            renderEmptyGuide();
-        }
-
-        let score = (checkedSlots.morning ? 1 : 0) + (checkedSlots.lunch ? 1 : 0) + (checkedSlots.dinner ? 1 : 0);
-        document.getElementById('progressBar').style.width = Math.round((score / 3) * 100) + '%';
-
-        const badge = document.getElementById('statusBadge');
-        const display = document.getElementById('mainTimeDisplay');
-        const label = document.getElementById('cardLabelText');
-
-        if (score === 3) {
-            badge.innerText = '완료 🎉'; badge.className = 'status-badge done';
-            display.innerText = '오늘 복약 완료!'; label.innerText = '상태 안내';
-        } else if (score > 0) {
-            badge.innerText = '복용 중'; badge.className = 'status-badge done';
-        } else {
-            badge.innerText = '미복용'; badge.className = 'status-badge wait';
-        }
-    }
-
-    // ============================================================
-    // 페이지 네비게이션
-    // ============================================================
+    // ────────────────────────────────────────────
+    //  페이지 네비게이션
+    // ────────────────────────────────────────────
     function setNavActive(id) {
         document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-        if (document.getElementById(id)) document.getElementById(id).classList.add('active');
+        if (id) document.getElementById(id)?.classList.add('active');
     }
-    function goToHome() { document.getElementById('appFrame').className = 'app-frame'; setNavActive('nav-home'); }
-    function goToInpatient() { document.getElementById('appFrame').className = 'app-frame show-inpatient'; setNavActive('nav-inpatient'); }
+    function goToHome()       { document.getElementById('appFrame').className = 'app-frame'; setNavActive('nav-home'); }
+    function goToInpatient()  { document.getElementById('appFrame').className = 'app-frame show-inpatient'; setNavActive('nav-inpatient'); }
     function goToPrescription() {
         document.getElementById('appFrame').className = 'app-frame show-meddashboard';
         setNavActive('nav-inpatient');
@@ -631,7 +761,7 @@
     }
     function goToChatbot() {
         const af = document.getElementById('appFrame');
-        if (af.className !== 'app-frame show-chatbot') previousClass = af.className;
+        if (!af.className.includes('show-chatbot')) previousClass = af.className;
         af.className = 'app-frame show-chatbot';
     }
     function leaveChatbot() {
@@ -640,12 +770,12 @@
     }
     function toggleDetail(el) {
         el.classList.toggle('open');
-        setTimeout(() => {
-            document.getElementById('dashboardContent').scrollTo({ top: el.offsetTop - 50, behavior: 'smooth' });
-        }, 150);
+        setTimeout(() => document.getElementById('dashboardContent').scrollTo({ top: el.offsetTop - 50, behavior: 'smooth' }), 150);
     }
 
-    // 시계
+    // ────────────────────────────────────────────
+    //  시계
+    // ────────────────────────────────────────────
     function updateTime() {
         document.getElementById('clock').innerText =
             new Date().toLocaleTimeString('ko-KR', { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' });
@@ -653,54 +783,52 @@
     setInterval(updateTime, 1000); updateTime();
     checkTimeAndShowRow();
 
-    // ============================================================
-    // 챗봇 (Gemini)
-    // ============================================================
+    // ────────────────────────────────────────────
+    //  챗봇 (Gemini)
+    // ────────────────────────────────────────────
     const chatInput = document.getElementById('chatInput');
-    const micBtn = document.getElementById('micBtn');
+    const micBtn    = document.getElementById('micBtn');
     let isRecording = false, recognition = null;
 
     if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
         const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
         recognition = new SR();
         recognition.continuous = false; recognition.interimResults = false; recognition.lang = 'ko-KR';
-        recognition.onstart = () => { isRecording = true; micBtn.classList.add('recording'); chatInput.placeholder = '듣고 있습니다...'; };
-        recognition.onerror = () => stopRecordingState();
-        recognition.onend   = () => stopRecordingState();
-        recognition.onresult = e => { chatInput.value = e.results[0][0].transcript; setTimeout(sendMessage, 500); };
+        recognition.onstart  = () => { isRecording = true;  micBtn.classList.add('recording');    chatInput.placeholder = '듣고 있습니다...'; };
+        recognition.onerror  = () => stopRecordingState();
+        recognition.onend    = () => stopRecordingState();
+        recognition.onresult = e  => { chatInput.value = e.results[0][0].transcript; setTimeout(sendMessage, 500); };
     }
     function startDictation() {
-        if (!recognition) { alert('음성 인식을 지원하지 않는 브라우저입니다.'); return; }
+        if (!recognition) { alert('이 브라우저는 음성 인식을 지원하지 않습니다.'); return; }
         if (isRecording) return;
         try { recognition.start(); } catch(e) {}
     }
-    function stopRecordingState() {
-        isRecording = false; micBtn.classList.remove('recording'); chatInput.placeholder = '물어보실 내용을 입력하세요...';
-    }
+    function stopRecordingState() { isRecording = false; micBtn.classList.remove('recording'); chatInput.placeholder = '물어보실 내용을 입력하세요...'; }
     function handleEnter(e) { if (e.key === 'Enter') sendMessage(); }
     function appendMessage(text, sender) {
-        const chatBox = document.getElementById('chatBox');
+        const box = document.getElementById('chatBox');
         const d = document.createElement('div');
         d.className = `msg ${sender}`; d.innerHTML = text;
-        chatBox.appendChild(d); chatBox.scrollTop = chatBox.scrollHeight;
+        box.appendChild(d); box.scrollTop = box.scrollHeight;
     }
     async function sendMessage() {
         const text = chatInput.value.trim(); if (!text) return;
         if (isRecording && recognition) recognition.stop();
         appendMessage(text, 'user'); chatInput.value = '';
-        appendMessage('<i class="fa-solid fa-spinner fa-spin"></i> 생각 중이에요...', 'ai');
+        appendMessage('<i class="fa-solid fa-spinner fa-spin"></i> 생각 중...', 'ai');
         const loading = document.getElementById('chatBox').lastElementChild;
         try {
             loading.innerHTML = await getGeminiResponse(text);
-            setTimeout(() => { if (document.getElementById('appFrame').classList.contains('show-chatbot')) startDictation(); }, 1500);
+            setTimeout(() => { if (document.getElementById('appFrame').className.includes('show-chatbot')) startDictation(); }, 1500);
         } catch(e) {
-            loading.innerHTML = `⚠️ <b>통신 오류</b><br><span style="color:#ef4444; font-size:12px;">${e.message}</span>`;
+            loading.innerHTML = `⚠️ 오류: ${e.message}`;
         }
     }
     async function getGeminiResponse(text) {
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`;
-        const body = { contents: [{ parts: [{ text: `당신은 병동에 입원 중인 어르신 환자분들을 돕는 친절하고 다정한 AI 복약 비서입니다. 전문적인 의학 용어보다는 이해하기 쉬운 말로, 따뜻하게 답변해 주세요. 대답은 2~3문장으로 간결하게 핵심만 말해주세요.\n\n환자의 질문: ${text}` }] }] };
-        const res = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+        const url  = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`;
+        const body = { contents: [{ parts: [{ text: `당신은 전남대병원 입원 환자 어르신을 돕는 친절한 AI 복약 비서입니다. 쉽고 따뜻하게, 2~3문장으로 핵심만 답변해 주세요.\n\n질문: ${text}` }] }] };
+        const res  = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
         const data = await res.json();
         if (!res.ok) throw new Error(data.error?.message || '알 수 없는 오류');
         return data.candidates[0].content.parts[0].text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
