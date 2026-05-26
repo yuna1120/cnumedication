@@ -161,7 +161,15 @@
         /* ========================================= */
         /* ★ 전역 AI FAB 버튼 (모든 화면에서 호출 가능) ★ */
         /* ========================================= */
-        .global-fab { position: absolute; bottom: 100px; right: 20px; width: 70px; height: 70px; background: #fff; border-radius: 50%; box-shadow: 0 10px 25px rgba(0,0,0,0.15); display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; z-index: 100; border: 2px solid #f1f5f9; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); }
+        /* 수정 전: background: #fff; border-radius: 50%; box-shadow 등 속성이 있었음 */
+/* 수정 후: 원을 만드는 속성을 모두 삭제하여 투명하게 만듦 */
+.global-fab { 
+    position: absolute; bottom: 100px; right: 20px; 
+    width: 70px; height: 70px; 
+    display: flex; flex-direction: column; align-items: center; justify-content: center; 
+    cursor: pointer; z-index: 100; 
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); 
+}
         .global-fab:active { transform: scale(0.95); }
         .global-fab span { font-size: 11px; font-weight: 800; color: #1a2a6c; letter-spacing: -0.5px; margin-top: 3px; }
         .fab-badge { position: absolute; top: -5px; right: -5px; background: #ef4444; color: white; font-size: 10px; font-weight: bold; padding: 3px 6px; border-radius: 10px; border: 2px solid #fff; z-index: 2; }
@@ -174,7 +182,13 @@
         /* ========================================= */
         .chat-header-robot { background: #fff; padding: 25px 25px 20px; display: flex; align-items: center; gap: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
         .chat-header-robot i.fa-chevron-left { color: #94a3b8; font-size: 22px; cursor: pointer; }
-        .robot-icon-wrap { background: #eef2ff; width: 50px; height: 50px; border-radius: 50%; display: flex; justify-content: center; align-items: center; overflow: hidden; }
+        /* 수정 전: background, border-radius 등 원을 만드는 속성이 있었음 */
+/* 수정 후: 투명한 틀만 남김 */
+.robot-icon-wrap { 
+    width: 50px; height: 50px; 
+    display: flex; justify-content: center; align-items: center; 
+    overflow: hidden; 
+}
         .chat-header-robot h2 { font-size: 22px; margin: 0; color: #1e293b; font-weight: 900; }
         .chat-header-robot p { margin: 3px 0 0; color: #64748b; font-size: 13px; }
 
