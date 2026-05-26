@@ -1,2 +1,18 @@
-env:
-  API_KEY: ${{ secrets.GEMINI_API_KEY }}
+name: Deploy to GitHub Pages
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      # 1. index.html의 'YOUR_API_KEY_HERE'라는 글자를 비밀 키로 교체
+      - name: Replace API Key
+        run: |
+          sed -i 's/YOUR_API_KEY_HERE/${{ secrets.GEMINI_API_KEY }}/g' index.html
+      # 2. 웹사이트 배포
+      - uses: actions/deploy-pages@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
