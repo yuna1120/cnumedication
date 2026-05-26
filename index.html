@@ -298,7 +298,7 @@
     <div class="page-container" id="page-meddashboard">
         <div class="header-white">
             <div class="patient-info">
-                <h2 onclick="goToInpatient()" style="cursor: pointer;"><i class="fa-solid fa-chevron-left" style="font-size: 18px; color: #94a3b8; margin-right: 5px;"></i>백OO 님!</h2>
+                <h2 onclick="goToInpatient()" style="cursor: pointer;"><i class="fa-solid fa-chevron-left" style="font-size: 18px; color: #94a3b8; margin-right: 5px;"></i>백OO 어르신</h2>
                 <p>8W12F 병동 | 입원 4일차</p>
             </div>
             <div class="current-clock" id="clock">00:00:00</div>
@@ -320,55 +320,56 @@
                     </div>
                 </div>
 
-<div class="inner-check-list">
-    <div class="check-item-white" id="mRow" style="display:flex; opacity:1;">
-        <div class="check-info-white" id="mgetText">
-            <i class="fa-solid fa-sun" style="color:#fcd34d"></i>
-            <div><div class="title-text">아침 식후</div><div class="time-text">오전 08:00</div></div>
-        </div>
-        <div id="mActionArea">
-            <label class="action-checkbox" id="mCheckLabel">
-                <input type="checkbox" id="morningCheck" onchange="toggleMedication('morning')">
-                <div class="action-btn" id="mbtnText"><i class="fa-solid fa-xmark"></i> 미복용</div>
-            </label>
-            <div class="action-btn" id="mHistoryBtn" style="display:none; background:#fff; color:#1a2a6c; border-color:#fff; cursor:pointer;" onclick="viewHistory('morning')">
-                <i class="fa-solid fa-clock-rotate-left"></i> 이전 복용약 확인
-            </div>
-        </div>
-    </div>
+                <div class="inner-check-list">
+                    <div class="check-item-white" id="mRow" style="display:none;">
+                        <div class="check-info-white" id="mgetText">
+                            <i class="fa-solid fa-sun" style="color:#fcd34d"></i>
+                            <div><div class="title-text">아침 식후</div><div class="time-text">오전 08:00</div></div>
+                        </div>
+                        <div id="mActionArea">
+                            <label class="action-checkbox" id="mCheckLabel">
+                                <input type="checkbox" id="morningCheck" onchange="toggleMedication('morning')">
+                                <div class="action-btn" id="mbtnText"><i class="fa-solid fa-xmark"></i> 미복용</div>
+                            </label>
+                            <div class="action-btn" id="mHistoryBtn" style="display:none; background:#fff; color:#1a2a6c; border-color:#fff; cursor:pointer;" onclick="viewHistory('morning')">
+                                <i class="fa-solid fa-clock-rotate-left"></i> 이전 복용약 확인
+                            </div>
+                        </div>
+                    </div>
 
-    <div class="check-item-white" id="lRow" style="display:flex; opacity:1;">
-        <div class="check-info-white" id="lgetText">
-            <i class="fa-solid fa-cloud-sun" style="color:#fb923c"></i>
-            <div><div class="title-text">점심 식후</div><div class="time-text">오후 01:00</div></div>
-        </div>
-        <div id="lActionArea">
-            <label class="action-checkbox" id="lCheckLabel">
-                <input type="checkbox" id="lunchCheck" onchange="toggleMedication('lunch')">
-                <div class="action-btn" id="lbtnText"><i class="fa-solid fa-xmark"></i> 미복용</div>
-            </label>
-            <div class="action-btn" id="lHistoryBtn" style="display:none; background:#fff; color:#1a2a6c; border-color:#fff; cursor:pointer;" onclick="viewHistory('lunch')">
-                <i class="fa-solid fa-clock-rotate-left"></i> 이전 복용약 확인
-            </div>
-        </div>
-    </div>
+                    <div class="check-item-white" id="lRow" style="display:none;">
+                        <div class="check-info-white" id="lgetText">
+                            <i class="fa-solid fa-cloud-sun" style="color:#fb923c"></i>
+                            <div><div class="title-text">점심 식후</div><div class="time-text">오후 01:00</div></div>
+                        </div>
+                        <div id="lActionArea">
+                            <label class="action-checkbox" id="lCheckLabel">
+                                <input type="checkbox" id="lunchCheck" onchange="toggleMedication('lunch')">
+                                <div class="action-btn" id="lbtnText"><i class="fa-solid fa-xmark"></i> 미복용</div>
+                            </label>
+                            <div class="action-btn" id="lHistoryBtn" style="display:none; background:#fff; color:#1a2a6c; border-color:#fff; cursor:pointer;" onclick="viewHistory('lunch')">
+                                <i class="fa-solid fa-clock-rotate-left"></i> 이전 복용약 확인
+                            </div>
+                        </div>
+                    </div>
 
-    <div class="check-item-white" id="dRow" style="display:flex; opacity:1;">
-        <div class="check-info-white" id="dgetText">
-            <i class="fa-solid fa-moon" style="color:#a5b4fc"></i>
-            <div><div class="title-text">저녁 식후</div><div class="time-text">오후 07:00</div></div>
-        </div>
-        <div id="dActionArea">
-            <label class="action-checkbox" id="dCheckLabel">
-                <input type="checkbox" id="dinnerCheck" onchange="toggleMedication('dinner')">
-                <div class="action-btn" id="dbtnText"><i class="fa-solid fa-xmark"></i> 미복용</div>
-            </label>
-            <div class="action-btn" id="dHistoryBtn" style="display:none; background:#fff; color:#1a2a6c; border-color:#fff; cursor:pointer;" onclick="viewHistory('dinner')">
-                <i class="fa-solid fa-clock-rotate-left"></i> 이전 복용약 확인
+                    <div class="check-item-white" id="dRow" style="display:none;">
+                        <div class="check-info-white" id="dgetText">
+                            <i class="fa-solid fa-moon" style="color:#a5b4fc"></i>
+                            <div><div class="title-text">저녁 식후</div><div class="time-text">오후 07:00</div></div>
+                        </div>
+                        <div id="dActionArea">
+                            <label class="action-checkbox" id="dCheckLabel">
+                                <input type="checkbox" id="dinnerCheck" onchange="toggleMedication('dinner')">
+                                <div class="action-btn" id="dbtnText"><i class="fa-solid fa-xmark"></i> 미복용</div>
+                            </label>
+                            <div class="action-btn" id="dHistoryBtn" style="display:none; background:#fff; color:#1a2a6c; border-color:#fff; cursor:pointer;" onclick="viewHistory('dinner')">
+                                <i class="fa-solid fa-clock-rotate-left"></i> 이전 복용약 확인
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-</div>
 
             <div class="description-box">
                 <h3 id="descBoxTitle"><i class="fa-solid fa-capsules"></i> 오늘 처방된 주요 약물 지침</h3>
@@ -383,7 +384,7 @@
             <i class="fa-solid fa-chevron-left" onclick="leaveChatbot()" style="cursor: pointer;"></i>
             
             <div class="robot-icon-wrap">
-                <video src="hakdungi.mp4" autoplay loop muted playsinline style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;"></video>
+                <video src="hakdungi.mp4" autoplay loop muted playsinline style="width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply;"></video>
             </div>
             
             <div>
@@ -395,7 +396,7 @@
         <div class="chat-area" id="chatBox">
             <div style="text-align:center; color:#94a3b8; font-size:12px; margin-bottom: 5px;">오늘</div>
             <div class="msg ai">
-                백OO 님, 안녕하세요! 궁금한 점이 있으신가요?<br><br>아래의 <strong>마이크</strong> 버튼을 누르고 편하게 말씀해 주셔도 됩니다.
+                백OO 어르신, 안녕하세요! 궁금한 점이 있으신가요?<br><br>아래의 <strong>마이크</strong> 버튼을 누르고 편하게 말씀해 주셔도 됩니다.
             </div>
         </div>
 
@@ -408,7 +409,7 @@
 
     <div class="global-fab" onclick="goToChatbot()">
         <div class="fab-badge">N</div>
-       <video src="hakdungi.mp4" autoplay loop muted playsinline style="width: 60px; height: 60px; margin-bottom: 2px; object-fit: cover; border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.1);"></video>
+        <video src="hakdungi.mp4" autoplay loop muted playsinline style="width: 60px; height: 60px; margin-bottom: 2px; object-fit: contain; mix-blend-mode: multiply;"></video>
         <span>학둥이</span>
     </div>
 
@@ -485,16 +486,24 @@
         const now = new Date();
         const hour = now.getHours();
         
-        // [함수 수정] 시간대별로 슥삭 숨기는 게 아니라, 그냥 현재 시간대만 강조하도록!
-function checkTimeAndShowRow() {
-    const now = new Date();
-    const hour = now.getHours();
-    
-    // 이제 숨기지 않고 항상 보입니다!
-    document.getElementById('mRow').style.opacity = (hour >= 5 && hour < 11) ? "1" : "0.5";
-    document.getElementById('lRow').style.opacity = (hour >= 11 && hour < 17) ? "1" : "0.5";
-    document.getElementById('dRow').style.opacity = (hour >= 17 || hour < 5) ? "1" : "0.5";
-}
+        document.getElementById('mRow').style.display = 'none';
+        document.getElementById('lRow').style.display = 'none';
+        document.getElementById('dRow').style.display = 'none';
+        
+        if (hour >= 5 && hour < 11) {
+            activeSlot = 'morning';
+            document.getElementById('mRow').style.display = 'flex';
+        } else if (hour >= 11 && hour < 17) {
+            activeSlot = 'lunch';
+            document.getElementById('lRow').style.display = 'flex';
+        } else {
+            activeSlot = 'dinner';
+            document.getElementById('dRow').style.display = 'flex';
+        }
+        
+        if (!checkedSlots[activeSlot]) {
+            renderMedGuide(activeSlot);
+        }
     }
 
     function renderMedGuide(slot) {
@@ -518,7 +527,7 @@ function checkTimeAndShowRow() {
             <div style="background: #f8fafc; padding: 20px; border-radius: 15px; border-left: 5px solid #00b894; text-align: center;">
                 <i class="fa-solid fa-circle-check" style="font-size: 35px; color: #00b894; margin-bottom: 10px;"></i>
                 <h4 style="margin: 0 0 5px 0; color: #1e293b; font-size: 15px;">${slotName} 복약 완료 기록</h4>
-                <p style="margin: 0 0 12px 0; color: #64748b; font-size: 12px;">환자분께서 안전하게 정량 복용하셨습니다.</p>
+                <p style="margin: 0 0 12px 0; color: #64748b; font-size: 12px;">환자 어르신께서 안전하게 정량 복용하셨습니다.</p>
                 <div style="background: #fff; padding: 10px; border-radius: 8px; border: 1px solid #e2e8f0; font-size: 13px; font-weight: bold; color: #1a2a6c;">
                     안전 확인된 복용 약물: ${medList}
                 </div>
@@ -712,7 +721,7 @@ function checkTimeAndShowRow() {
     async function getGeminiResponse(text) {
         const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`;
         
-        const systemPrompt = `당신은 병동에 입원 중인 환자분들을 돕는 친절하고 다정한 AI 복약 비서입니다. 
+        const systemPrompt = `당신은 병동에 입원 중인 어르신 환자분들을 돕는 친절하고 다정한 AI 복약 비서입니다. 
         전문적인 의학 용어보다는 이해하기 쉬운 말로, 따뜻하게 답변해 주세요. 
         대답은 너무 길지 않게 2~3문장으로 간결하게 핵심만 말해주세요.
         
