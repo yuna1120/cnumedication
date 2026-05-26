@@ -121,7 +121,7 @@
         .check-info-white { display: flex; align-items: center; gap: 12px; transition: 0.3s; }
         .check-info-white i { font-size: 24px; width: 25px; text-align: center; }
         .time-text { font-size: 11px; opacity: 0.7; font-weight: normal; margin-top: 2px; }
-        .title-text { font-size: 15px; font-weight: 700; }
+        .google_tasks-text { font-size: 15px; font-weight: 700; }
         
         .action-checkbox { cursor: pointer; display: inline-block; }
         .action-checkbox input[type="checkbox"] { display: none; }
@@ -161,7 +161,6 @@
         /* ========================================= */
         /* ★ 전역 AI FAB 버튼 (모든 화면에서 호출 가능) ★ */
         /* ========================================= */
-        /* [수정 완료] 플로팅 버튼의 둥근 배경을 없애 투명하게 만듦 */
         .global-fab { 
             position: absolute; bottom: 100px; right: 20px; 
             width: 70px; height: 70px; 
@@ -171,7 +170,6 @@
         }
         .global-fab:active { transform: scale(0.95); }
         .global-fab span { font-size: 11px; font-weight: 800; color: #1a2a6c; letter-spacing: -0.5px; margin-top: 3px; }
-        /* N 배지 위치 조정 (투명해지면서 배지가 허공에 뜨지 않게 조절) */
         .fab-badge { position: absolute; top: -2px; right: 2px; background: #ef4444; color: white; font-size: 10px; font-weight: bold; padding: 3px 6px; border-radius: 10px; border: 2px solid #fff; z-index: 2; }
         
         /* 채팅창 열릴 때는 동그란 버튼 숨기기 */
@@ -183,7 +181,6 @@
         .chat-header-robot { background: #fff; padding: 25px 25px 20px; display: flex; align-items: center; gap: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
         .chat-header-robot i.fa-chevron-left { color: #94a3b8; font-size: 22px; cursor: pointer; }
         
-        /* [수정 완료] 상단 챗봇 프로필의 배경 지우기 */
         .robot-icon-wrap { 
             width: 50px; height: 50px; 
             display: flex; justify-content: center; align-items: center; 
@@ -301,7 +298,7 @@
     <div class="page-container" id="page-meddashboard">
         <div class="header-white">
             <div class="patient-info">
-                <h2 onclick="goToInpatient()" style="cursor: pointer;"><i class="fa-solid fa-chevron-left" style="font-size: 18px; color: #94a3b8; margin-right: 5px;"></i>백OO 어르신</h2>
+                <h2 onclick="goToInpatient()" style="cursor: pointer;"><i class="fa-solid fa-chevron-left" style="font-size: 18px; color: #94a3b8; margin-right: 5px;"></i>백OO 님!</h2>
                 <p>8W12F 병동 | 입원 4일차</p>
             </div>
             <div class="current-clock" id="clock">00:00:00</div>
@@ -324,103 +321,60 @@
                 </div>
 
                 <div class="inner-check-list">
-                    <div class="check-item-white" id="mRow">
+                    <div class="check-item-white" id="mRow" style="display:none;">
                         <div class="check-info-white" id="mgetText">
                             <i class="fa-solid fa-sun" style="color:#fcd34d"></i>
                             <div><div class="title-text">아침 식후</div><div class="time-text">오전 08:00</div></div>
                         </div>
-                        <label class="action-checkbox">
-                            <input type="checkbox" id="morningCheck" onchange="toggleMedication()">
-                            <div class="action-btn" id="mbtnText"><i class="fa-solid fa-xmark"></i> 미복용</div>
-                        </label>
+                        <div id="mActionArea">
+                            <label class="action-checkbox" id="mCheckLabel">
+                                <input type="checkbox" id="morningCheck" onchange="toggleMedication('morning')">
+                                <div class="action-btn" id="mbtnText"><i class="fa-solid fa-xmark"></i> 미복용</div>
+                            </label>
+                            <div class="action-btn" id="mHistoryBtn" style="display:none; background:#fff; color:#1a2a6c; border-color:#fff; cursor:pointer;" onclick="viewHistory('morning')">
+                                <i class="fa-solid fa-clock-rotate-left"></i> 이전 복용약 확인
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="check-item-white" id="lRow">
+                    <div class="check-item-white" id="lRow" style="display:none;">
                         <div class="check-info-white" id="lgetText">
                             <i class="fa-solid fa-cloud-sun" style="color:#fb923c"></i>
                             <div><div class="title-text">점심 식후</div><div class="time-text">오후 01:00</div></div>
                         </div>
-                        <label class="action-checkbox">
-                            <input type="checkbox" id="lunchCheck" onchange="toggleMedication()">
-                            <div class="action-btn" id="lbtnText"><i class="fa-solid fa-xmark"></i> 미복용</div>
-                        </label>
+                        <div id="lActionArea">
+                            <label class="action-checkbox" id="lCheckLabel">
+                                <input type="checkbox" id="lunchCheck" onchange="toggleMedication('lunch')">
+                                <div class="action-btn" id="lbtnText"><i class="fa-solid fa-xmark"></i> 미복용</div>
+                            </label>
+                            <div class="action-btn" id="lHistoryBtn" style="display:none; background:#fff; color:#1a2a6c; border-color:#fff; cursor:pointer;" onclick="viewHistory('lunch')">
+                                <i class="fa-solid fa-clock-rotate-left"></i> 이전 복용약 확인
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="check-item-white" id="dRow">
+                    <div class="check-item-white" id="dRow" style="display:none;">
                         <div class="check-info-white" id="dgetText">
                             <i class="fa-solid fa-moon" style="color:#a5b4fc"></i>
                             <div><div class="title-text">저녁 식후</div><div class="time-text">오후 07:00</div></div>
                         </div>
-                        <label class="action-checkbox">
-                            <input type="checkbox" id="dinnerCheck" onchange="toggleMedication()">
-                            <div class="action-btn" id="dbtnText"><i class="fa-solid fa-xmark"></i> 미복용</div>
-                        </label>
+                        <div id="dActionArea">
+                            <label class="action-checkbox" id="dCheckLabel">
+                                <input type="checkbox" id="dinnerCheck" onchange="toggleMedication('dinner')">
+                                <div class="action-btn" id="dbtnText"><i class="fa-solid fa-xmark"></i> 미복용</div>
+                            </label>
+                            <div class="action-btn" id="dHistoryBtn" style="display:none; background:#fff; color:#1a2a6c; border-color:#fff; cursor:pointer;" onclick="viewHistory('dinner')">
+                                <i class="fa-solid fa-clock-rotate-left"></i> 이전 복용약 확인
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <div class="description-box">
-                <h3><i class="fa-solid fa-capsules"></i> 오늘 처방된 주요 약물 지침 <span style="font-size:11px; font-weight:normal; color:#94a3b8; margin-left:auto;">(눌러서 확인)</span></h3>
-                
-                <div class="med-detail" onclick="toggleDetail(this)">
-                    <div class="med-header"><strong>💊 트라마돌 (진통제)</strong><i class="fa-solid fa-chevron-down"></i></div>
-                    <p class="main-desc">수술 부위의 심한 통증을 줄여주는 약입니다. 누르면 자세한 주의사항이 보입니다.</p>
-                    <div class="med-extra">
-                        <div class="info-row">
-                            <div class="info-row-title"><i class="fa-solid fa-triangle-exclamation" style="color:#f59e0b;"></i> 대표적인 부작용</div>
-                            <div class="pictogram-group">
-                                <div class="pictogram-item"><i class="fa-solid fa-arrows-spin" style="color:#3b82f6;"></i><span>어지러움</span></div>
-                                <div class="pictogram-item"><i class="fa-solid fa-face-frown-open" style="color:#10b981;"></i><span>구역 및 구토</span></div>
-                                <div class="pictogram-item"><i class="fa-solid fa-bed" style="color:#8b5cf6;"></i><span>졸음 유발</span></div>
-                            </div>
-                        </div>
-                        <div class="info-row">
-                            <div class="info-row-title"><i class="fa-solid fa-circle-exclamation" style="color:#ef4444;"></i> 꼭 지켜야 할 주의사항</div>
-                            <div class="pictogram-group">
-                                <div class="pictogram-item"><i class="fa-solid fa-person-falling" style="color:#ef4444;"></i><span>낙상 주의<br>(보호자 동행)</span></div>
-                                <div class="pictogram-item"><i class="fa-solid fa-car" style="color:#64748b; text-decoration:line-through;"></i><span>운전 및<br>기계조작 금지</span></div>
-                            </div>
-                        </div>
-                        <div class="info-row">
-                            <div class="info-row-title"><i class="fa-solid fa-ban" style="color:#ef4444;"></i> 같이 먹으면 안 되는 음식</div>
-                            <div class="food-container">
-                                <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=200&q=80" class="food-img" alt="술">
-                                <div class="food-desc"><strong>음주(술) 절대 금지 ❌</strong><span>중추신경 억제로 인해 호흡이 곤란해지거나 부작용이 심해질 수 있습니다.</span></div>
-                            </div>
-                        </div>
+                <h3 id="descBoxTitle"><i class="fa-solid fa-capsules"></i> 오늘 처방된 주요 약물 지침</h3>
+                <div id="medGuideContainer">
                     </div>
-                </div>
-
-                <div class="med-detail" style="border-left-color: #00b894;" onclick="toggleDetail(this)">
-                    <div class="med-header"><strong>💊 테고프라잔 (위장약)</strong><i class="fa-solid fa-chevron-down"></i></div>
-                    <p class="main-desc">진통제로 인해 위가 상하지 않도록 보호막을 만들어줍니다. 누르면 자세한 주의사항이 보입니다.</p>
-                    <div class="med-extra">
-                        <div class="info-row">
-                            <div class="info-row-title"><i class="fa-solid fa-triangle-exclamation" style="color:#f59e0b;"></i> 대표적인 부작용</div>
-                            <div class="pictogram-group">
-                                <div class="pictogram-item"><i class="fa-solid fa-toilet" style="color:#8b5cf6;"></i><span>설사 및<br>소화불량</span></div>
-                                <div class="pictogram-item"><i class="fa-solid fa-head-side-virus" style="color:#ef4444;"></i><span>가벼운 두통</span></div>
-                            </div>
-                        </div>
-                        <div class="info-row">
-                            <div class="info-row-title"><i class="fa-solid fa-circle-exclamation" style="color:#ef4444;"></i> 꼭 지켜야 할 주의사항</div>
-                            <div class="pictogram-group">
-                                <div class="pictogram-item"><i class="fa-regular fa-clock" style="color:#10b981;"></i><span>식사와 무관하게<br>규칙적 복용</span></div>
-                                <div class="pictogram-item"><i class="fa-regular fa-hand" style="color:#ef4444;"></i><span>증상 호전돼도<br>임의중단 금지</span></div>
-                            </div>
-                        </div>
-                        <div class="info-row">
-                            <div class="info-row-title"><i class="fa-solid fa-ban" style="color:#ef4444;"></i> 피해야 할 음식 (위산 자극)</div>
-                            <div class="food-container">
-                                <div class="food-img-wrapper">
-                                    <img src="https://images.unsplash.com/photo-1511909525232-61113c912358?auto=format&fit=crop&w=200&q=80" class="food-img" alt="커피">
-                                    <img src="https://images.unsplash.com/photo-1555126634-323283e090fa?auto=format&fit=crop&w=200&q=80" class="food-img" alt="매운음식">
-                                </div>
-                                <div class="food-desc"><strong>카페인 및 매운 음식 ❌</strong><span>커피 등 고카페인 음료와 맵고 짠 자극적인 음식은 위산 분비를 촉진해 약효를 떨어뜨립니다.</span></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -430,7 +384,7 @@
             <i class="fa-solid fa-chevron-left" onclick="leaveChatbot()" style="cursor: pointer;"></i>
             
             <div class="robot-icon-wrap">
-               <video src="hakdungi.mp4" autoplay loop muted playsinline style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;"></video>
+                <video src="hakdungi.mp4" autoplay loop muted playsinline style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;"></video>
             </div>
             
             <div>
@@ -442,7 +396,7 @@
         <div class="chat-area" id="chatBox">
             <div style="text-align:center; color:#94a3b8; font-size:12px; margin-bottom: 5px;">오늘</div>
             <div class="msg ai">
-                백OO 어르신, 안녕하세요! 궁금한 점이 있으신가요?<br><br>아래의 <strong>마이크</strong> 버튼을 누르고 편하게 말씀해 주셔도 됩니다.
+                백OO 님, 안녕하세요! 궁금한 점이 있으신가요?<br><br>아래의 <strong>마이크</strong> 버튼을 누르고 편하게 말씀해 주셔도 됩니다.
             </div>
         </div>
 
@@ -455,9 +409,7 @@
 
     <div class="global-fab" onclick="goToChatbot()">
         <div class="fab-badge">N</div>
-        
-        <video src="hakdungi.mp4" autoplay loop muted playsinline style="width: 60px; height: 60px; margin-bottom: 2px; object-fit: cover; border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.1);"></video>
-        
+       <video src="hakdungi.mp4" autoplay loop muted playsinline style="width: 60px; height: 60px; margin-bottom: 2px; object-fit: cover; border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.1);"></video>
         <span>학둥이</span>
     </div>
 
@@ -473,14 +425,159 @@
 <script>
     // ==========================================
     // 💡 Vercel + 깃허브 배포용 안전한 키 설정
-    // 깃허브의 API 키 자동차단을 막기 위해 키를 쪼개서 결합합니다.
     const part1 = "AIzaSyD0";
     const part2 = "eOzNzjp_U-K48g";
     const part3 = "6Yu0lpo1w1hnKED6U";
     const GEMINI_API_KEY = part1 + part2 + part3;
     // ==========================================
 
+    // 시간대별 하단 노출 약물 정보 가이드 풀셋팅
+    const medGuides = {
+        morning: `
+            <div class="med-detail" onclick="toggleDetail(this)">
+                <div class="med-header"><strong>💊 트라마돌 (진통제) - 아침약</strong><i class="fa-solid fa-chevron-down"></i></div>
+                <p class="main-desc">수술 부위의 심한 통증을 줄여주는 약입니다. 누르면 자세한 주의사항이 보입니다.</p>
+                <div class="med-extra">
+                    <div class="info-row">
+                        <div class="info-row-title"><i class="fa-solid fa-triangle-exclamation" style="color:#f59e0b;"></i> 대표적인 부작용</div>
+                        <div class="pictogram-group">
+                            <div class="pictogram-item"><i class="fa-solid fa-arrows-spin" style="color:#3b82f6;"></i><span>어지러움</span></div>
+                            <div class="pictogram-item"><i class="fa-solid fa-face-frown-open" style="color:#10b981;"></i><span>구역 및 구토</span></div>
+                            <div class="pictogram-item"><i class="fa-solid fa-bed" style="color:#8b5cf6;"></i><span>졸음 유발</span></div>
+                        </div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-row-title"><i class="fa-solid fa-circle-exclamation" style="color:#ef4444;"></i> 꼭 지켜야 할 주의사항</div>
+                        <div class="pictogram-group">
+                            <div class="pictogram-item"><i class="fa-solid fa-person-falling" style="color:#ef4444;"></i><span>낙상 주의<br>(보호자 동행)</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="med-detail" style="border-left-color: #00b894;" onclick="toggleDetail(this)">
+                <div class="med-header"><strong>💊 테고프라잔 (위장약) - 아침약</strong><i class="fa-solid fa-chevron-down"></i></div>
+                <p class="main-desc">진통제로 인해 위가 상하지 않도록 보호막을 만들어줍니다.</p>
+            </div>
+        `,
+        lunch: `
+            <div class="med-detail" onclick="toggleDetail(this)">
+                <div class="med-header"><strong>💊 트라마돌 (진통제) - 점심약</strong><i class="fa-solid fa-chevron-down"></i></div>
+                <p class="main-desc">점심 식사 후 복용하는 통증 완화 목적의 약물입니다.</p>
+            </div>
+        `,
+        dinner: `
+            <div class="med-detail" onclick="toggleDetail(this)">
+                <div class="med-header"><strong>💊 트라마돌 (진통제) - 저녁약</strong><i class="fa-solid fa-chevron-down"></i></div>
+                <p class="main-desc">수술 부위의 밤 통증 완화를 위한 약물 지침입니다.</p>
+            </div>
+            <div class="med-detail" style="border-left-color: #00b894;" onclick="toggleDetail(this)">
+                <div class="med-header"><strong>💊 테고프라잔 (위장약) - 저녁약</strong><i class="fa-solid fa-chevron-down"></i></div>
+                <p class="main-desc">속쓰림 방지를 위해 복용하는 위장 보호막 생성용 약물입니다.</p>
+            </div>
+        `
+    };
+
     let previousClass = 'app-frame';
+    let checkedSlots = { morning: false, lunch: false, dinner: false };
+    let activeSlot = 'morning';
+
+    // [기능 추가] 현재 시간에 매칭되는 복용 영역 단 1개만 활성화 및 가이드 로드
+    function checkTimeAndShowRow() {
+        const now = new Date();
+        const hour = now.getHours();
+        
+        document.getElementById('mRow').style.display = 'none';
+        document.getElementById('lRow').style.display = 'none';
+        document.getElementById('dRow').style.display = 'none';
+        
+        if (hour >= 5 && hour < 11) {
+            activeSlot = 'morning';
+            document.getElementById('mRow').style.display = 'flex';
+        } else if (hour >= 11 && hour < 17) {
+            activeSlot = 'lunch';
+            document.getElementById('lRow').style.display = 'flex';
+        } else {
+            activeSlot = 'dinner';
+            document.getElementById('dRow').style.display = 'flex';
+        }
+        
+        if (!checkedSlots[activeSlot]) {
+            renderMedGuide(activeSlot);
+        }
+    }
+
+    function renderMedGuide(slot) {
+        const descBoxTitle = document.getElementById('descBoxTitle');
+        const container = document.getElementById('medGuideContainer');
+        let slotName = slot === 'morning' ? '아침' : slot === 'lunch' ? '점심' : '저녁';
+        
+        descBoxTitle.innerHTML = `<i class="fa-solid fa-capsules"></i> 오늘 처방된 주요 약물 지침 (${slotName}) <span style="font-size:11px; font-weight:normal; color:#94a3b8; margin-left:auto;">(눌러서 확인)</span>`;
+        container.innerHTML = medGuides[slot];
+    }
+
+    // [기능 추가] 복용 완료 시 '이전 복용약 확인' 모드로 화면 전환 및 데이터 열람
+    function viewHistory(slot) {
+        const descBoxTitle = document.getElementById('descBoxTitle');
+        const container = document.getElementById('medGuideContainer');
+        let slotName = slot === 'morning' ? '아침' : slot === 'lunch' ? '점심' : '저녁';
+        let medList = slot === 'lunch' ? '💊 트라마돌 (진통제)' : '💊 트라마돌 (진통제), 💊 테고프라잔 (위장약)';
+        
+        descBoxTitle.innerHTML = `<i class="fa-solid fa-clock-rotate-left"></i> 이전 복용약 확인 (${slotName})`;
+        container.innerHTML = `
+            <div style="background: #f8fafc; padding: 20px; border-radius: 15px; border-left: 5px solid #00b894; text-align: center;">
+                <i class="fa-solid fa-circle-check" style="font-size: 35px; color: #00b894; margin-bottom: 10px;"></i>
+                <h4 style="margin: 0 0 5px 0; color: #1e293b; font-size: 15px;">${slotName} 복약 완료 기록</h4>
+                <p style="margin: 0 0 12px 0; color: #64748b; font-size: 12px;">환자분께서 안전하게 정량 복용하셨습니다.</p>
+                <div style="background: #fff; padding: 10px; border-radius: 8px; border: 1px solid #e2e8f0; font-size: 13px; font-weight: bold; color: #1a2a6c;">
+                    안전 확인된 복용 약물: ${medList}
+                </div>
+                <button onclick="renderMedGuide('${slot}')" style="margin-top: 12px; background: #1a2a6c; color: #fff; border: none; padding: 5px 10px; border-radius: 6px; font-size: 11px; font-weight: bold; cursor: pointer;">
+                    <i class="fa-solid fa-eye"></i> 복용 약물 지침 다시보기
+                </button>
+            </div>
+        `;
+    }
+
+    function toggleMedication(slot) {
+        const isChecked = document.getElementById(slot + 'Check').checked;
+        checkedSlots[slot] = isChecked;
+        
+        const bar = document.getElementById('progressBar');
+        const badge = document.getElementById('statusBadge');
+        const mainTimeDisplay = document.getElementById('mainTimeDisplay');
+        const cardLabelText = document.getElementById('cardLabelText');
+        
+        if (isChecked) {
+            document.getElementById(slot + 'CheckLabel').style.display = 'none';
+            document.getElementById(slot + 'HistoryBtn').style.display = 'flex';
+            document.getElementById('lbl' + slot.charAt(0).toUpperCase() + slot.slice(1)).innerText = 
+                (slot === 'morning' ? '아침' : slot === 'lunch' ? '점심' : '저녁') + " (복용 완료)";
+            document.getElementById(slot + 'getText').style.opacity = "0.5";
+            document.getElementById(slot + 'getText').style.textDecoration = "line-through";
+        }
+
+        let score = 0;
+        if (checkedSlots.morning) score++;
+        if (checkedSlots.lunch) score++;
+        if (checkedSlots.dinner) score++;
+
+        bar.style.width = Math.round((score / 3) * 100) + "%";
+
+        if (score === 3) {
+            badge.innerText = "완료";
+            badge.className = "status-badge done";
+            mainTimeDisplay.innerText = "오늘 복약 완료! 🎉";
+            cardLabelText.innerText = "상태 안내";
+        } else if (score > 0) {
+            badge.innerText = "복용 중";
+            badge.className = "status-badge done";
+        } else {
+            badge.innerText = "미복용";
+            badge.className = "status-badge wait";
+        }
+        
+        viewHistory(slot);
+    }
 
     function setNavActive(id) {
         document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
@@ -500,6 +597,7 @@
     function goToPrescription() {
         document.getElementById('appFrame').className = 'app-frame show-meddashboard';
         setNavActive('nav-inpatient');
+        checkTimeAndShowRow(); // 대시보드 진입 시 시간 감지 작동
     }
 
     function goToChatbot() {
@@ -528,86 +626,9 @@
         document.getElementById('clock').innerText = now.toLocaleTimeString('ko-KR', { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' });
     }
     setInterval(updateTime, 1000); updateTime();
+    checkTimeAndShowRow(); // 앱 구동 초기 설정 가동
 
-    function toggleMedication() {
-        const mChecked = document.getElementById('morningCheck').checked;
-        const lChecked = document.getElementById('lunchCheck').checked;
-        const dChecked = document.getElementById('dinnerCheck').checked;
-        
-        const bar = document.getElementById('progressBar');
-        const badge = document.getElementById('statusBadge');
-        const mainTimeDisplay = document.getElementById('mainTimeDisplay');
-        const cardLabelText = document.getElementById('cardLabelText');
-        
-        let score = 0;
-
-        if (mChecked) {
-            score += 1;
-            document.getElementById('lblMorning').innerText = "아침 (복용)";
-            document.getElementById('mbtnText').innerHTML = '<i class="fa-solid fa-check"></i> 복용 완료';
-            document.getElementById('mgetText').style.opacity = "0.5";
-            document.getElementById('mgetText').style.textDecoration = "line-through";
-        } else {
-            document.getElementById('lblMorning').innerText = "아침 (미복용)";
-            document.getElementById('mbtnText').innerHTML = '<i class="fa-solid fa-xmark"></i> 미복용';
-            document.getElementById('mgetText').style.opacity = "1";
-            document.getElementById('mgetText').style.textDecoration = "none";
-        }
-
-        if (lChecked) {
-            score += 1;
-            document.getElementById('lblLunch').innerText = "점심 (복용)";
-            document.getElementById('lbtnText').innerHTML = '<i class="fa-solid fa-check"></i> 복용 완료';
-            document.getElementById('lgetText').style.opacity = "0.5";
-            document.getElementById('lgetText').style.textDecoration = "line-through";
-        } else {
-            document.getElementById('lblLunch').innerText = "점심 (미복용)";
-            document.getElementById('lbtnText').innerHTML = '<i class="fa-solid fa-xmark"></i> 미복용';
-            document.getElementById('lgetText').style.opacity = "1";
-            document.getElementById('lgetText').style.textDecoration = "none";
-        }
-
-        if (dChecked) {
-            score += 1;
-            document.getElementById('lblDinner').innerText = "저녁 (복용)";
-            document.getElementById('dbtnText').innerHTML = '<i class="fa-solid fa-check"></i> 복용 완료';
-            document.getElementById('dgetText').style.opacity = "0.5";
-            document.getElementById('dgetText').style.textDecoration = "line-through";
-        } else {
-            document.getElementById('lblDinner').innerText = "저녁 (미복용)";
-            document.getElementById('dbtnText').innerHTML = '<i class="fa-solid fa-xmark"></i> 미복용';
-            document.getElementById('dgetText').style.opacity = "1";
-            document.getElementById('dgetText').style.textDecoration = "none";
-        }
-
-        if (!mChecked) {
-            mainTimeDisplay.innerText = "오전 08:00 (아침)";
-            cardLabelText.innerText = "다가오는 투약 시간";
-        } else if (!lChecked) {
-            mainTimeDisplay.innerText = "오후 01:00 (점심)";
-            cardLabelText.innerText = "다가오는 투약 시간";
-        } else if (!dChecked) {
-            mainTimeDisplay.innerText = "오후 07:00 (저녁)";
-            cardLabelText.innerText = "다가오는 투약 시간";
-        } else {
-            mainTimeDisplay.innerText = "오늘 복약 완료! 🎉";
-            cardLabelText.innerText = "상태 안내";
-        }
-
-        bar.style.width = Math.round((score / 3) * 100) + "%";
-
-        if (score === 3) {
-            badge.innerText = "완료";
-            badge.className = "status-badge done";
-        } else if (score > 0) {
-            badge.innerText = "복용 중";
-            badge.className = "status-badge done";
-        } else {
-            badge.innerText = "미복용";
-            badge.className = "status-badge wait";
-        }
-    }
-
+    // 챗봇 엔진 구성
     const chatInput = document.getElementById('chatInput');
     const micBtn = document.getElementById('micBtn');
     let isRecording = false;
@@ -698,10 +719,9 @@
     }
 
     async function getGeminiResponse(text) {
-        // [수정 완료] 모델명 에러 수정: 2.5-flash -> 1.5-flash
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`;
         
-        const systemPrompt = `당신은 병동에 입원 중인 어르신 환자분들을 돕는 친절하고 다정한 AI 복약 비서입니다. 
+        const systemPrompt = `당신은 병동에 입원 중인 환자분들을 돕는 친절하고 다정한 AI 복약 비서입니다. 
         전문적인 의학 용어보다는 이해하기 쉬운 말로, 따뜻하게 답변해 주세요. 
         대답은 너무 길지 않게 2~3문장으로 간결하게 핵심만 말해주세요.
         
@@ -731,7 +751,6 @@
             throw error; 
         }
     }
-    
 </script>
 
 </body>
