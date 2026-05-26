@@ -683,6 +683,8 @@
     }
 
     async function getGeminiResponse(text) {
+        const urlParams = new URLSearchParams(window.location.search);
+        const GEMINI_API_KEY = urlParams.get('key');
         // 호출 경로를 가장 기본형으로 바꿉니다.
         const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`;
         
