@@ -82,7 +82,10 @@
         /* 주간 복약 트래커 */
         .weekly-tracker { background: #f8fafc; border: 2.5px solid #1a2a6c; border-radius: 20px; padding: 18px; display: flex; align-items: center; gap: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
         .tracker-left { width: 85px; flex-shrink: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 8px; background: transparent; border: none; overflow: visible; }
-        .tracker-left img { width: 85px; height: 85px; object-fit: contain; }
+        
+        /* ★ 수정됨: img 태그를 video 태그로 변경하고 배경 투명 효과(mix-blend-mode) 적용 */
+        .tracker-left video { width: 85px; height: 85px; object-fit: contain; mix-blend-mode: multiply; }
+        
         .info-badge { background: #e2e8f0; color: #475569; font-size: 11px; padding: 4px 10px; border-radius: 12px; font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 4px; transition: all 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
         .info-badge:active { transform: scale(0.95); }
         .tracker-right { flex: 1; display: flex; flex-direction: column; gap: 15px; }
@@ -298,7 +301,7 @@
             
             <div class="weekly-tracker">
                 <div class="tracker-left">
-                    <img src="https://yuna1120.github.io/cnumedication.com/hakdungi_normal.mp4" id="hakdungiImg" alt="학둥이 상태">
+                    <video id="hakdungiImg" src="https://yuna1120.github.io/cnumedication.com/hakdungi_normal.mp4" autoplay loop muted playsinline></video>
                     <div class="info-badge" onclick="openHakdungiInfo()">
                         <i class="fa-solid fa-circle-info"></i> 표정 안내
                     </div>
@@ -406,7 +409,7 @@
         <div class="chat-header-robot">
             <i class="fa-solid fa-chevron-left" onclick="leaveChatbot()"></i>
             <div class="robot-icon-wrap">
-                <video src="hakdungi.mp4" autoplay loop muted playsinline
+                <video src="https://yuna1120.github.io/cnumedication.com/hakdungi_normal.mp4" autoplay loop muted playsinline
                     style="width:100%; height:100%; object-fit:cover; border-radius:50%; clip-path:circle(50%); mix-blend-mode: multiply;"></video>
             </div>
             <div>
@@ -427,7 +430,7 @@
 
     <div class="global-fab" onclick="goToChatbot()">
         <div class="fab-badge">N</div>
-        <video src="hakdungi.mp4" autoplay loop muted playsinline
+        <video src="https://yuna1120.github.io/cnumedication.com/hakdungi_normal.mp4" autoplay loop muted playsinline
             style="width:60px; height:60px; object-fit:cover; border-radius:50%; clip-path:circle(50%); mix-blend-mode: multiply;"></video>
         <span>학둥이</span>
     </div>
@@ -463,23 +466,23 @@
             <div style="font-weight: 800; color: #1a2a6c; margin-bottom: 10px; font-size: 14px;">☀️ 주간 (오전 6시 ~ 밤 12시)</div>
             
             <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
-                <img src="https://yuna1120.github.io/cnumedication.com/hakdungi_heart.mp4" style="width:40px; height:40px; object-fit:contain; border-radius:8px;">
+                <video src="https://yuna1120.github.io/cnumedication.com/hakdungi_heart.mp4" autoplay loop muted playsinline style="width:40px; height:40px; object-fit:contain; border-radius:8px; mix-blend-mode: multiply;"></video>
                 <span style="font-size:13px;"><strong>하트 뿅뿅 :</strong> 건강도 80~100%</span>
             </div>
             <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
-                <img src="https://yuna1120.github.io/cnumedication.com/hakdungi_normal.mp4" style="width:40px; height:40px; object-fit:contain; border-radius:8px;">
+                <video src="https://yuna1120.github.io/cnumedication.com/hakdungi_normal.mp4" autoplay loop muted playsinline style="width:40px; height:40px; object-fit:contain; border-radius:8px; mix-blend-mode: multiply;"></video>
                 <span style="font-size:13px;"><strong>기분 최고 :</strong> 건강도 60~79%</span>
             </div>
             <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
-                <img src="https://yuna1120.github.io/cnumedication.com/hakdungi_angry.mp4" style="width:40px; height:40px; object-fit:contain; border-radius:8px;">
+                <video src="https://yuna1120.github.io/cnumedication.com/hakdungi_angry.mp4" autoplay loop muted playsinline style="width:40px; height:40px; object-fit:contain; border-radius:8px; mix-blend-mode: multiply;"></video>
                 <span style="font-size:13px;"><strong>버럭! 화남 :</strong> 건강도 40~59%</span>
             </div>
             <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
-                <img src="https://yuna1120.github.io/cnumedication.com/hakdungi_cry.mp4" style="width:40px; height:40px; object-fit:contain; border-radius:8px;">
+                <video src="https://yuna1120.github.io/cnumedication.com/hakdungi_cry.mp4" autoplay loop muted playsinline style="width:40px; height:40px; object-fit:contain; border-radius:8px; mix-blend-mode: multiply;"></video>
                 <span style="font-size:13px;"><strong>엉엉 눈물 :</strong> 건강도 20~39%</span>
             </div>
             <div style="display: flex; align-items: center; gap: 12px;">
-                <img src="https://yuna1120.github.io/cnumedication.com/hakdungi_shiver.mp4" style="width:40px; height:40px; object-fit:contain; border-radius:8px;">
+                <video src="https://yuna1120.github.io/cnumedication.com/hakdungi_shiver.mp4" autoplay loop muted playsinline style="width:40px; height:40px; object-fit:contain; border-radius:8px; mix-blend-mode: multiply;"></video>
                 <span style="font-size:13px;"><strong>오들오들 떨림 :</strong> 건강도 0~19%</span>
             </div>
         </div>
@@ -488,11 +491,11 @@
             <div style="font-weight: 800; color: #1a2a6c; margin-bottom: 10px; font-size: 14px;">🌙 야간 (밤 12시 ~ 오전 6시)</div>
             
             <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
-                <img src="https://yuna1120.github.io/cnumedication.com/hakdungi_sleep.mp4" style="width:40px; height:40px; object-fit:contain; border-radius:8px;">
+                <video src="https://yuna1120.github.io/cnumedication.com/hakdungi_sleep.mp4" autoplay loop muted playsinline style="width:40px; height:40px; object-fit:contain; border-radius:8px; mix-blend-mode: multiply;"></video>
                 <span style="font-size:13px;"><strong>평범한 꿀잠 :</strong> 건강도 50~100%</span>
             </div>
             <div style="display: flex; align-items: center; gap: 12px;">
-                <img src="https://yuna1120.github.io/cnumedication.com/hakdungi_sleep_angry.mp4" style="width:40px; height:40px; object-fit:contain; border-radius:8px;">
+                <video src="https://yuna1120.github.io/cnumedication.com/hakdungi_sleep_angry.mp4" autoplay loop muted playsinline style="width:40px; height:40px; object-fit:contain; border-radius:8px; mix-blend-mode: multiply;"></video>
                 <span style="font-size:13px;"><strong>화난 꿀잠 :</strong> 건강도 0~49%</span>
             </div>
         </div>
@@ -507,9 +510,6 @@
     const part3 = "6Yu0lpo1w1hnKED6U";
     const GEMINI_API_KEY = part1 + part2 + part3;
 
-    // ────────────────────────────────────────────
-    //  데이터
-    // ────────────────────────────────────────────
     const slotMeta = {
         morning: { name: '아침',  icon: '🌅', time: '오전 08:00', timeLabel: '아침 식후' },
         lunch:   { name: '점심',  icon: '☀️', time: '오후 01:00', timeLabel: '점심 식후' },
@@ -588,9 +588,6 @@
             </div>`
     };
 
-    // ────────────────────────────────────────────
-    //  상태 및 주간 복약 트래커 로직
-    // ────────────────────────────────────────────
     let checkedSlots = { morning: false, lunch: false, dinner: false };
     let activeSlot   = 'morning';
     let pendingSlot  = null;
@@ -600,7 +597,6 @@
     let todayIndex = new Date().getDay() === 0 ? 6 : new Date().getDay() - 1; 
     let weeklyHistory = Array.from({length: 7}, () => ({ morning: null, lunch: null, dinner: null }));
 
-    // 날짜 포맷 함수 (O월 O일 요일)
     function getFormattedDate(dateObj) {
         const m = dateObj.getMonth() + 1;
         const d = dateObj.getDate();
@@ -675,7 +671,8 @@
 
         let imgEl = document.getElementById('hakdungiImg');
         const h = new Date().getHours();
-
+        
+        // ★ 수정 3: 자바스크립트에서 src 속성을 바꾼 후 영상을 다시 재생하도록 설정 ★
         if (h >= 0 && h < 6) {
             if (healthPercent >= 50) imgEl.src = 'https://yuna1120.github.io/cnumedication.com/hakdungi_sleep.mp4';
             else imgEl.src = 'https://yuna1120.github.io/cnumedication.com/hakdungi_sleep_angry.mp4';
@@ -685,6 +682,11 @@
             else if (healthPercent >= 40) imgEl.src = 'https://yuna1120.github.io/cnumedication.com/hakdungi_angry.mp4';
             else if (healthPercent >= 20) imgEl.src = 'https://yuna1120.github.io/cnumedication.com/hakdungi_cry.mp4';
             else imgEl.src = 'https://yuna1120.github.io/cnumedication.com/hakdungi_shiver.mp4';
+        }
+        
+        // 영상 링크가 바뀌면 자동으로 다시 재생되도록 명령
+        if(imgEl.play) {
+            imgEl.play().catch(e => {});
         }
     }
 
@@ -896,21 +898,18 @@
     function updateTime() {
         const now = new Date();
         const timeStr = now.toLocaleTimeString('ko-KR', { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' });
-        const dateStr = getFormattedDate(now); // O월 O일 (요일)
+        const dateStr = getFormattedDate(now); 
 
-        // 1. 대시보드 시계 (아이콘 + 날짜 + 시간)
         const clockEl = document.getElementById('clock');
         if (clockEl) {
             clockEl.innerHTML = `<i class="fa-regular fa-calendar-check"></i> ${dateStr} ${timeStr}`;
         }
         
-        // 2. 대시보드 카드 타이틀 업데이트 
         const cardLabelEl = document.getElementById('cardLabelText');
         if (cardLabelEl && Object.values(checkedSlots).filter(Boolean).length < 3) {
             cardLabelEl.innerText = `${dateStr} 복약 현황`;
         }
 
-        // 3. 홈 화면 날짜/시간 바
         const homeDateEl = document.getElementById('homeDateTime');
         if (homeDateEl) {
             homeDateEl.querySelector('span').innerText = `${dateStr} ${timeStr}`;
@@ -920,7 +919,6 @@
     setInterval(updateTime, 1000); updateTime();
     checkTimeAndShowRow(); 
 
-    // 챗봇 엔진
     const chatInput = document.getElementById('chatInput');
     const micBtn    = document.getElementById('micBtn');
     let isRecording = false, recognition = null;
