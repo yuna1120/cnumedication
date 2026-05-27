@@ -159,7 +159,7 @@
         .med-extra { max-height: 0; overflow: hidden; opacity: 0; transition: max-height 0.4s ease-in-out, opacity 0.3s ease, margin-top 0.3s; }
         .med-detail.open .med-extra { max-height: 1200px; opacity: 1; margin-top: 15px; padding-top: 15px; border-top: 1px dashed #cbd5e1; }
         
-        /* ★ 다중 이미지 배치용 Grid 시스템 추가 */
+        /* 다중 이미지 배치용 Grid 시스템 */
         .med-photos-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 5px; }
         .med-photo-item { display: flex; flex-direction: column; align-items: center; background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.02); }
         .med-photo-item img { width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: 8px; }
@@ -284,13 +284,15 @@
                     <button><i class="fa-solid fa-child" style="font-size:16px;"></i> 자녀등록</button>
                 </div>
             </div>
+            
             <div class="section-title">내 일정</div>
             <div class="schedule-box-dark">
                 <div class="s-date" id="scheduleDate">계산 중...</div>
                 <div class="s-time">14:30</div>
-                <div class="s-dept">알레르기내과 | 본관 1층</div>
+                <div class="s-dept">재활의학과 | 1동 1층</div>
                 <div class="s-links"><span>진료내역조회</span><span class="divider">|</span><span>진료비결제</span></div>
             </div>
+            
             <div class="fav-header">
                 <div class="fav-header-texts">
                     <div class="fav-title">나의 즐겨찾기</div>
@@ -616,7 +618,6 @@
     const part3 = "6Yu0lpo1w1hnKED6U";
     const GEMINI_API_KEY = part1 + part2 + part3;
 
-    // ★ 나이 변수: 이 값을 바꾸면 챗봇의 말투가 실시간으로 소아/젊은층/어르신 등으로 자동 변환됩니다.
     let patientAge = 60;
 
     const slotMeta = {
@@ -625,12 +626,15 @@
         dinner:  { name: '저녁',  icon: '🌙', time: '오후 07:00', timeLabel: '저녁 식후' }
     };
 
-    // ★ 다중 약물 사진 배열 구조 적용
+    // ★ [데이터 변경] 엑셀 요청사항 반영: 케이캡정 사진 2개 포함, 타 약물도 동일하게 여러 사진 사용 가능하도록 설정
     const medHistory = {
         morning: [
-            { icon: 'fa-solid fa-shield', color: '#10b981', name: '케이캡정 (위산분비억제제)', type: '아침 식전/식후', desc: '위산을 조절하여 속쓰림을 예방합니다.', imgs: [{name:'케이캡정', file:'side_kcab.png'}] },
+            // 케이캡 사진 2개 추가된 부분 (예: 용량이나 앞/뒷면)
+            { icon: 'fa-solid fa-shield', color: '#10b981', name: '케이캡정 (위산분비억제제)', type: '아침 식전/식후', desc: '위산을 조절하여 속쓰림을 예방합니다.', imgs: [{name:'케이캡정 50mg', file:'kcab_50.png'}, {name:'케이캡정 25mg', file:'kcab_25.png'}] },
             { icon: 'fa-solid fa-heart', color: '#ef4444', name: '리바로 (고지혈증약)', type: '아침 식후', desc: '콜레스테롤 수치를 조절합니다.', imgs: [{name:'리바로정', file:'side_livaro.png'}] },
+            // 여러 사진을 올릴 수 있게 만들어진 다중 배열 예시
             { icon: 'fa-solid fa-droplet', color: '#f59e0b', name: '당뇨약 복합군', type: '아침 식후', desc: '혈당을 안전하게 낮춰줍니다.', imgs: [{name:'자디앙정', file:'side_jadiance.png'}, {name:'트라젠타정', file:'side_trajenta.png'}, {name:'메트포르민', file:'side_metformin.png'}, {name:'유글렉스정', file:'side_euglucon.png'}] },
+            // 다른 약물들 역시 필요시 다중 이미지 지원
             { icon: 'fa-solid fa-heart-pulse', color: '#ef4444', name: '노바스크 (혈압약)', type: '아침 식후', desc: '혈압을 안정적으로 유지합니다.', imgs: [{name:'노바스크', file:'side_novasc.png'}] },
             { icon: 'fa-solid fa-toilet', color: '#6366f1', name: '방광·전립선 조절약', type: '아침 식후', desc: '편안한 배뇨 활동을 돕습니다.', imgs: [{name:'베시케어', file:'side_vesicare.png'}, {name:'베타미가', file:'side_betmiga.png'}, {name:'하루날디', file:'side_harunal.png'}] },
             { icon: 'fa-solid fa-flask', color: '#8b5cf6', name: '큐팜 XR·케프라액 (항경련제)', type: '아침 식후', desc: '신경을 안정시켜 경련을 예방합니다.', imgs: [{name:'큐팜 XR', file:'side_qpam.png'}, {name:'케프라액', file:'side_keppra.png'}] },
@@ -653,7 +657,6 @@
         ]
     };
 
-    // ★ 가이드라인 다중 이미지 그리드 HTML 생성
     function generateMedCard(item) {
         let gridHTML = `<div class="med-photos-grid">`;
         item.imgs.forEach(img => {
@@ -681,10 +684,9 @@
     const weekDays = ['월', '화', '수', '목', '금', '토', '일'];
     let todayIndex = new Date().getDay() === 0 ? 6 : new Date().getDay() - 1; 
     
-    // ★ 과거 날짜는 기본적으로 완벽 복용(파란 체크 true)으로 설정
     let weeklyHistory = Array.from({length: 7}, (_, i) => {
         if (i < todayIndex) return { morning: true, lunch: true, dinner: true };
-        return { morning: null, lunch: null, dinner: null }; // 오늘 및 미래는 대기(null)
+        return { morning: null, lunch: null, dinner: null };
     });
 
     function getFormattedDate(dateObj) {
@@ -717,7 +719,6 @@
         
         ['mRow','lRow','dRow'].forEach(id => document.getElementById(id).style.display = 'none');
 
-        // ★ 안 눌렀을 때 강제 노란색(false)으로 변경하지 않고 대기(회색) 유지
         if (h >= 5 && h < 11) { 
             activeSlot = 'morning'; 
         } else if (h >= 11 && h < 17) { 
@@ -751,7 +752,6 @@
         updateWeeklyTracker(); 
     }
 
-    // ★ 단 하루라도 지각/미복용(false)시 노란 울상, 3번 모두 성공(true)시만 파란 체크
     function updateWeeklyTracker() {
         let successCount = 0; 
         let html = '';
@@ -830,7 +830,6 @@
         pendingSlot = null;
     }
 
-    // ★ 30분 기한 내 복약 유무 체킹 로직
     function completeTake() {
         if (!pendingSlot) return;
         const slot = pendingSlot;
@@ -937,7 +936,6 @@
 
     function viewHistory(openSlot) { renderHistoryView(openSlot); }
     
-    // ★ 복약 기록창(히스토리) 내부에도 다중 이미지 그리드가 렌더링되도록 업데이트 
     function renderHistoryView(openSlot) {
         const slots = ['morning','lunch','dinner'];
         let tabsHTML = `<div class="history-tab-wrap">`;
@@ -1115,7 +1113,6 @@
         }
     }
     
-    // ★ [지능형 동적 처리] 나이(patientAge)에 따라 챗봇 말투가 실시간 자동 변환되는 로직
     async function getGeminiResponse(text) {
         const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent?key=${GEMINI_API_KEY}`;
         
