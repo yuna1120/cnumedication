@@ -28,7 +28,6 @@
         .top-logo-area .kr-title { font-size: 20px; font-weight: 900; color: #1a2a6c; display: flex; align-items: center; gap: 8px; letter-spacing: -0.5px; }
         .top-logo-area .en-title { font-size: 9px; color: #64748b; margin-top: 3px; font-weight: 500; letter-spacing: 0.5px; padding-left: 2px; }
         
-        /* ★ 홈 화면용 실시간 날짜/시간 바 ★ */
         .home-datetime { background: #eef2ff; border: 1px solid #c7d2fe; padding: 12px 15px; border-radius: 12px; font-size: 13.5px; font-weight: 800; color: #1a2a6c; display: flex; align-items: center; justify-content: center; margin-bottom: 25px; box-shadow: 0 4px 10px rgba(26,42,108,0.05); }
         .home-datetime i { margin-right: 8px; font-size: 15px; }
 
@@ -299,7 +298,7 @@
             
             <div class="weekly-tracker">
                 <div class="tracker-left">
-                    <img src="hakdungi_normal.png" id="hakdungiImg" alt="학둥이 상태">
+                    <img src="hakdungi_normal.mp4" id="hakdungiImg" alt="학둥이 상태">
                     <div class="info-badge" onclick="openHakdungiInfo()">
                         <i class="fa-solid fa-circle-info"></i> 표정 안내
                     </div>
@@ -408,7 +407,7 @@
             <i class="fa-solid fa-chevron-left" onclick="leaveChatbot()"></i>
             <div class="robot-icon-wrap">
                 <video src="hakdungi.mp4" autoplay loop muted playsinline
-                    style="width:100%; height:100%; object-fit:cover; border-radius:50%; clip-path:circle(50%);"></video>
+                    style="width:100%; height:100%; object-fit:cover; border-radius:50%; clip-path:circle(50%); mix-blend-mode: multiply;"></video>
             </div>
             <div>
                 <h2>AI 학둥이</h2>
@@ -429,7 +428,7 @@
     <div class="global-fab" onclick="goToChatbot()">
         <div class="fab-badge">N</div>
         <video src="hakdungi.mp4" autoplay loop muted playsinline
-            style="width:60px; height:60px; object-fit:cover; border-radius:50%; clip-path:circle(50%);"></video>
+            style="width:60px; height:60px; object-fit:cover; border-radius:50%; clip-path:circle(50%); mix-blend-mode: multiply;"></video>
         <span>학둥이</span>
     </div>
 
@@ -464,23 +463,23 @@
             <div style="font-weight: 800; color: #1a2a6c; margin-bottom: 10px; font-size: 14px;">☀️ 주간 (오전 6시 ~ 밤 12시)</div>
             
             <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
-                <img src="hakdungi_heart.gif" style="width:40px; height:40px; object-fit:contain; border-radius:8px;">
+                <img src="hakdungi_heart.mp4" style="width:40px; height:40px; object-fit:contain; border-radius:8px;">
                 <span style="font-size:13px;"><strong>하트 뿅뿅 :</strong> 건강도 80~100%</span>
             </div>
             <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
-                <img src="hakdungi_normal.png" style="width:40px; height:40px; object-fit:contain; border-radius:8px;">
+                <img src="hakdungi_normal.mp4" style="width:40px; height:40px; object-fit:contain; border-radius:8px;">
                 <span style="font-size:13px;"><strong>기분 최고 :</strong> 건강도 60~79%</span>
             </div>
             <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
-                <img src="hakdungi_angry.gif" style="width:40px; height:40px; object-fit:contain; border-radius:8px;">
+                <img src="hakdungi_angry.mp4" style="width:40px; height:40px; object-fit:contain; border-radius:8px;">
                 <span style="font-size:13px;"><strong>버럭! 화남 :</strong> 건강도 40~59%</span>
             </div>
             <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
-                <img src="hakdungi_cry.gif" style="width:40px; height:40px; object-fit:contain; border-radius:8px;">
+                <img src="hakdungi_cry.mp4" style="width:40px; height:40px; object-fit:contain; border-radius:8px;">
                 <span style="font-size:13px;"><strong>엉엉 눈물 :</strong> 건강도 20~39%</span>
             </div>
             <div style="display: flex; align-items: center; gap: 12px;">
-                <img src="hakdungi_shiver.gif" style="width:40px; height:40px; object-fit:contain; border-radius:8px;">
+                <img src="hakdungi_shiver.mp4" style="width:40px; height:40px; object-fit:contain; border-radius:8px;">
                 <span style="font-size:13px;"><strong>오들오들 떨림 :</strong> 건강도 0~19%</span>
             </div>
         </div>
@@ -489,11 +488,11 @@
             <div style="font-weight: 800; color: #1a2a6c; margin-bottom: 10px; font-size: 14px;">🌙 야간 (밤 12시 ~ 오전 6시)</div>
             
             <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
-                <img src="hakdungi_sleep.png" style="width:40px; height:40px; object-fit:contain; border-radius:8px;">
+                <img src="hakdungi_sleep.mp4" style="width:40px; height:40px; object-fit:contain; border-radius:8px;">
                 <span style="font-size:13px;"><strong>평범한 꿀잠 :</strong> 건강도 50~100%</span>
             </div>
             <div style="display: flex; align-items: center; gap: 12px;">
-                <img src="hakdungi_sleep_angry.png" style="width:40px; height:40px; object-fit:contain; border-radius:8px;">
+                <img src="hakdungi_sleep_angry.mp4" style="width:40px; height:40px; object-fit:contain; border-radius:8px;">
                 <span style="font-size:13px;"><strong>화난 꿀잠 :</strong> 건강도 0~49%</span>
             </div>
         </div>
@@ -678,14 +677,14 @@
         const h = new Date().getHours();
 
         if (h >= 0 && h < 6) {
-            if (healthPercent >= 50) imgEl.src = 'hakdungi_sleep.png';
-            else imgEl.src = 'hakdungi_sleep_angry.png';
+            if (healthPercent >= 50) imgEl.src = 'hakdungi_sleep.mp4';
+            else imgEl.src = 'hakdungi_sleep_angry.mp4';
         } else {
-            if (healthPercent >= 80) imgEl.src = 'hakdungi_heart.gif';
-            else if (healthPercent >= 60) imgEl.src = 'hakdungi_normal.png';
-            else if (healthPercent >= 40) imgEl.src = 'hakdungi_angry.gif';
-            else if (healthPercent >= 20) imgEl.src = 'hakdungi_cry.gif';
-            else imgEl.src = 'hakdungi_shiver.gif';
+            if (healthPercent >= 80) imgEl.src = 'hakdungi_heart.mp4';
+            else if (healthPercent >= 60) imgEl.src = 'hakdungi_normal.mp4';
+            else if (healthPercent >= 40) imgEl.src = 'hakdungi_angry.mp4';
+            else if (healthPercent >= 20) imgEl.src = 'hakdungi_cry.mp4';
+            else imgEl.src = 'hakdungi_shiver.mp4';
         }
     }
 
@@ -894,7 +893,6 @@
         setTimeout(() => document.getElementById('dashboardContent').scrollTo({ top: el.offsetTop - 50, behavior: 'smooth' }), 150);
     }
     
-    // ★ [수정됨] 실시간 시간 업데이트 로직에 날짜 적용 ★
     function updateTime() {
         const now = new Date();
         const timeStr = now.toLocaleTimeString('ko-KR', { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' });
