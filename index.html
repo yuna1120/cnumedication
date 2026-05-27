@@ -28,8 +28,10 @@
         .home-top-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 25px; }
         
         .top-logo-area { display: flex; align-items: center; gap: 10px; }
-        .hospital-custom-img { width: 38px; height: 38px; border-radius: 8px; object-fit: cover; border: 1px dashed #cbd5e1; background: #f1f5f9; }
+        /* ★ 로고 테두리를 없앴습니다 (border: none) */
+        .hospital-custom-img { width: 38px; height: 38px; border-radius: 8px; object-fit: cover; border: none; background: #f1f5f9; }
         .logo-text-side { display: flex; flex-direction: column; align-items: flex-start; }
+        /* ★ 전남대병원 앞 h아이콘을 지웠습니다 */
         .top-logo-area .kr-title { font-size: 19px; font-weight: 900; color: #1a2a6c; display: flex; align-items: center; gap: 6px; letter-spacing: -0.5px; }
         .top-logo-area .en-title { font-size: 8.5px; color: #64748b; margin-top: 3px; font-weight: 500; letter-spacing: 0.5px; padding-left: 2px; }
         
@@ -259,7 +261,7 @@
                 <div class="top-logo-area">
                     <img src="hospital_logo.png" alt="사진" class="hospital-custom-img" onerror="this.style.display='none';">
                     <div class="logo-text-side">
-                        <div class="kr-title"><i class="fa-solid fa-square-h" style="color:#22c55e;"></i> 전남대학교병원</div>
+                        <div class="kr-title">전남대학교병원</div>
                         <div class="en-title">CHONNAM NATIONAL UNIVERSITY HOSPITAL</div>
                     </div>
                 </div>
@@ -617,9 +619,11 @@
         dinner:  { name: '저녁',  icon: '🌙', time: '오후 07:00', timeLabel: '저녁 식후' }
     };
 
+    // ★ 제공해주신 약 목록을 업데이트했습니다.
     const medHistory = {
         morning: [
-            { icon: 'fa-solid fa-shield', color: '#10b981', name: '케이캡정·구강붕해정 (위산분비억제제)', type: '아침 식전/식후' },
+            // ★ '케이캡정·구강붕해정'에서 '케이캡정'으로 바꾸고, 쉬운 용어를 붙였습니다.
+            { icon: 'fa-solid fa-shield', color: '#10b981', name: '케이캡정 (ODT 포함) (위산분비억제제)', type: '아침 식전/식후' },
             { icon: 'fa-solid fa-heart', color: '#ef4444', name: '리바로 (고지혈증약)', type: '아침 식후' },
             { icon: 'fa-solid fa-droplet', color: '#f59e0b', name: '자디앙·트라젠타·메트포르민·유글렉스 (당뇨약)', type: '아침 식후' },
             { icon: 'fa-solid fa-heart-pulse', color: '#ef4444', name: '노바스크 (혈압약)', type: '아침 식후' },
@@ -660,7 +664,8 @@
 
     const medGuides = {
         morning: 
-            generateMedCard('케이캡정·구강붕해정 (위산분비억제제)', '위산을 조절하여 속쓰림을 예방합니다.', '#10b981') +
+            // ★ 하단 설명창 제목에서도 '구강붕해정'을 뺐습니다.
+            generateMedCard('케이캡정 (ODT 포함) (위산분비억제제)', '위산을 조절하여 속쓰림을 예방합니다.', '#10b981') +
             generateMedCard('리바로정 (고지혈증약)', '혈중 콜레스테롤 수치를 낮추어 혈관을 맑게 합니다.', '#ef4444') +
             generateMedCard('자디앙·트라젠타·메트포르민·유글렉스 (당뇨약)', '혈당 수치를 안전하게 조절해 줍니다.', '#f59e0b') +
             generateMedCard('노바스크정 (혈압약)', '혈압을 정상 수치로 유지해 줍니다.', '#ef4444') +
@@ -705,10 +710,9 @@
         return `${m}월 ${d}일 (${day})`;
     }
 
-    // ★ 현재 접속일 기준 무조건 '내일' 날짜를 내 일정에 표시하는 로직
     function setTomorrowSchedule() {
         const tomorrow = new Date();
-        tomorrow.setDate(tomorrow.getDate() + 1); // 하루 뒤로 미룸
+        tomorrow.setDate(tomorrow.getDate() + 1); 
 
         const y = tomorrow.getFullYear();
         const m = String(tomorrow.getMonth() + 1).padStart(2, '0');
@@ -886,17 +890,17 @@
     }
 
     function applyDoneUI(slot) {
-        const rowEl    = document.getElementById(slot === 'morning' ? 'mRow' : slot === 'lunch' ? 'lRow' : 'dRow');
-        const infoEl   = document.getElementById(slot + 'Info');
-        const titleEl  = document.getElementById(slot + 'Title');
-        const takeBtn  = document.getElementById(slot + 'TakeBtn');
+        const rowEl = document.getElementById(slot === 'morning' ? 'mRow' : slot === 'lunch' ? 'lRow' : 'dRow');
+        const infoEl = document.getElementById(slot + 'Info');
+        const titleEl = document.getElementById(slot + 'Title');
+        const takeBtn = document.getElementById(slot + 'TakeBtn');
         const doneBadge = document.getElementById(slot + 'DoneBadge');
-        const histBtn  = document.getElementById(slot + 'HistoryBtn');
+        const histBtn = document.getElementById(slot + 'HistoryBtn');
 
         rowEl.classList.add('is-done');
         infoEl.classList.add('faded');
         titleEl.classList.add('struck');
-        takeBtn.style.display  = 'none';
+        takeBtn.style.display = 'none';
         doneBadge.classList.add('visible');
         histBtn.classList.add('visible');
 
@@ -908,7 +912,7 @@
         const score = Object.values(checkedSlots).filter(Boolean).length;
         document.getElementById('progressBar').style.width = Math.round((score / 3) * 100) + '%';
 
-        const badge   = document.getElementById('statusBadge');
+        const badge = document.getElementById('statusBadge');
         const display = document.getElementById('mainTimeDisplay');
 
         if (score === 3) {
@@ -947,7 +951,7 @@
         const slots = ['morning','lunch','dinner'];
         let tabsHTML = `<div class="history-tab-wrap">`;
         slots.forEach(s => {
-            const isDone   = checkedSlots[s];
+            const isDone = checkedSlots[s];
             const isActive = s === openSlot;
             tabsHTML += `<div class="history-tab ${isDone?'completed':''} ${isActive?'active':''}"
                 onclick="renderHistoryView('${s}')">
@@ -957,7 +961,7 @@
         tabsHTML += `</div>`;
 
         const isDone = checkedSlots[openSlot];
-        const meta   = slotMeta[openSlot];
+        const meta = slotMeta[openSlot];
         let cardHTML = '';
 
         if (isDone) {
@@ -1034,8 +1038,8 @@
         document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
         if (id) document.getElementById(id)?.classList.add('active');
     }
-    function goToHome()       { document.getElementById('appFrame').className = 'app-frame'; setNavActive('nav-home'); }
-    function goToInpatient()  { document.getElementById('appFrame').className = 'app-frame show-inpatient'; setNavActive('nav-inpatient'); }
+    function goToHome() { document.getElementById('appFrame').className = 'app-frame'; setNavActive('nav-home'); }
+    function goToInpatient() { document.getElementById('appFrame').className = 'app-frame show-inpatient'; setNavActive('nav-inpatient'); }
     function goToPrescription() {
         document.getElementById('appFrame').className = 'app-frame show-meddashboard';
         setNavActive('nav-inpatient');
@@ -1083,21 +1087,21 @@
     }
     
     setInterval(updateTime, 1000); updateTime();
-    setTomorrowSchedule(); // 내일 일정 날짜 초기화
+    setTomorrowSchedule(); 
     checkTimeAndShowRow(); 
 
     const chatInput = document.getElementById('chatInput');
-    const micBtn    = document.getElementById('micBtn');
+    const micBtn = document.getElementById('micBtn');
     let isRecording = false, recognition = null;
 
     if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
         const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
         recognition = new SR();
         recognition.continuous = false; recognition.interimResults = false; recognition.lang = 'ko-KR';
-        recognition.onstart  = () => { isRecording = true;  micBtn.classList.add('recording');    chatInput.placeholder = '듣고 있습니다...'; };
-        recognition.onerror  = () => stopRecordingState();
-        recognition.onend    = () => stopRecordingState();
-        recognition.onresult = e  => { chatInput.value = e.results[0][0].transcript; setTimeout(sendMessage, 500); };
+        recognition.onstart = () => { isRecording = true; micBtn.classList.add('recording'); chatInput.placeholder = '듣고 있습니다...'; };
+        recognition.onerror = () => stopRecordingState();
+        recognition.onend = () => stopRecordingState();
+        recognition.onresult = e => { chatInput.value = e.results[0][0].transcript; setTimeout(sendMessage, 500); };
     }
     function startDictation() {
         if (!recognition) { alert('이 브라우저는 음성 인식을 지원하지 않습니다.'); return; }
@@ -1127,12 +1131,12 @@
     }
     
     async function getGeminiResponse(text) {
-        const url  = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent?key=${GEMINI_API_KEY}`;
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent?key=${GEMINI_API_KEY}`;
         const body = {
             systemInstruction: { parts: [{ text: "당신은 전남대병원의 어르신 전용 AI 복약 비서입니다. 환자의 질문에만 직접적으로 대답하세요. 전문 의학 용어는 피하고, 어르신이 이해하기 쉽게 2~3문장 이내로 다정하고 따뜻하게 대답해주세요. 절대로 생각하는 과정이나 영어, 기호 등을 화면에 출력하지 마세요." }] },
             contents: [{ role: "user", parts: [{ text: text }] }]
         };
-        const res  = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+        const res = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
         const data = await res.json();
         if (!res.ok) throw new Error(data.error?.message || '알 수 없는 오류');
         return data.candidates[0].content.parts[0].text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').trim();
