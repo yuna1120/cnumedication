@@ -24,12 +24,18 @@
 
         /* PAGE 0 */
         .home-content { flex: 1; overflow-y: auto; padding: 25px 20px 100px; }
-        .top-logo-area { display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 15px; }
-        .top-logo-area .kr-title { font-size: 20px; font-weight: 900; color: #1a2a6c; display: flex; align-items: center; gap: 8px; letter-spacing: -0.5px; }
-        .top-logo-area .en-title { font-size: 9px; color: #64748b; margin-top: 3px; font-weight: 500; letter-spacing: 0.5px; padding-left: 2px; }
         
-        .home-datetime { background: #eef2ff; border: 1px solid #c7d2fe; padding: 12px 15px; border-radius: 12px; font-size: 13.5px; font-weight: 800; color: #1a2a6c; display: flex; align-items: center; justify-content: center; margin-bottom: 25px; box-shadow: 0 4px 10px rgba(26,42,108,0.05); }
-        .home-datetime i { margin-right: 8px; font-size: 15px; }
+        /* ★ 홈 상단 헤더 래퍼 (로고와 날짜를 나란히 배치) */
+        .home-top-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 25px; }
+        
+        .top-logo-area { display: flex; flex-direction: column; align-items: flex-start; }
+        .top-logo-area .kr-title { font-size: 19px; font-weight: 900; color: #1a2a6c; display: flex; align-items: center; gap: 8px; letter-spacing: -0.5px; }
+        .top-logo-area .en-title { font-size: 8.5px; color: #64748b; margin-top: 3px; font-weight: 500; letter-spacing: 0.5px; padding-left: 2px; }
+        
+        /* ★ 홈 화면 콤팩트 날짜/시간 디자인 */
+        .home-datetime-compact { background: #eef2ff; border-radius: 10px; padding: 6px 10px; display: flex; flex-direction: column; align-items: flex-end; justify-content: center; gap: 2px; box-shadow: 0 2px 8px rgba(26,42,108,0.05); }
+        .home-datetime-compact .d-date { font-size: 10px; font-weight: 700; color: #64748b; }
+        .home-datetime-compact .d-time { font-size: 13.5px; font-weight: 900; color: #1a2a6c; letter-spacing: 0.5px; }
 
         .patient-box-light { background: #eef2ff; border-radius: 12px; padding: 20px 18px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
         .patient-box-light .left-info { display: flex; flex-direction: column; gap: 5px; }
@@ -73,17 +79,21 @@
         .highlight-menu { background: #f8fafc; font-weight: bold; }
 
         /* PAGE 2 */
-        .header-white { background: #fff; padding: 20px 25px 18px; display: flex; justify-content: space-between; align-items: flex-start; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .header-white { background: #fff; padding: 20px 25px 18px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
         .patient-info h2 { font-size: 22px; margin: 0 0 4px 0; color: #1e293b; font-weight: 900; }
         .patient-info p { margin: 0; color: #64748b; font-size: 13px; font-weight: 500; }
-        .current-clock { font-size: 12px; color: #1a2a6c; font-weight: 800; background: #eef2ff; padding: 6px 12px; border-radius: 20px; border: 1px solid #c7d2fe; display: flex; align-items: center; gap: 5px; }
+        
+        /* ★ 가독성이 극대화된 대시보드 시계 디자인 */
+        .current-clock { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+        .current-clock .clock-date { font-size: 11px; font-weight: 800; color: #64748b; background: #f1f5f9; padding: 4px 10px; border-radius: 8px; border: 1px solid #e2e8f0; display: flex; align-items: center; gap: 5px; }
+        .current-clock .clock-time { font-size: 18px; font-weight: 900; color: #1a2a6c; letter-spacing: 0.5px; margin-right: 2px; }
+
         .dashboard-content { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; padding-bottom: 110px; scroll-behavior: smooth; }
         
         /* 주간 복약 트래커 */
         .weekly-tracker { background: #f8fafc; border: 2.5px solid #1a2a6c; border-radius: 20px; padding: 18px; display: flex; align-items: center; gap: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
         .tracker-left { width: 85px; flex-shrink: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 8px; background: transparent; border: none; overflow: visible; }
         
-        /* ★ 배경을 억지로 지우는 대신, 하얀색 동그라미 액자 형태로 깔끔하게 연출! */
         .tracker-vid-wrap { width: 75px; height: 75px; background: #fff; border-radius: 50%; overflow: hidden; box-shadow: 0 3px 8px rgba(0,0,0,0.08); display: flex; justify-content: center; align-items: center; border: 2px solid #e2e8f0; }
         .tracker-vid-wrap video { width: 100%; height: 100%; object-fit: cover; }
         
@@ -214,7 +224,7 @@
         .sheet-btn.confirm:active { background: #0f1d4a; }
         @keyframes fadeIn { from{opacity:0} to{opacity:1} }
         
-        /* ★ 새롭게 디자인된 표정 안내 카드 스타일 ★ */
+        /* 표정 안내 카드 스타일 */
         .guide-section-title { font-weight: 900; color: #1e293b; font-size: 15px; margin: 20px 0 12px; padding-left: 4px; border-left: 4px solid #1a2a6c; display: flex; align-items: center; gap: 6px; }
         .guide-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 14px; display: flex; align-items: center; gap: 15px; margin-bottom: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); }
         .guide-vid-circle { width: 52px; height: 52px; background: #fff; border-radius: 50%; overflow: hidden; flex-shrink: 0; border: 2px solid #f1f5f9; }
@@ -229,13 +239,16 @@
 
     <div class="page-container" id="page-home">
         <div class="home-content">
-            <div class="top-logo-area">
-                <div class="kr-title"><i class="fa-solid fa-square-h" style="color:#22c55e;"></i> 전남대학교병원</div>
-                <div class="en-title">CHONNAM NATIONAL UNIVERSITY HOSPITAL</div>
-            </div>
             
-            <div class="home-datetime" id="homeDateTime">
-                <i class="fa-regular fa-clock"></i> <span>불러오는 중...</span>
+            <div class="home-top-header">
+                <div class="top-logo-area">
+                    <div class="kr-title"><i class="fa-solid fa-square-h" style="color:#22c55e;"></i> 전남대학교병원</div>
+                    <div class="en-title">CHONNAM NATIONAL UNIVERSITY HOSPITAL</div>
+                </div>
+                
+                <div class="home-datetime-compact" id="homeDateTime">
+                    <span>...</span>
+                </div>
             </div>
 
             <div class="patient-box-light">
@@ -304,7 +317,9 @@
                 </h2>
                 <p>8W12F 병동 | 입원 4일차</p>
             </div>
-            <div class="current-clock" id="clock"><i class="fa-regular fa-calendar-check"></i> 00/00 (월) 00:00:00</div>
+            
+            <div class="current-clock" id="clock">
+                </div>
         </div>
 
         <div class="dashboard-content" id="dashboardContent">
@@ -941,14 +956,19 @@
         setTimeout(() => document.getElementById('dashboardContent').scrollTo({ top: el.offsetTop - 50, behavior: 'smooth' }), 150);
     }
     
+    // ★ 시간 업데이트 로직도 새 디자인에 맞게 변경 ★
     function updateTime() {
         const now = new Date();
         const timeStr = now.toLocaleTimeString('ko-KR', { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' });
         const dateStr = getFormattedDate(now); 
 
+        // 1. 입원화면(대시보드) 시계 업데이트
         const clockEl = document.getElementById('clock');
         if (clockEl) {
-            clockEl.innerHTML = `<i class="fa-regular fa-calendar-check"></i> ${dateStr} ${timeStr}`;
+            clockEl.innerHTML = `
+                <div class="clock-date"><i class="fa-regular fa-calendar-check" style="color:#1a2a6c;"></i> ${dateStr}</div>
+                <div class="clock-time">${timeStr}</div>
+            `;
         }
         
         const cardLabelEl = document.getElementById('cardLabelText');
@@ -956,9 +976,13 @@
             cardLabelEl.innerText = `${dateStr} 복약 현황`;
         }
 
+        // 2. 홈화면 우측 상단 시계 업데이트
         const homeDateEl = document.getElementById('homeDateTime');
         if (homeDateEl) {
-            homeDateEl.querySelector('span').innerText = `${dateStr} ${timeStr}`;
+            homeDateEl.innerHTML = `
+                <div class="d-date">${dateStr}</div>
+                <div class="d-time">${timeStr}</div>
+            `;
         }
     }
     
