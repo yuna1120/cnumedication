@@ -127,7 +127,7 @@
         .title-text { font-size: 16px; font-weight: 800; transition: all 0.3s; }
         .title-text.struck { text-decoration: line-through; opacity: 0.6; }
 
-        /* 거대한 복용 확인 버튼 */
+        /* 상태 버튼들 */
         .action-right { display: flex; align-items: center; justify-content: flex-end; gap: 6px; }
         .take-btn { background: #fff; color: #1a2a6c; border: none; padding: 22px 10px; border-radius: 22px; font-weight: 900; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 6px 20px rgba(0,0,0,0.3); transition: all 0.2s; width: 160px; }
         .take-btn i { font-size: 22px; }
@@ -137,6 +137,10 @@
         .history-btn.visible { display: flex; }
         .done-badge { display: none; align-items: center; gap: 6px; background: rgba(0,184,148,0.25); border: 1.5px solid rgba(0,184,148,0.5); padding: 9px 14px; border-radius: 20px; font-size: 13px; font-weight: 900; color: #fff; }
         .done-badge.visible { display: flex; }
+        
+        /* ★ 새롭게 추가된 예정(미래) 뱃지 스타일 */
+        .future-badge { display: none; align-items: center; gap: 6px; background: rgba(0,0,0,0.2); padding: 10px 16px; border-radius: 20px; font-size: 13px; font-weight: 800; color: rgba(255,255,255,0.5); }
+        .future-badge.visible { display: flex; }
 
         /* 약물 가이드 박스 */
         .description-box { background: #fff; border-radius: 20px; padding: 20px; border: 1px solid #e2e8f0; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
@@ -150,13 +154,11 @@
         .med-detail.open .fa-chevron-down { transform: rotate(180deg); }
         .med-detail p.main-desc { font-size: 13px; color: #475569; line-height: 1.5; margin: 0; }
         
-        /* 사진 들어갈 공간 스타일 */
         .med-extra { max-height: 0; overflow: hidden; opacity: 0; transition: max-height 0.4s ease-in-out, opacity 0.3s ease, margin-top 0.3s; }
         .med-detail.open .med-extra { max-height: 800px; opacity: 1; margin-top: 15px; padding-top: 15px; border-top: 1px dashed #cbd5e1; }
         .photo-placeholder { background:#f1f5f9; padding:25px; text-align:center; border-radius:12px; border:2px dashed #cbd5e1; display:flex; flex-direction:column; align-items:center; gap:8px; }
         .photo-placeholder i { font-size:28px; color:#94a3b8; }
         .photo-placeholder span { font-size:12px; color:#64748b; font-weight:700; }
-        /* 나중에 이미지를 꽉 차게 예쁘게 보여주기 위한 클래스 (미리 작성) */
         .med-extra img { width: 100%; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
 
         /* 복용 기록 탭 */
@@ -356,7 +358,8 @@
                 </div>
 
                 <div class="inner-check-list">
-                    <div class="check-item-white" id="mRow" style="display:none;">
+                    
+                    <div class="check-item-white" id="mRow">
                         <div class="check-info-white" id="morningInfo">
                             <i class="slot-icon fa-solid fa-sun" style="color:#fcd34d;"></i>
                             <div>
@@ -368,6 +371,9 @@
                             <button class="take-btn" id="morningTakeBtn" onclick="confirmTake('morning')">
                                 <i class="fa-solid fa-check"></i> 복용 확인
                             </button>
+                            <div class="future-badge" id="morningFutureBadge">
+                                <i class="fa-solid fa-lock"></i> 예정
+                            </div>
                             <div class="done-badge" id="morningDoneBadge">
                                 <i class="fa-solid fa-circle-check"></i> 완료
                             </div>
@@ -377,7 +383,7 @@
                         </div>
                     </div>
 
-                    <div class="check-item-white" id="lRow" style="display:none;">
+                    <div class="check-item-white" id="lRow">
                         <div class="check-info-white" id="lunchInfo">
                             <i class="slot-icon fa-solid fa-cloud-sun" style="color:#fb923c;"></i>
                             <div>
@@ -389,6 +395,9 @@
                             <button class="take-btn" id="lunchTakeBtn" onclick="confirmTake('lunch')">
                                 <i class="fa-solid fa-check"></i> 복용 확인
                             </button>
+                            <div class="future-badge" id="lunchFutureBadge">
+                                <i class="fa-solid fa-lock"></i> 예정
+                            </div>
                             <div class="done-badge" id="lunchDoneBadge">
                                 <i class="fa-solid fa-circle-check"></i> 완료
                             </div>
@@ -398,7 +407,7 @@
                         </div>
                     </div>
 
-                    <div class="check-item-white" id="dRow" style="display:none;">
+                    <div class="check-item-white" id="dRow">
                         <div class="check-info-white" id="dinnerInfo">
                             <i class="slot-icon fa-solid fa-moon" style="color:#a5b4fc;"></i>
                             <div>
@@ -410,6 +419,9 @@
                             <button class="take-btn" id="dinnerTakeBtn" onclick="confirmTake('dinner')">
                                 <i class="fa-solid fa-check"></i> 복용 확인
                             </button>
+                            <div class="future-badge" id="dinnerFutureBadge">
+                                <i class="fa-solid fa-lock"></i> 예정
+                            </div>
                             <div class="done-badge" id="dinnerDoneBadge">
                                 <i class="fa-solid fa-circle-check"></i> 완료
                             </div>
@@ -418,6 +430,7 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
 
@@ -575,8 +588,6 @@
         dinner:  { name: '저녁',  icon: '🌙', time: '오후 07:00', timeLabel: '저녁 식후' }
     };
 
-    // ★ 약물 리스트 업데이트 완료
-    // 너무 많은 약이 나열되면 화면이 복잡해지므로 성격이 비슷한 약들은 하나로 깔끔하게 묶었습니다.
     const medHistory = {
         morning: [
             { icon: 'fa-solid fa-pills', color: '#1a2a6c', name: '아세트아미노펜 (해열진통제)', type: '아침 식후' },
@@ -603,8 +614,6 @@
         ]
     };
 
-    // ★ 안내문 템플릿 생성 함수 (약물명, 효능, 간략설명)
-    // 주석 처리된 <img> 태그에 나중에 실제 이미지 경로만 넣으시면 됩니다!
     function generateMedCard(name, desc, color) {
         return `
             <div class="med-detail" style="border-left-color:${color};" onclick="toggleDetail(this)">
@@ -661,31 +670,64 @@
         return `${m}월 ${d}일 (${day})`;
     }
 
+    // ★ 현재 시간에 맞춰 미래 시간대의 버튼을 막고 모든 행을 보여주는 핵심 로직
     function checkTimeAndShowRow() {
         const h = new Date().getHours();
-        ['mRow','lRow','dRow'].forEach(id => document.getElementById(id).style.display = 'none');
+        
+        let currentSlot = 'morning';
+        if (h >= 11 && h < 17) currentSlot = 'lunch';
+        else if (h >= 17 || h < 5) currentSlot = 'dinner';
+        
+        activeSlot = currentSlot;
 
         const display = document.getElementById('mainTimeDisplay');
         const score = Object.values(checkedSlots).filter(Boolean).length;
 
-        if (h >= 5 && h < 11) { 
-            activeSlot = 'morning'; 
-            document.getElementById('mRow').style.display = 'flex'; 
-            if (score < 3) display.innerText = '오전 08:00 (아침)';
-        }
-        else if (h >= 11 && h < 17) { 
-            activeSlot = 'lunch';   
-            document.getElementById('lRow').style.display = 'flex'; 
-            if (score < 3) display.innerText = '오후 01:00 (점심)';
-        }
-        else { 
-            activeSlot = 'dinner';  
-            document.getElementById('dRow').style.display = 'flex'; 
-            if (score < 3) display.innerText = '오후 07:00 (저녁)';
+        if (score < 3) {
+            if (activeSlot === 'morning') display.innerText = '오전 08:00 (아침)';
+            if (activeSlot === 'lunch') display.innerText = '오후 01:00 (점심)';
+            if (activeSlot === 'dinner') display.innerText = '오후 07:00 (저녁)';
+        } else {
+            display.innerText = '오늘 복약 모두 완료!';
         }
 
+        const slotIndex = { morning: 0, lunch: 1, dinner: 2 };
+
+        // 모든 행(아침, 점심, 저녁)을 무조건 표시합니다.
+        ['morning', 'lunch', 'dinner'].forEach(slot => {
+            const rowId = slot === 'morning' ? 'mRow' : slot === 'lunch' ? 'lRow' : 'dRow';
+            document.getElementById(rowId).style.display = 'flex';
+            
+            const takeBtn = document.getElementById(slot + 'TakeBtn');
+            const doneBadge = document.getElementById(slot + 'DoneBadge');
+            const histBtn = document.getElementById(slot + 'HistoryBtn');
+            const futureBadge = document.getElementById(slot + 'FutureBadge');
+            
+            if (checkedSlots[slot]) {
+                // 이미 먹은 약
+                applyDoneUI(slot);
+            } else {
+                // 안 먹은 약: 현재 시간과 비교하여 미래인지 과거/현재인지 판단
+                let isFuture = slotIndex[slot] > slotIndex[currentSlot];
+                
+                if (isFuture) {
+                    // 미래의 약 (버튼 숨기고 '예정' 뱃지 표시)
+                    takeBtn.style.display = 'none';
+                    doneBadge.classList.remove('visible');
+                    histBtn.classList.remove('visible');
+                    futureBadge.classList.add('visible');
+                } else {
+                    // 복용할 시간 (복용 확인 버튼 표시)
+                    takeBtn.style.display = 'flex';
+                    doneBadge.classList.remove('visible');
+                    histBtn.classList.remove('visible');
+                    futureBadge.classList.remove('visible');
+                }
+            }
+        });
+
+        // 하단 가이드 박스는 현재 진행 중인 시간대 위주로 띄워줍니다.
         if (checkedSlots[activeSlot]) {
-            applyDoneUI(activeSlot);
             renderEmptyGuide();
         } else {
             renderMedGuide(activeSlot);
@@ -808,6 +850,7 @@
         const takeBtn  = document.getElementById(slot + 'TakeBtn');
         const doneBadge = document.getElementById(slot + 'DoneBadge');
         const histBtn  = document.getElementById(slot + 'HistoryBtn');
+        const futureBadge = document.getElementById(slot + 'FutureBadge');
 
         rowEl.classList.add('is-done');
         infoEl.classList.add('faded');
@@ -815,6 +858,8 @@
         takeBtn.style.display  = 'none';
         doneBadge.classList.add('visible');
         histBtn.classList.add('visible');
+        
+        if(futureBadge) futureBadge.classList.remove('visible');
 
         const lblMap = { morning: 'lblMorning', lunch: 'lblLunch', dinner: 'lblDinner' };
         document.getElementById(lblMap[slot]).innerHTML = slotMeta[slot].icon + ' ' + slotMeta[slot].name + ' ✓';
