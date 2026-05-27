@@ -28,10 +28,8 @@
         .home-top-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 25px; }
         
         .top-logo-area { display: flex; align-items: center; gap: 10px; }
-        /* ★ 로고 테두리를 없앴습니다 (border: none) */
         .hospital-custom-img { width: 38px; height: 38px; border-radius: 8px; object-fit: cover; border: none; background: #f1f5f9; }
         .logo-text-side { display: flex; flex-direction: column; align-items: flex-start; }
-        /* ★ 전남대병원 앞 h아이콘을 지웠습니다 */
         .top-logo-area .kr-title { font-size: 19px; font-weight: 900; color: #1a2a6c; display: flex; align-items: center; gap: 6px; letter-spacing: -0.5px; }
         .top-logo-area .en-title { font-size: 8.5px; color: #64748b; margin-top: 3px; font-weight: 500; letter-spacing: 0.5px; padding-left: 2px; }
         
@@ -578,7 +576,7 @@
         
         <div class="guide-card">
             <div class="guide-vid-circle" onclick="playBigVid('hakdungi_sleep.mp4')">
-                <video src="hakdungi_sleep.mp4" autoplay loop muted playsinline></video>
+                <video src="hakdungi_sleep.mp4" autoplay loop 구muted playsinline></video>
             </div>
             <div class="guide-info">
                 <div class="guide-name" style="color:#10b981;">평범한 꿀잠</div>
@@ -619,11 +617,10 @@
         dinner:  { name: '저녁',  icon: '🌙', time: '오후 07:00', timeLabel: '저녁 식후' }
     };
 
-    // ★ 제공해주신 약 목록을 업데이트했습니다.
     const medHistory = {
         morning: [
-            // ★ '케이캡정·구강붕해정'에서 '케이캡정'으로 바꾸고, 쉬운 용어를 붙였습니다.
-            { icon: 'fa-solid fa-shield', color: '#10b981', name: '케이캡정 (ODT 포함) (위산분비억제제)', type: '아침 식전/식후' },
+            // ★ 케이캡 이름에서 ODT(구강붕해정)를 빼고 어르신들이 이해하기 쉽게 변경했습니다.
+            { icon: 'fa-solid fa-shield', color: '#10b981', name: '케이캡정 (물 없이 녹여 먹는 위장약)', type: '아침 식전/식후' },
             { icon: 'fa-solid fa-heart', color: '#ef4444', name: '리바로 (고지혈증약)', type: '아침 식후' },
             { icon: 'fa-solid fa-droplet', color: '#f59e0b', name: '자디앙·트라젠타·메트포르민·유글렉스 (당뇨약)', type: '아침 식후' },
             { icon: 'fa-solid fa-heart-pulse', color: '#ef4444', name: '노바스크 (혈압약)', type: '아침 식후' },
@@ -664,8 +661,8 @@
 
     const medGuides = {
         morning: 
-            // ★ 하단 설명창 제목에서도 '구강붕해정'을 뺐습니다.
-            generateMedCard('케이캡정 (ODT 포함) (위산분비억제제)', '위산을 조절하여 속쓰림을 예방합니다.', '#10b981') +
+            // ★ 약 설명란에도 복용 방법을 친절하게 추가했습니다.
+            generateMedCard('케이캡정 (물 없이 녹여 먹는 위장약)', '위산을 조절하여 속쓰림을 예방합니다. 입 안에서 사르르 녹으니 물 없이 드셔도 됩니다.', '#10b981') +
             generateMedCard('리바로정 (고지혈증약)', '혈중 콜레스테롤 수치를 낮추어 혈관을 맑게 합니다.', '#ef4444') +
             generateMedCard('자디앙·트라젠타·메트포르민·유글렉스 (당뇨약)', '혈당 수치를 안전하게 조절해 줍니다.', '#f59e0b') +
             generateMedCard('노바스크정 (혈압약)', '혈압을 정상 수치로 유지해 줍니다.', '#ef4444') +
