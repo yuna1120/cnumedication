@@ -24,9 +24,14 @@
 
         /* PAGE 0 */
         .home-content { flex: 1; overflow-y: auto; padding: 25px 20px 100px; }
-        .top-logo-area { display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 25px; }
+        .top-logo-area { display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 15px; }
         .top-logo-area .kr-title { font-size: 20px; font-weight: 900; color: #1a2a6c; display: flex; align-items: center; gap: 8px; letter-spacing: -0.5px; }
         .top-logo-area .en-title { font-size: 9px; color: #64748b; margin-top: 3px; font-weight: 500; letter-spacing: 0.5px; padding-left: 2px; }
+        
+        /* ★ 홈 화면용 실시간 날짜/시간 바 ★ */
+        .home-datetime { background: #eef2ff; border: 1px solid #c7d2fe; padding: 12px 15px; border-radius: 12px; font-size: 13.5px; font-weight: 800; color: #1a2a6c; display: flex; align-items: center; justify-content: center; margin-bottom: 25px; box-shadow: 0 4px 10px rgba(26,42,108,0.05); }
+        .home-datetime i { margin-right: 8px; font-size: 15px; }
+
         .patient-box-light { background: #eef2ff; border-radius: 12px; padding: 20px 18px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
         .patient-box-light .left-info { display: flex; flex-direction: column; gap: 5px; }
         .patient-box-light .name-row { font-size: 18px; font-weight: 800; color: #1e293b; display: flex; align-items: center; gap: 6px; }
@@ -72,7 +77,7 @@
         .header-white { background: #fff; padding: 20px 25px 18px; display: flex; justify-content: space-between; align-items: flex-start; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
         .patient-info h2 { font-size: 22px; margin: 0 0 4px 0; color: #1e293b; font-weight: 900; }
         .patient-info p { margin: 0; color: #64748b; font-size: 13px; font-weight: 500; }
-        .current-clock { font-size: 13px; color: #1a2a6c; font-weight: 700; background: #eef2ff; padding: 6px 12px; border-radius: 20px; border: 1px solid #c7d2fe; }
+        .current-clock { font-size: 12px; color: #1a2a6c; font-weight: 800; background: #eef2ff; padding: 6px 12px; border-radius: 20px; border: 1px solid #c7d2fe; display: flex; align-items: center; gap: 5px; }
         .dashboard-content { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; padding-bottom: 110px; scroll-behavior: smooth; }
         
         /* 주간 복약 트래커 */
@@ -216,6 +221,11 @@
                 <div class="kr-title"><i class="fa-solid fa-square-h" style="color:#22c55e;"></i> 전남대학교병원</div>
                 <div class="en-title">CHONNAM NATIONAL UNIVERSITY HOSPITAL</div>
             </div>
+            
+            <div class="home-datetime" id="homeDateTime">
+                <i class="fa-regular fa-clock"></i> <span>불러오는 중...</span>
+            </div>
+
             <div class="patient-box-light">
                 <div class="left-info">
                     <div class="name-row">백OO 님 <span class="my-badge">MY</span></div>
@@ -278,11 +288,11 @@
         <div class="header-white">
             <div class="patient-info">
                 <h2 onclick="goToInpatient()" style="cursor:pointer;">
-                    <i class="fa-solid fa-chevron-left" style="font-size:16px; color:#94a3b8; margin-right:4px;"></i>백OO 님! 안녕하요
+                    <i class="fa-solid fa-chevron-left" style="font-size:16px; color:#94a3b8; margin-right:4px;"></i>백OO 님!
                 </h2>
                 <p>8W12F 병동 | 입원 4일차</p>
             </div>
-            <div class="current-clock" id="clock">00:00:00</div>
+            <div class="current-clock" id="clock"><i class="fa-regular fa-calendar-check"></i> 00/00 (월) 00:00:00</div>
         </div>
 
         <div class="dashboard-content" id="dashboardContent">
@@ -521,7 +531,6 @@
         ]
     };
 
-    // ★ [수정됨] 점심, 저녁 지침에도 클릭 시 펼쳐지는 예시 추가 완료 ★
     const medGuides = {
         morning: `
             <div class="med-detail" onclick="toggleDetail(this)">
@@ -590,8 +599,16 @@
 
     const weekDays = ['월', '화', '수', '목', '금', '토', '일'];
     let todayIndex = new Date().getDay() === 0 ? 6 : new Date().getDay() - 1; 
-    
     let weeklyHistory = Array.from({length: 7}, () => ({ morning: null, lunch: null, dinner: null }));
+
+    // 날짜 포맷 함수 (O월 O일 요일)
+    function getFormattedDate(dateObj) {
+        const m = dateObj.getMonth() + 1;
+        const d = dateObj.getDate();
+        const days = ['일','월','화','수','목','금','토'];
+        const day = days[dateObj.getDay()];
+        return `${m}월 ${d}일 (${day})`;
+    }
 
     function checkTimeAndShowRow() {
         const h = new Date().getHours();
@@ -626,7 +643,6 @@
         updateWeeklyTracker(); 
     }
 
-    // ★ [수정됨] 3번 전부 제시간이면 체크, 1번이라도 놓치면 울상 표출 ★
     function updateWeeklyTracker() {
         let successCount = 0; 
         let html = '';
@@ -636,9 +652,7 @@
             let statusClass = '';
             let icon = day; 
 
-            // 단 한 번이라도 false(실패)가 있으면 하루 실패로 간주
             let hasFail = (d.morning === false || d.lunch === false || d.dinner === false);
-            // 3번 모두 true(성공)이면 하루 성공으로 간주
             let allSuccess = (d.morning === true && d.lunch === true && d.dinner === true);
 
             if (d.morning === true) successCount++;
@@ -657,7 +671,6 @@
         });
 
         document.getElementById('weekDaysContainer').innerHTML = html;
-
         let healthPercent = Math.round((successCount / 21) * 100);
         document.getElementById('healthGaugeBar').style.width = healthPercent + '%';
 
@@ -704,7 +717,6 @@
         pendingSlot = null;
     }
 
-    // ★ [수정됨] 30분 지각 확인 및 경고 알림(Alert) 기능 추가 ★
     function completeTake() {
         if (!pendingSlot) return;
         const slot = pendingSlot;
@@ -712,13 +724,11 @@
 
         let targetHours = { morning: 8, lunch: 13, dinner: 19 };
         let targetTime = new Date();
-        targetTime.setHours(targetHours[slot], 30, 0); // 기준시간 + 30분 허용
+        targetTime.setHours(targetHours[slot], 30, 0);
 
         let now = new Date();
-        // 30분 이내면 true, 지났으면 false로 계산
         let isOnTime = now <= targetTime; 
 
-        // 30분이 지난 경우 경고 메시지 표출
         if (!isOnTime) {
             alert("⚠️ 복용 예정 시간에서 30분이 지났습니다.\n\n약효를 위해 다음부터는 제시간에 꼭 챙겨 드세요!");
         }
@@ -733,12 +743,8 @@
         if (slot === activeSlot) renderEmptyGuide();
     }
 
-    function openHakdungiInfo() {
-        document.getElementById('infoOverlay').classList.add('open');
-    }
-    function closeHakdungiInfo(e) {
-        document.getElementById('infoOverlay').classList.remove('open');
-    }
+    function openHakdungiInfo() { document.getElementById('infoOverlay').classList.add('open'); }
+    function closeHakdungiInfo(e) { document.getElementById('infoOverlay').classList.remove('open'); }
 
     function applyDoneUI(slot) {
         const rowEl    = document.getElementById(slot === 'morning' ? 'mRow' : slot === 'lunch' ? 'lRow' : 'dRow');
@@ -765,11 +771,10 @@
 
         const badge   = document.getElementById('statusBadge');
         const display = document.getElementById('mainTimeDisplay');
-        const label   = document.getElementById('cardLabelText');
 
         if (score === 3) {
             badge.innerText = '완료 🎉'; badge.className = 'status-badge done';
-            display.innerText = '오늘 복약 모두 완료!'; label.innerText = '오늘 복약 현황';
+            display.innerText = '오늘 복약 모두 완료!'; 
         } else if (score > 0) {
             badge.innerText = '진행 중'; badge.className = 'status-badge done';
         } else {
@@ -797,7 +802,6 @@
             </div>`;
     }
 
-    // ★ [수정됨] EMR 연동 긴 설명 제거 후 배지만 심플하게 유지 ★
     function viewHistory(openSlot) { renderHistoryView(openSlot); }
     function renderHistoryView(openSlot) {
         const slots = ['morning','lunch','dinner'];
@@ -832,13 +836,11 @@
                             <div style="font-size:11px;color:#64748b;">${meta.time} · 정량 복용 확인</div>
                         </div>
                     </div>
-                    
                     <div style="margin-bottom: 15px;">
                         <div class="nurse-check-badge">
                             <i class="fa-solid fa-user-nurse" style="font-size:14px;"></i> 담당 간호사 확인 완료
                         </div>
                     </div>
-
                     ${medsHTML}
                 </div>`;
         } else {
@@ -891,9 +893,32 @@
         el.classList.toggle('open');
         setTimeout(() => document.getElementById('dashboardContent').scrollTo({ top: el.offsetTop - 50, behavior: 'smooth' }), 150);
     }
+    
+    // ★ [수정됨] 실시간 시간 업데이트 로직에 날짜 적용 ★
     function updateTime() {
-        document.getElementById('clock').innerText = new Date().toLocaleTimeString('ko-KR', { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        const now = new Date();
+        const timeStr = now.toLocaleTimeString('ko-KR', { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        const dateStr = getFormattedDate(now); // O월 O일 (요일)
+
+        // 1. 대시보드 시계 (아이콘 + 날짜 + 시간)
+        const clockEl = document.getElementById('clock');
+        if (clockEl) {
+            clockEl.innerHTML = `<i class="fa-regular fa-calendar-check"></i> ${dateStr} ${timeStr}`;
+        }
+        
+        // 2. 대시보드 카드 타이틀 업데이트 
+        const cardLabelEl = document.getElementById('cardLabelText');
+        if (cardLabelEl && Object.values(checkedSlots).filter(Boolean).length < 3) {
+            cardLabelEl.innerText = `${dateStr} 복약 현황`;
+        }
+
+        // 3. 홈 화면 날짜/시간 바
+        const homeDateEl = document.getElementById('homeDateTime');
+        if (homeDateEl) {
+            homeDateEl.querySelector('span').innerText = `${dateStr} ${timeStr}`;
+        }
     }
+    
     setInterval(updateTime, 1000); updateTime();
     checkTimeAndShowRow(); 
 
@@ -940,28 +965,13 @@
     
     async function getGeminiResponse(text) {
         const url  = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent?key=${GEMINI_API_KEY}`;
-        
         const body = {
-            systemInstruction: {
-                parts: [{ 
-                    text: "당신은 전남대병원의 어르신 전용 AI 복약 비서입니다. 환자의 질문에만 직접적으로 대답하세요. 전문 의학 용어는 피하고, 어르신이 이해하기 쉽게 2~3문장 이내로 다정하고 따뜻하게 대답해주세요. 절대로 생각하는 과정이나 영어, 기호 등을 화면에 출력하지 마세요." 
-                }]
-            },
-            contents: [{
-                role: "user",
-                parts: [{ text: text }]
-            }]
+            systemInstruction: { parts: [{ text: "당신은 전남대병원의 어르신 전용 AI 복약 비서입니다. 환자의 질문에만 직접적으로 대답하세요. 전문 의학 용어는 피하고, 어르신이 이해하기 쉽게 2~3문장 이내로 다정하고 따뜻하게 대답해주세요. 절대로 생각하는 과정이나 영어, 기호 등을 화면에 출력하지 마세요." }] },
+            contents: [{ role: "user", parts: [{ text: text }] }]
         };
-        
-        const res  = await fetch(url, { 
-            method: 'POST', 
-            headers: { 'Content-Type': 'application/json' }, 
-            body: JSON.stringify(body) 
-        });
-        
+        const res  = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
         const data = await res.json();
         if (!res.ok) throw new Error(data.error?.message || '알 수 없는 오류');
-        
         return data.candidates[0].content.parts[0].text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').trim();
     }
 </script>
