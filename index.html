@@ -612,29 +612,32 @@
         dinner:  { name: '저녁',  icon: '🌙', time: '오후 07:00', timeLabel: '저녁 식후' }
     };
 
+    // ★ 제공해주신 이미지와 쉬운 용어를 바탕으로 새롭게 구성한 약물 목록입니다.
+    // 비슷한 약은 묶어서 어르신들이 보기 편하게 구성했습니다.
     const medHistory = {
         morning: [
-            { icon: 'fa-solid fa-pills', color: '#1a2a6c', name: '아세트아미노펜 (해열진통제)', type: '아침 식후' },
-            { icon: 'fa-solid fa-capsules', color: '#00b894', name: '아세테인·록솔 (가래제거제)', type: '아침 식후' },
-            { icon: 'fa-solid fa-droplet', color: '#f59e0b', name: '트라젠타·자디앙·유글렉스 (당뇨약)', type: '아침 식후' },
-            { icon: 'fa-solid fa-pills', color: '#3b82f6', name: '낙센에프 (소염진통제)', type: '아침 식후' },
-            { icon: 'fa-solid fa-flask', color: '#8b5cf6', name: '케프라액 (항경련제)', type: '아침 식후' },
-            { icon: 'fa-solid fa-shield', color: '#10b981', name: '케이캡 (위장약)', type: '아침 식전' },
-            { icon: 'fa-solid fa-spoon', color: '#ec4899', name: '듀락칸이지시럽 (변비약)', type: '식전/식후' },
+            { icon: 'fa-solid fa-shield', color: '#10b981', name: '케이캡정·구강붕해정 (위산분비억제제)', type: '아침 식전/식후' },
+            { icon: 'fa-solid fa-heart', color: '#ef4444', name: '리바로 (고지혈증약)', type: '아침 식후' },
+            { icon: 'fa-solid fa-droplet', color: '#f59e0b', name: '자디앙·트라젠타·메트포르민·유글렉스 (당뇨약)', type: '아침 식후' },
             { icon: 'fa-solid fa-heart-pulse', color: '#ef4444', name: '노바스크 (혈압약)', type: '아침 식후' },
-            { icon: 'fa-solid fa-toilet', color: '#6366f1', name: '방광·전립선약 3종', type: '아침 식후' }
+            { icon: 'fa-solid fa-toilet', color: '#6366f1', name: '베시케어·베타미가·하루날디 (방광·전립선약)', type: '아침 식후' },
+            { icon: 'fa-solid fa-flask', color: '#8b5cf6', name: '큐팜 XR·케프라액 (항경련제)', type: '아침 식후' },
+            { icon: 'fa-solid fa-pills', color: '#3b82f6', name: '낙센에프 (소염진통제)', type: '아침 식후' },
+            { icon: 'fa-solid fa-pills', color: '#1a2a6c', name: '아세트아미노펜 (해열진통제)', type: '아침 식후' },
+            { icon: 'fa-solid fa-capsules', color: '#00b894', name: '아세테인·록솔 (가래약)', type: '아침 식후' }
         ],
         lunch: [
             { icon: 'fa-solid fa-pills', color: '#1a2a6c', name: '아세트아미노펜 (해열진통제)', type: '점심 식후' },
-            { icon: 'fa-solid fa-capsules', color: '#00b894', name: '아세테인·록솔 (가래제거제)', type: '점심 식후' }
+            { icon: 'fa-solid fa-pills', color: '#3b82f6', name: '낙센에프 (소염진통제)', type: '점심 식후' },
+            { icon: 'fa-solid fa-capsules', color: '#00b894', name: '아세테인·록솔 (가래약)', type: '점심 식후' }
         ],
         dinner: [
-            { icon: 'fa-solid fa-pills', color: '#1a2a6c', name: '아세트아미노펜 (해열진통제)', type: '저녁 식후' },
-            { icon: 'fa-solid fa-capsules', color: '#00b894', name: '아세테인·록솔 (가래제거제)', type: '저녁 식후' },
-            { icon: 'fa-solid fa-droplet', color: '#f59e0b', name: '트라젠타·유한메트포르민 (당뇨약)', type: '저녁 식후' },
+            { icon: 'fa-solid fa-spoon', color: '#ec4899', name: '듀락칸이지시럽 (변비약)', type: '저녁 식후' },
+            { icon: 'fa-solid fa-flask', color: '#8b5cf6', name: '큐팜 XR·케프라액 (항경련제)', type: '저녁 식후' },
+            { icon: 'fa-solid fa-droplet', color: '#f59e0b', name: '트라젠타·메트포르민 (당뇨약)', type: '저녁 식후' },
             { icon: 'fa-solid fa-pills', color: '#3b82f6', name: '낙센에프 (소염진통제)', type: '저녁 식후' },
-            { icon: 'fa-solid fa-flask', color: '#8b5cf6', name: '케프라액·큐팜 XR (항경련제)', type: '저녁 식후' },
-            { icon: 'fa-solid fa-heart', color: '#ef4444', name: '리바로 (고지혈증약)', type: '저녁 식후' }
+            { icon: 'fa-solid fa-pills', color: '#1a2a6c', name: '아세트아미노펜 (해열진통제)', type: '저녁 식후' },
+            { icon: 'fa-solid fa-capsules', color: '#00b894', name: '아세테인·록솔 (가래약)', type: '저녁 식후' }
         ]
     };
 
@@ -654,27 +657,28 @@
 
     const medGuides = {
         morning: 
-            generateMedCard('아세트아미노펜정 (해열진통제)', '통증을 줄이고 열을 내리는 역할을 합니다.', '#1a2a6c') +
-            generateMedCard('아세테인·록솔 (가래제거제)', '가래를 묽게 하고 기침을 줄여주어 호흡을 편안하게 돕습니다.', '#00b894') +
-            generateMedCard('트라젠타·자디앙·유글렉스 (당뇨약)', '혈당 수치를 안전하게 조절해 줍니다.', '#f59e0b') +
-            generateMedCard('낙센에프정 (소염진통제)', '염증을 가라앉히고 통증을 덜어줍니다.', '#3b82f6') +
-            generateMedCard('케프라액 (항경련제)', '신경을 안정시켜 경련을 예방합니다. 정해진 용량을 지켜주세요.', '#8b5cf6') +
-            generateMedCard('케이캡 (위식도역류질환)', '위산을 조절하여 속쓰림을 예방합니다. (식전 복용)', '#10b981') +
-            generateMedCard('듀락칸이지시럽 (변비약)', '원활한 배변 활동을 돕는 시럽 형태의 약입니다.', '#ec4899') +
+            generateMedCard('케이캡정·구강붕해정 (위산분비억제제)', '위산을 조절하여 속쓰림을 예방합니다.', '#10b981') +
+            generateMedCard('리바로정 (고지혈증약)', '혈중 콜레스테롤 수치를 낮추어 혈관을 맑게 합니다.', '#ef4444') +
+            generateMedCard('자디앙·트라젠타·메트포르민·유글렉스 (당뇨약)', '혈당 수치를 안전하게 조절해 줍니다.', '#f59e0b') +
             generateMedCard('노바스크정 (혈압약)', '혈압을 정상 수치로 유지해 줍니다.', '#ef4444') +
-            generateMedCard('방광·전립선약 3종', '빈뇨를 개선하고 소변을 시원하게 보도록 돕습니다.', '#6366f1'),
+            generateMedCard('베시케어·베타미가·하루날디 (방광/전립선약)', '요실금을 예방하고 소변을 시원하게 보도록 돕습니다.', '#6366f1') +
+            generateMedCard('큐팜 XR정·케프라액 (항경련제)', '신경을 안정시켜 경련을 예방합니다. 정해진 용량을 지켜주세요.', '#8b5cf6') +
+            generateMedCard('낙센에프정 (소염진통제)', '염증을 가라앉히고 통증을 덜어줍니다.', '#3b82f6') +
+            generateMedCard('아세트아미노펜정 (해열진통제)', '통증을 줄이고 열을 내리는 역할을 합니다.', '#1a2a6c') +
+            generateMedCard('아세테인캡슐·록솔정 (가래약)', '가래를 묽게 하고 기침을 줄여주어 호흡을 편안하게 돕습니다.', '#00b894'),
             
         lunch: 
             generateMedCard('아세트아미노펜정 (해열진통제)', '점심 식사 후 통증 조절을 위해 복용합니다.', '#1a2a6c') +
-            generateMedCard('아세테인·록솔 (가래제거제)', '가래를 묽게 하고 기침을 줄여주어 호흡을 편안하게 돕습니다.', '#00b894'),
+            generateMedCard('낙센에프정 (소염진통제)', '염증을 가라앉히고 통증을 덜어줍니다.', '#3b82f6') +
+            generateMedCard('아세테인캡슐·록솔정 (가래약)', '가래를 묽게 하고 기침을 줄여주어 호흡을 편안하게 돕습니다.', '#00b894'),
             
         dinner: 
-            generateMedCard('아세트아미노펜정 (해열진통제)', '밤 시간 동안의 통증을 줄여줍니다.', '#1a2a6c') +
-            generateMedCard('아세테인·록솔 (가래제거제)', '가래를 묽게 하고 기침을 줄여주어 호흡을 편안하게 돕습니다.', '#00b894') +
-            generateMedCard('트라젠타·유한메트포르민 (당뇨약)', '저녁 식사 후 혈당 수치를 안전하게 조절해 줍니다.', '#f59e0b') +
+            generateMedCard('듀락칸이지시럽 (변비약)', '원활한 배변 활동을 돕는 시럽 형태의 약입니다.', '#ec4899') +
+            generateMedCard('큐팜 XR정·케프라액 (항경련제)', '밤 동안 신경을 안정시켜 줍니다. 일정한 시간에 복용하세요.', '#8b5cf6') +
+            generateMedCard('트라젠타 듀오·유한메트포르민 (당뇨약)', '저녁 식사 후 혈당 수치를 안전하게 조절해 줍니다.', '#f59e0b') +
             generateMedCard('낙센에프정 (소염진통제)', '염증을 가라앉히고 밤 시간의 통증을 덜어줍니다.', '#3b82f6') +
-            generateMedCard('케프라액·큐팜 XR정 (항경련제)', '밤 동안 신경을 안정시켜 줍니다. 일정한 시간에 복용하세요.', '#8b5cf6') +
-            generateMedCard('리바로정 (고지혈증약)', '혈중 콜레스테롤 수치를 낮추어 혈관을 맑게 합니다.', '#ef4444')
+            generateMedCard('아세트아미노펜정 (해열진통제)', '밤 시간 동안의 통증을 줄여줍니다.', '#1a2a6c') +
+            generateMedCard('아세테인캡슐·록솔정 (가래약)', '가래를 묽게 하고 기침을 줄여주어 호흡을 편안하게 돕습니다.', '#00b894')
     };
 
     let checkedSlots = { morning: false, lunch: false, dinner: false };
@@ -817,7 +821,6 @@
         pendingSlot = null;
     }
 
-    // ★ 복용 확인 완료 시, 늦었을 경우 시스템 alert가 아닌 앱 모달을 띄우는 로직
     function completeTake() {
         if (!pendingSlot) return;
         const slot = pendingSlot;
@@ -831,7 +834,6 @@
         let isOnTime = now <= targetTime; 
 
         if (!isOnTime) {
-            // 시스템 alert를 지우고 새로운 오버레이 모달을 열어줍니다.
             document.getElementById('lateAlertOverlay').classList.add('open');
         }
 
@@ -845,7 +847,6 @@
         if (slot === activeSlot) renderEmptyGuide();
     }
     
-    // ★ 경고창 닫기 함수
     function closeLateAlert() {
         document.getElementById('lateAlertOverlay').classList.remove('open');
     }
