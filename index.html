@@ -78,7 +78,7 @@
 
         /* PAGE 2 */
         .header-white { background: #fff; padding: 20px 25px 18px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-        .patient-info h2 { font-size: 22px; margin: 0 0 4px 0; color: #1e293b; font-weight: 900; }
+        .patient-info h2 { font-size: 20px; margin: 0 0 4px 0; color: #1e293b; font-weight: 900; letter-spacing: -0.5px; }
         .patient-info p { margin: 0; color: #64748b; font-size: 13px; font-weight: 500; }
         
         .current-clock { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
@@ -91,7 +91,7 @@
         .weekly-tracker { background: #f8fafc; border: 2.5px solid #1a2a6c; border-radius: 20px; padding: 18px; display: flex; align-items: center; gap: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
         .tracker-left { width: 85px; flex-shrink: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 8px; background: transparent; border: none; overflow: visible; }
         
-        .tracker-vid-wrap { width: 75px; height: 75px; background: #fff; border-radius: 50%; overflow: hidden; box-shadow: 0 3px 8px rgba(0,0,0,0.08); display: flex; justify-content: center; align-items: center; border: 2px solid #e2e8f0; }
+        .tracker-vid-wrap { width: 75px; height: 75px; background: #fff; border-radius: 50%; overflow: hidden; box-shadow: 0 3px 8px rgba(0,0,0,0.08); display: flex; justify-content: center; align-items: center; border: 2px solid #e2e8f0; cursor: pointer; }
         .tracker-vid-wrap video { width: 100%; height: 100%; object-fit: cover; }
         
         .info-badge { background: #e2e8f0; color: #475569; font-size: 11px; padding: 4px 10px; border-radius: 12px; font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 4px; transition: all 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
@@ -116,7 +116,7 @@
         .status-badge.wait { background: rgba(255,255,255,0.2); color: #fff; }
         .status-badge.done { background: #00b894; color: #fff; box-shadow: 0 2px 10px rgba(0,184,148,0.4); }
         
-        /* ★ 복용 기록 바로가기 버튼 스타일 */
+        /* 복용 기록 바로가기 버튼 */
         .label-right-wrap { display: flex; align-items: center; gap: 8px; }
         .global-history-btn { background: rgba(255,255,255,0.2); border: none; color: #fff; padding: 5px 10px; border-radius: 12px; font-size: 11px; font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 4px; transition: background 0.2s; }
         .global-history-btn:active { background: rgba(255,255,255,0.3); }
@@ -225,14 +225,21 @@
         .sheet-btn.confirm:active { background: #0f1d4a; }
         @keyframes fadeIn { from{opacity:0} to{opacity:1} }
         
-        /* 표정 안내 카드 스타일 */
+        /* 표정 안내 창 & 확대 오버레이 */
         .guide-section-title { font-weight: 900; color: #1e293b; font-size: 15px; margin: 20px 0 12px; padding-left: 4px; border-left: 4px solid #1a2a6c; display: flex; align-items: center; gap: 6px; }
         .guide-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 14px; display: flex; align-items: center; gap: 15px; margin-bottom: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); }
-        .guide-vid-circle { width: 52px; height: 52px; background: #fff; border-radius: 50%; overflow: hidden; flex-shrink: 0; border: 2px solid #f1f5f9; }
+        .guide-vid-circle { width: 52px; height: 52px; background: #fff; border-radius: 50%; overflow: hidden; flex-shrink: 0; border: 2px solid #f1f5f9; cursor: pointer; }
         .guide-vid-circle video { width: 100%; height: 100%; object-fit: cover; }
         .guide-info { flex: 1; }
         .guide-name { font-size: 15px; font-weight: 900; margin-bottom: 5px; }
         .guide-range { font-size: 12px; font-weight: 700; background: #f1f5f9; display: inline-block; padding: 4px 10px; border-radius: 12px; color: #475569; }
+
+        /* 비디오 크게 보기 오버레이 */
+        .vid-zoom-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 10000; display: none; justify-content: center; align-items: center; flex-direction: column; }
+        .vid-zoom-overlay.open { display: flex; animation: fadeIn 0.2s; }
+        .big-video-wrap { width: 250px; height: 250px; border-radius: 50%; overflow: hidden; border: 5px solid #fff; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .big-video-wrap video { width: 100%; height: 100%; object-fit: cover; }
+        .close-zoom-text { color: #fff; font-size: 15px; font-weight: 800; margin-top: 25px; display: flex; align-items: center; gap: 8px; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -253,7 +260,7 @@
 
             <div class="patient-box-light">
                 <div class="left-info">
-                    <div class="name-row">백OO 님 <span class="my-badge">MY</span></div>
+                    <div class="name-row">김ㅇ철 님 <span class="my-badge">MY</span></div>
                     <div class="patient-num">환자등록번호 12345678</div>
                 </div>
                 <div class="right-btns">
@@ -313,7 +320,7 @@
         <div class="header-white">
             <div class="patient-info">
                 <h2 onclick="goToInpatient()" style="cursor:pointer;">
-                    <i class="fa-solid fa-chevron-left" style="font-size:16px; color:#94a3b8; margin-right:4px;"></i>백OO 님!
+                    <i class="fa-solid fa-chevron-left" style="font-size:16px; color:#94a3b8; margin-right:4px;"></i>김ㅇ철 님! 좋은 하루 되세요
                 </h2>
                 <p>8W12F 병동 | 입원 4일차</p>
             </div>
@@ -325,7 +332,7 @@
             
             <div class="weekly-tracker">
                 <div class="tracker-left">
-                    <div class="tracker-vid-wrap">
+                    <div class="tracker-vid-wrap" onclick="openHakdungiInfo()">
                         <video id="hakdungiImg" src="hakdungi_normal.mp4" autoplay loop muted playsinline></video>
                     </div>
                     <div class="info-badge" onclick="openHakdungiInfo()">
@@ -449,7 +456,7 @@
         </div>
         <div class="chat-area" id="chatBox">
             <div style="text-align:center; color:#94a3b8; font-size:12px; margin-bottom:5px;">오늘</div>
-            <div class="msg ai">백OO 님!, 안녕하세요! 🙂<br><br>궁금하신 점이 있으시면 아래 <strong>마이크</strong> 버튼을 누르고 편하게 말씀해 주세요.</div>
+            <div class="msg ai">김ㅇ철 님!, 안녕하세요! 🙂 좋은 하루 되세요.<br><br>궁금하신 점이 있으시면 아래 <strong>마이크</strong> 버튼을 누르고 편하게 말씀해 주세요.</div>
         </div>
         <div class="chat-input-bar">
             <i class="fa-solid fa-microphone" id="micBtn" onclick="startDictation()"></i>
@@ -491,12 +498,12 @@
 <div class="confirm-overlay" id="infoOverlay" onclick="closeHakdungiInfo(event)">
     <div class="confirm-sheet" onclick="event.stopPropagation()" style="padding-bottom:20px; background:#f4f6f9;">
         <h3 style="margin-bottom: 5px; margin-top:5px;"><i class="fa-solid fa-clipboard-question" style="color:#1a2a6c;"></i> 학둥이 상태 안내</h3>
-        <p style="margin-bottom: 15px; font-size:13px; color:#64748b;">약을 잘 챙겨 드실수록 건강 게이지가 오릅니다!</p>
+        <p style="margin-bottom: 15px; font-size:13px; color:#64748b;">동그란 영상을 누르면 학둥이를 크게 볼 수 있어요!</p>
         
         <div class="guide-section-title"><i class="fa-solid fa-sun" style="color:#f59e0b;"></i> 주간 (오전 6시 ~ 밤 12시)</div>
         
         <div class="guide-card">
-            <div class="guide-vid-circle">
+            <div class="guide-vid-circle" onclick="playBigVid('hakdungi_heart.mp4')">
                 <video src="hakdungi_heart.mp4" autoplay loop muted playsinline></video>
             </div>
             <div class="guide-info">
@@ -506,7 +513,7 @@
         </div>
 
         <div class="guide-card">
-            <div class="guide-vid-circle">
+            <div class="guide-vid-circle" onclick="playBigVid('hakdungi_normal.mp4')">
                 <video src="hakdungi_normal.mp4" autoplay loop muted playsinline></video>
             </div>
             <div class="guide-info">
@@ -516,7 +523,7 @@
         </div>
 
         <div class="guide-card">
-            <div class="guide-vid-circle">
+            <div class="guide-vid-circle" onclick="playBigVid('hakdungi_angry.mp4')">
                 <video src="hakdungi_angry.mp4" autoplay loop muted playsinline></video>
             </div>
             <div class="guide-info">
@@ -526,7 +533,7 @@
         </div>
 
         <div class="guide-card">
-            <div class="guide-vid-circle">
+            <div class="guide-vid-circle" onclick="playBigVid('hakdungi_cry.mp4')">
                 <video src="hakdungi_cry.mp4" autoplay loop muted playsinline></video>
             </div>
             <div class="guide-info">
@@ -536,7 +543,7 @@
         </div>
 
         <div class="guide-card">
-            <div class="guide-vid-circle">
+            <div class="guide-vid-circle" onclick="playBigVid('hakdungi_shiver.mp4')">
                 <video src="hakdungi_shiver.mp4" autoplay loop muted playsinline></video>
             </div>
             <div class="guide-info">
@@ -548,7 +555,7 @@
         <div class="guide-section-title"><i class="fa-solid fa-moon" style="color:#8b5cf6;"></i> 야간 (밤 12시 ~ 오전 6시)</div>
         
         <div class="guide-card">
-            <div class="guide-vid-circle">
+            <div class="guide-vid-circle" onclick="playBigVid('hakdungi_sleep.mp4')">
                 <video src="hakdungi_sleep.mp4" autoplay loop muted playsinline></video>
             </div>
             <div class="guide-info">
@@ -558,7 +565,7 @@
         </div>
 
         <div class="guide-card">
-            <div class="guide-vid-circle">
+            <div class="guide-vid-circle" onclick="playBigVid('hakdungi_sleep_angry.mp4')">
                 <video src="hakdungi_sleep_angry.mp4" autoplay loop muted playsinline></video>
             </div>
             <div class="guide-info">
@@ -569,6 +576,13 @@
         
         <button class="sheet-btn confirm" style="width: 100%; margin-top: 25px; padding: 18px; font-size: 16px;" onclick="closeHakdungiInfo()">확인했어요</button>
     </div>
+</div>
+
+<div class="vid-zoom-overlay" id="vidZoomOverlay" onclick="closeBigVid()">
+    <div class="big-video-wrap">
+        <video id="bigHakdungiVid" src="" autoplay loop muted playsinline></video>
+    </div>
+    <div class="close-zoom-text"><i class="fa-solid fa-xmark"></i> 닫기 (아무 곳이나 누르세요)</div>
 </div>
 
 <script>
@@ -655,7 +669,12 @@
 
     const weekDays = ['월', '화', '수', '목', '금', '토', '일'];
     let todayIndex = new Date().getDay() === 0 ? 6 : new Date().getDay() - 1; 
-    let weeklyHistory = Array.from({length: 7}, () => ({ morning: null, lunch: null, dinner: null }));
+    
+    // ★ 어제까지의 기록은 항상 100% 성공(true)으로 설정합니다.
+    let weeklyHistory = Array.from({length: 7}, (_, i) => {
+        if (i < todayIndex) return { morning: true, lunch: true, dinner: true };
+        return { morning: null, lunch: null, dinner: null };
+    });
 
     function getFormattedDate(dateObj) {
         const m = dateObj.getMonth() + 1;
@@ -665,31 +684,37 @@
         return `${m}월 ${d}일 (${day})`;
     }
 
-    // ★ 복용 확인 창 리팩토링: 무조건 현재 시간의 카드 row만 열어둡니다.
     function checkTimeAndShowRow() {
         const h = new Date().getHours();
         
-        // 일단 모든 시간대 행을 숨깁니다.
         ['mRow','lRow','dRow'].forEach(id => document.getElementById(id).style.display = 'none');
+
+        // ★ 지나간 시간대는 자동으로 먹은 것으로 처리하여 언제든 기록에서 조회할 수 있도록 함
+        if (h >= 5 && h < 11) { 
+            activeSlot = 'morning'; 
+        } else if (h >= 11 && h < 17) { 
+            activeSlot = 'lunch';   
+            checkedSlots.morning = true; 
+        } else { 
+            activeSlot = 'dinner';  
+            checkedSlots.morning = true; 
+            checkedSlots.lunch = true;
+        }
+
+        // 해당 내용 주간 기록(오늘)에 업데이트
+        weeklyHistory[todayIndex].morning = checkedSlots.morning;
+        if(checkedSlots.lunch) weeklyHistory[todayIndex].lunch = true;
+
+        const rowId = activeSlot === 'morning' ? 'mRow' : activeSlot === 'lunch' ? 'lRow' : 'dRow';
+        document.getElementById(rowId).style.display = 'flex';
 
         const display = document.getElementById('mainTimeDisplay');
         const score = Object.values(checkedSlots).filter(Boolean).length;
-
-        // 시간에 맞춰 '단 하나'의 타겟만 노출시킵니다.
-        if (h >= 5 && h < 11) { 
-            activeSlot = 'morning'; 
-            document.getElementById('mRow').style.display = 'flex'; 
-            if (score < 3) display.innerText = '오전 08:00 (아침)';
-        }
-        else if (h >= 11 && h < 17) { 
-            activeSlot = 'lunch';   
-            document.getElementById('lRow').style.display = 'flex'; 
-            if (score < 3) display.innerText = '오후 01:00 (점심)';
-        }
-        else { 
-            activeSlot = 'dinner';  
-            document.getElementById('dRow').style.display = 'flex'; 
-            if (score < 3) display.innerText = '오후 07:00 (저녁)';
+        
+        if (score < 3) {
+            if (activeSlot === 'morning') display.innerText = '오전 08:00 (아침)';
+            else if (activeSlot === 'lunch') display.innerText = '오후 01:00 (점심)';
+            else display.innerText = '오후 07:00 (저녁)';
         }
 
         if (checkedSlots[activeSlot]) {
@@ -808,6 +833,17 @@
 
     function openHakdungiInfo() { document.getElementById('infoOverlay').classList.add('open'); }
     function closeHakdungiInfo(e) { document.getElementById('infoOverlay').classList.remove('open'); }
+    
+    // ★ 비디오 확대 함수
+    function playBigVid(src) {
+        const bigVid = document.getElementById('bigHakdungiVid');
+        bigVid.src = src;
+        document.getElementById('vidZoomOverlay').classList.add('open');
+        if(bigVid.play) bigVid.play().catch(e=>{});
+    }
+    function closeBigVid() {
+        document.getElementById('vidZoomOverlay').classList.remove('open');
+    }
 
     function applyDoneUI(slot) {
         const rowEl    = document.getElementById(slot === 'morning' ? 'mRow' : slot === 'lunch' ? 'lRow' : 'dRow');
@@ -867,7 +903,6 @@
 
     function viewHistory(openSlot) { renderHistoryView(openSlot); }
     
-    // ★ 기록 뷰 내에서 과거 내역을 온전히 로드하고 조작할 수 있는 탭 UI 기능
     function renderHistoryView(openSlot) {
         const slots = ['morning','lunch','dinner'];
         let tabsHTML = `<div class="history-tab-wrap">`;
