@@ -27,8 +27,10 @@
         
         .home-top-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 25px; }
         
-        .top-logo-area { display: flex; flex-direction: column; align-items: flex-start; }
-        .top-logo-area .kr-title { font-size: 19px; font-weight: 900; color: #1a2a6c; display: flex; align-items: center; gap: 8px; letter-spacing: -0.5px; }
+        .top-logo-area { display: flex; align-items: center; gap: 10px; }
+        .hospital-custom-img { width: 38px; height: 38px; border-radius: 8px; object-fit: cover; border: 1px dashed #cbd5e1; background: #f1f5f9; }
+        .logo-text-side { display: flex; flex-direction: column; align-items: flex-start; }
+        .top-logo-area .kr-title { font-size: 19px; font-weight: 900; color: #1a2a6c; display: flex; align-items: center; gap: 6px; letter-spacing: -0.5px; }
         .top-logo-area .en-title { font-size: 8.5px; color: #64748b; margin-top: 3px; font-weight: 500; letter-spacing: 0.5px; padding-left: 2px; }
         
         .home-datetime-compact { background: #eef2ff; border-radius: 10px; padding: 6px 10px; display: flex; flex-direction: column; align-items: flex-end; justify-content: center; gap: 2px; box-shadow: 0 2px 8px rgba(26,42,108,0.05); }
@@ -255,8 +257,11 @@
         <div class="home-content">
             <div class="home-top-header">
                 <div class="top-logo-area">
-                    <div class="kr-title"><i class="fa-solid fa-square-h" style="color:#22c55e;"></i> 전남대학교병원</div>
-                    <div class="en-title">CHONNAM NATIONAL UNIVERSITY HOSPITAL</div>
+                    <img src="hospital_logo.png" alt="사진" class="hospital-custom-img" onerror="this.style.display='none';">
+                    <div class="logo-text-side">
+                        <div class="kr-title"><i class="fa-solid fa-square-h" style="color:#22c55e;"></i> 전남대학교병원</div>
+                        <div class="en-title">CHONNAM NATIONAL UNIVERSITY HOSPITAL</div>
+                    </div>
                 </div>
                 
                 <div class="home-datetime-compact" id="homeDateTime">
@@ -276,7 +281,7 @@
             </div>
             <div class="section-title">내 일정</div>
             <div class="schedule-box-dark">
-                <div class="s-date">2026. 05. 26 화요일</div>
+                <div class="s-date" id="scheduleDate">계산 중...</div>
                 <div class="s-time">14:30</div>
                 <div class="s-dept">알레르기내과 | 본관 1층</div>
                 <div class="s-links"><span>진료내역조회</span><span class="divider">|</span><span>진료비결제</span></div>
@@ -612,8 +617,6 @@
         dinner:  { name: '저녁',  icon: '🌙', time: '오후 07:00', timeLabel: '저녁 식후' }
     };
 
-    // ★ 제공해주신 이미지와 쉬운 용어를 바탕으로 새롭게 구성한 약물 목록입니다.
-    // 비슷한 약은 묶어서 어르신들이 보기 편하게 구성했습니다.
     const medHistory = {
         morning: [
             { icon: 'fa-solid fa-shield', color: '#10b981', name: '케이캡정·구강붕해정 (위산분비억제제)', type: '아침 식전/식후' },
@@ -700,6 +703,24 @@
         const days = ['일','월','화','수','목','금','토'];
         const day = days[dateObj.getDay()];
         return `${m}월 ${d}일 (${day})`;
+    }
+
+    // ★ 현재 접속일 기준 무조건 '내일' 날짜를 내 일정에 표시하는 로직
+    function setTomorrowSchedule() {
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1); // 하루 뒤로 미룸
+
+        const y = tomorrow.getFullYear();
+        const m = String(tomorrow.getMonth() + 1).padStart(2, '0');
+        const d = String(tomorrow.getDate()).padStart(2, '0');
+        
+        const days = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
+        const dayName = days[tomorrow.getDay()];
+
+        const schedEl = document.getElementById('scheduleDate');
+        if (schedEl) {
+            schedEl.innerText = `${y}. ${m}. ${d} ${dayName}`;
+        }
     }
 
     function checkTimeAndShowRow() {
@@ -989,12 +1010,11 @@
                 </div>`).join('');
                 
             cardHTML = `
-                <div class="history-record-card not-yet" style="margin-bottom: 12px;">
-                    <div style="text-align:center; padding: 10px 10px 20px;">
-                        <i class="fa-solid fa-clock" style="font-size:34px;color:#94a3b8;margin-bottom:10px;display:block;"></i>
-                        <div style="font-size:14px;font-weight:700;color:#64748b;">${meta.name} 복약 전입니다</div>
-                        <div style="font-size:12px;color:#94a3b8;margin-top:5px;">${meta.time} 복약 예정</div>
-                    </div>
+                <div class="history-record-card not-yet" style="text-align:center; padding: 10px 10px 20px;">
+                    <i class="fa-solid fa-clock" style="font-size:34px;color:#94a3b8;margin-bottom:10px;display:block;"></i>
+                    <div style="font-size:14px;font-weight:700;color:#64748b;">${meta.name} 복약 전입니다</div>
+                    <div style="font-size:12px;color:#94a3b8;margin-top:5px;">${meta.time} 복약 예정</div>
+                </div>
                     ${notYetMedsHTML}
                 </div>`;
         }
@@ -1063,6 +1083,7 @@
     }
     
     setInterval(updateTime, 1000); updateTime();
+    setTomorrowSchedule(); // 내일 일정 날짜 초기화
     checkTimeAndShowRow(); 
 
     const chatInput = document.getElementById('chatInput');
