@@ -116,6 +116,11 @@
         .status-badge.wait { background: rgba(255,255,255,0.2); color: #fff; }
         .status-badge.done { background: #00b894; color: #fff; box-shadow: 0 2px 10px rgba(0,184,148,0.4); }
         
+        /* ★ 복용 기록 바로가기 버튼 스타일 */
+        .label-right-wrap { display: flex; align-items: center; gap: 8px; }
+        .global-history-btn { background: rgba(255,255,255,0.2); border: none; color: #fff; padding: 5px 10px; border-radius: 12px; font-size: 11px; font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 4px; transition: background 0.2s; }
+        .global-history-btn:active { background: rgba(255,255,255,0.3); }
+
         /* 복약 행 */
         .inner-check-list { display: flex; flex-direction: column; gap: 12px; border-top: 1px solid rgba(255,255,255,0.15); padding-top: 16px; }
         .check-item-white { display: flex; justify-content: space-between; align-items: stretch; background: rgba(0,0,0,0.12); padding: 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05); transition: all 0.4s; gap: 10px; }
@@ -137,10 +142,6 @@
         .history-btn.visible { display: flex; }
         .done-badge { display: none; align-items: center; gap: 6px; background: rgba(0,184,148,0.25); border: 1.5px solid rgba(0,184,148,0.5); padding: 9px 14px; border-radius: 20px; font-size: 13px; font-weight: 900; color: #fff; }
         .done-badge.visible { display: flex; }
-        
-        /* ★ 새롭게 추가된 예정(미래) 뱃지 스타일 */
-        .future-badge { display: none; align-items: center; gap: 6px; background: rgba(0,0,0,0.2); padding: 10px 16px; border-radius: 20px; font-size: 13px; font-weight: 800; color: rgba(255,255,255,0.5); }
-        .future-badge.visible { display: flex; }
 
         /* 약물 가이드 박스 */
         .description-box { background: #fff; border-radius: 20px; padding: 20px; border: 1px solid #e2e8f0; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
@@ -345,7 +346,12 @@
             <div class="med-card">
                 <div class="label">
                     <span id="cardLabelText">오늘의 복약 현황</span>
-                    <span class="status-badge wait" id="statusBadge">대기 중</span>
+                    <div class="label-right-wrap">
+                        <button class="global-history-btn" onclick="viewHistory(activeSlot)">
+                            <i class="fa-solid fa-clock-rotate-left"></i> 복용기록
+                        </button>
+                        <span class="status-badge wait" id="statusBadge">대기 중</span>
+                    </div>
                 </div>
                 <div class="main-time" id="mainTimeDisplay">오전 08:00 (아침)</div>
                 <div class="gauge-container">
@@ -358,8 +364,7 @@
                 </div>
 
                 <div class="inner-check-list">
-                    
-                    <div class="check-item-white" id="mRow">
+                    <div class="check-item-white" id="mRow" style="display:none;">
                         <div class="check-info-white" id="morningInfo">
                             <i class="slot-icon fa-solid fa-sun" style="color:#fcd34d;"></i>
                             <div>
@@ -371,9 +376,6 @@
                             <button class="take-btn" id="morningTakeBtn" onclick="confirmTake('morning')">
                                 <i class="fa-solid fa-check"></i> 복용 확인
                             </button>
-                            <div class="future-badge" id="morningFutureBadge">
-                                <i class="fa-solid fa-lock"></i> 예정
-                            </div>
                             <div class="done-badge" id="morningDoneBadge">
                                 <i class="fa-solid fa-circle-check"></i> 완료
                             </div>
@@ -383,7 +385,7 @@
                         </div>
                     </div>
 
-                    <div class="check-item-white" id="lRow">
+                    <div class="check-item-white" id="lRow" style="display:none;">
                         <div class="check-info-white" id="lunchInfo">
                             <i class="slot-icon fa-solid fa-cloud-sun" style="color:#fb923c;"></i>
                             <div>
@@ -395,9 +397,6 @@
                             <button class="take-btn" id="lunchTakeBtn" onclick="confirmTake('lunch')">
                                 <i class="fa-solid fa-check"></i> 복용 확인
                             </button>
-                            <div class="future-badge" id="lunchFutureBadge">
-                                <i class="fa-solid fa-lock"></i> 예정
-                            </div>
                             <div class="done-badge" id="lunchDoneBadge">
                                 <i class="fa-solid fa-circle-check"></i> 완료
                             </div>
@@ -407,7 +406,7 @@
                         </div>
                     </div>
 
-                    <div class="check-item-white" id="dRow">
+                    <div class="check-item-white" id="dRow" style="display:none;">
                         <div class="check-info-white" id="dinnerInfo">
                             <i class="slot-icon fa-solid fa-moon" style="color:#a5b4fc;"></i>
                             <div>
@@ -419,9 +418,6 @@
                             <button class="take-btn" id="dinnerTakeBtn" onclick="confirmTake('dinner')">
                                 <i class="fa-solid fa-check"></i> 복용 확인
                             </button>
-                            <div class="future-badge" id="dinnerFutureBadge">
-                                <i class="fa-solid fa-lock"></i> 예정
-                            </div>
                             <div class="done-badge" id="dinnerDoneBadge">
                                 <i class="fa-solid fa-circle-check"></i> 완료
                             </div>
@@ -430,7 +426,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
 
@@ -624,7 +619,7 @@
                         <i class="fa-regular fa-image"></i>
                         <span>여기에 부작용 및<br>주의사항 사진을 올려주세요</span>
                     </div>
-                    </div>
+                </div>
             </div>`;
     }
 
@@ -670,64 +665,35 @@
         return `${m}월 ${d}일 (${day})`;
     }
 
-    // ★ 현재 시간에 맞춰 미래 시간대의 버튼을 막고 모든 행을 보여주는 핵심 로직
+    // ★ 복용 확인 창 리팩토링: 무조건 현재 시간의 카드 row만 열어둡니다.
     function checkTimeAndShowRow() {
         const h = new Date().getHours();
         
-        let currentSlot = 'morning';
-        if (h >= 11 && h < 17) currentSlot = 'lunch';
-        else if (h >= 17 || h < 5) currentSlot = 'dinner';
-        
-        activeSlot = currentSlot;
+        // 일단 모든 시간대 행을 숨깁니다.
+        ['mRow','lRow','dRow'].forEach(id => document.getElementById(id).style.display = 'none');
 
         const display = document.getElementById('mainTimeDisplay');
         const score = Object.values(checkedSlots).filter(Boolean).length;
 
-        if (score < 3) {
-            if (activeSlot === 'morning') display.innerText = '오전 08:00 (아침)';
-            if (activeSlot === 'lunch') display.innerText = '오후 01:00 (점심)';
-            if (activeSlot === 'dinner') display.innerText = '오후 07:00 (저녁)';
-        } else {
-            display.innerText = '오늘 복약 모두 완료!';
+        // 시간에 맞춰 '단 하나'의 타겟만 노출시킵니다.
+        if (h >= 5 && h < 11) { 
+            activeSlot = 'morning'; 
+            document.getElementById('mRow').style.display = 'flex'; 
+            if (score < 3) display.innerText = '오전 08:00 (아침)';
+        }
+        else if (h >= 11 && h < 17) { 
+            activeSlot = 'lunch';   
+            document.getElementById('lRow').style.display = 'flex'; 
+            if (score < 3) display.innerText = '오후 01:00 (점심)';
+        }
+        else { 
+            activeSlot = 'dinner';  
+            document.getElementById('dRow').style.display = 'flex'; 
+            if (score < 3) display.innerText = '오후 07:00 (저녁)';
         }
 
-        const slotIndex = { morning: 0, lunch: 1, dinner: 2 };
-
-        // 모든 행(아침, 점심, 저녁)을 무조건 표시합니다.
-        ['morning', 'lunch', 'dinner'].forEach(slot => {
-            const rowId = slot === 'morning' ? 'mRow' : slot === 'lunch' ? 'lRow' : 'dRow';
-            document.getElementById(rowId).style.display = 'flex';
-            
-            const takeBtn = document.getElementById(slot + 'TakeBtn');
-            const doneBadge = document.getElementById(slot + 'DoneBadge');
-            const histBtn = document.getElementById(slot + 'HistoryBtn');
-            const futureBadge = document.getElementById(slot + 'FutureBadge');
-            
-            if (checkedSlots[slot]) {
-                // 이미 먹은 약
-                applyDoneUI(slot);
-            } else {
-                // 안 먹은 약: 현재 시간과 비교하여 미래인지 과거/현재인지 판단
-                let isFuture = slotIndex[slot] > slotIndex[currentSlot];
-                
-                if (isFuture) {
-                    // 미래의 약 (버튼 숨기고 '예정' 뱃지 표시)
-                    takeBtn.style.display = 'none';
-                    doneBadge.classList.remove('visible');
-                    histBtn.classList.remove('visible');
-                    futureBadge.classList.add('visible');
-                } else {
-                    // 복용할 시간 (복용 확인 버튼 표시)
-                    takeBtn.style.display = 'flex';
-                    doneBadge.classList.remove('visible');
-                    histBtn.classList.remove('visible');
-                    futureBadge.classList.remove('visible');
-                }
-            }
-        });
-
-        // 하단 가이드 박스는 현재 진행 중인 시간대 위주로 띄워줍니다.
         if (checkedSlots[activeSlot]) {
+            applyDoneUI(activeSlot);
             renderEmptyGuide();
         } else {
             renderMedGuide(activeSlot);
@@ -850,7 +816,6 @@
         const takeBtn  = document.getElementById(slot + 'TakeBtn');
         const doneBadge = document.getElementById(slot + 'DoneBadge');
         const histBtn  = document.getElementById(slot + 'HistoryBtn');
-        const futureBadge = document.getElementById(slot + 'FutureBadge');
 
         rowEl.classList.add('is-done');
         infoEl.classList.add('faded');
@@ -858,8 +823,6 @@
         takeBtn.style.display  = 'none';
         doneBadge.classList.add('visible');
         histBtn.classList.add('visible');
-        
-        if(futureBadge) futureBadge.classList.remove('visible');
 
         const lblMap = { morning: 'lblMorning', lunch: 'lblLunch', dinner: 'lblDinner' };
         document.getElementById(lblMap[slot]).innerHTML = slotMeta[slot].icon + ' ' + slotMeta[slot].name + ' ✓';
@@ -897,12 +860,14 @@
                 <i class="fa-solid fa-shield-heart" style="font-size:45px;color:#00b894;margin-bottom:12px;display:block;"></i>
                 <h4 style="margin:0 0 8px;color:#1e293b;font-size:16px;">약을 잘 챙겨 드셨군요! 🎉</h4>
                 <p style="margin:0;color:#64748b;font-size:13px;line-height:1.6;">
-                    상단 카드의 <strong>'기록'</strong> 버튼을 눌러<br>간호사 전송 내역을 확인해 보세요.
+                    상단 카드의 <strong>'복용기록'</strong> 버튼을 눌러<br>아침·점심·저녁 내역을 확인해 보세요.
                 </p>
             </div>`;
     }
 
     function viewHistory(openSlot) { renderHistoryView(openSlot); }
+    
+    // ★ 기록 뷰 내에서 과거 내역을 온전히 로드하고 조작할 수 있는 탭 UI 기능
     function renderHistoryView(openSlot) {
         const slots = ['morning','lunch','dinner'];
         let tabsHTML = `<div class="history-tab-wrap">`;
@@ -952,11 +917,11 @@
                 </div>`;
         }
 
-        const guideBtn = isDone ? `
-            <button onclick="renderMedGuide('${openSlot}')"
+        const guideBtn = `
+            <button onclick="document.getElementById('medGuideContainer').innerHTML = medGuides['${openSlot}']; document.getElementById('descBoxTitle').innerHTML = '<i class=\'fa-solid fa-capsules\'></i> ' + slotMeta['${openSlot}'].icon + ' ' + slotMeta['${openSlot}'].name + ' 처방 약물 지침';"
                 style="width:100%;margin-top:8px;background:#1a2a6c;color:#fff;border:none;padding:11px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;">
-                <i class="fa-solid fa-eye"></i> ${meta.name} 약물 지침 다시보기
-            </button>` : '';
+                <i class="fa-solid fa-eye"></i> ${meta.name} 약물 가이드(부작용) 사진 보기
+            </button>`;
 
         const backAction = checkedSlots[activeSlot] ? `renderEmptyGuide()` : `renderMedGuide('${activeSlot}')`;
         const backBtnHTML = `
@@ -965,7 +930,7 @@
                 <i class="fa-solid fa-arrow-left"></i> 돌아가기
             </button>`;
 
-        document.getElementById('descBoxTitle').innerHTML = `<i class="fa-solid fa-clock-rotate-left"></i> 오늘 복용 기록`;
+        document.getElementById('descBoxTitle').innerHTML = `<i class="fa-solid fa-clock-rotate-left"></i> 오늘 복용 기록 조회`;
         document.getElementById('medGuideContainer').innerHTML = tabsHTML + cardHTML + guideBtn + backBtnHTML;
     }
 
