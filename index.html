@@ -25,14 +25,12 @@
         /* PAGE 0 */
         .home-content { flex: 1; overflow-y: auto; padding: 25px 20px 100px; }
         
-        /* ★ 홈 상단 헤더 래퍼 (로고와 날짜를 나란히 배치) */
         .home-top-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 25px; }
         
         .top-logo-area { display: flex; flex-direction: column; align-items: flex-start; }
         .top-logo-area .kr-title { font-size: 19px; font-weight: 900; color: #1a2a6c; display: flex; align-items: center; gap: 8px; letter-spacing: -0.5px; }
         .top-logo-area .en-title { font-size: 8.5px; color: #64748b; margin-top: 3px; font-weight: 500; letter-spacing: 0.5px; padding-left: 2px; }
         
-        /* ★ 홈 화면 콤팩트 날짜/시간 디자인 */
         .home-datetime-compact { background: #eef2ff; border-radius: 10px; padding: 6px 10px; display: flex; flex-direction: column; align-items: flex-end; justify-content: center; gap: 2px; box-shadow: 0 2px 8px rgba(26,42,108,0.05); }
         .home-datetime-compact .d-date { font-size: 10px; font-weight: 700; color: #64748b; }
         .home-datetime-compact .d-time { font-size: 13.5px; font-weight: 900; color: #1a2a6c; letter-spacing: 0.5px; }
@@ -83,7 +81,6 @@
         .patient-info h2 { font-size: 22px; margin: 0 0 4px 0; color: #1e293b; font-weight: 900; }
         .patient-info p { margin: 0; color: #64748b; font-size: 13px; font-weight: 500; }
         
-        /* ★ 가독성이 극대화된 대시보드 시계 디자인 */
         .current-clock { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
         .current-clock .clock-date { font-size: 11px; font-weight: 800; color: #64748b; background: #f1f5f9; padding: 4px 10px; border-radius: 8px; border: 1px solid #e2e8f0; display: flex; align-items: center; gap: 5px; }
         .current-clock .clock-time { font-size: 18px; font-weight: 900; color: #1a2a6c; letter-spacing: 0.5px; margin-right: 2px; }
@@ -144,22 +141,23 @@
         /* 약물 가이드 박스 */
         .description-box { background: #fff; border-radius: 20px; padding: 20px; border: 1px solid #e2e8f0; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
         .description-box h3 { font-size: 15px; color: #1a2a6c; margin: 0 0 15px; font-weight: 700; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+        
         .med-detail { background: #f8fafc; padding: 15px; border-radius: 15px; margin-bottom: 10px; border-left: 5px solid #1a2a6c; cursor: pointer; transition: all 0.3s; }
         .med-detail:last-child { margin-bottom: 0; }
         .med-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
-        .med-header strong { font-size: 14px; color: #1e293b; }
+        .med-header strong { font-size: 14px; color: #1e293b; letter-spacing: -0.3px; }
         .med-header .fa-chevron-down { color: #94a3b8; transition: transform 0.3s; }
         .med-detail.open .fa-chevron-down { transform: rotate(180deg); }
         .med-detail p.main-desc { font-size: 13px; color: #475569; line-height: 1.5; margin: 0; }
+        
+        /* 사진 들어갈 공간 스타일 */
         .med-extra { max-height: 0; overflow: hidden; opacity: 0; transition: max-height 0.4s ease-in-out, opacity 0.3s ease, margin-top 0.3s; }
-        .med-detail.open .med-extra { max-height: 500px; opacity: 1; margin-top: 15px; padding-top: 15px; border-top: 1px dashed #cbd5e1; }
-        .info-row { display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px; }
-        .info-row:last-child { margin-bottom: 0; }
-        .info-row-title { font-size: 13px; font-weight: 800; color: #1e293b; display: flex; align-items: center; gap: 6px; }
-        .pictogram-group { display: flex; gap: 10px; }
-        .pictogram-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 7px; background: #fff; padding: 12px 8px; border-radius: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.04); border: 1px solid #f1f5f9; text-align: center; }
-        .pictogram-item i { font-size: 22px; }
-        .pictogram-item span { font-size: 11px; font-weight: 700; color: #475569; line-height: 1.3; }
+        .med-detail.open .med-extra { max-height: 800px; opacity: 1; margin-top: 15px; padding-top: 15px; border-top: 1px dashed #cbd5e1; }
+        .photo-placeholder { background:#f1f5f9; padding:25px; text-align:center; border-radius:12px; border:2px dashed #cbd5e1; display:flex; flex-direction:column; align-items:center; gap:8px; }
+        .photo-placeholder i { font-size:28px; color:#94a3b8; }
+        .photo-placeholder span { font-size:12px; color:#64748b; font-weight:700; }
+        /* 나중에 이미지를 꽉 차게 예쁘게 보여주기 위한 클래스 (미리 작성) */
+        .med-extra img { width: 100%; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
 
         /* 복용 기록 탭 */
         .history-tab-wrap { display: flex; gap: 8px; margin-bottom: 14px; }
@@ -239,7 +237,6 @@
 
     <div class="page-container" id="page-home">
         <div class="home-content">
-            
             <div class="home-top-header">
                 <div class="top-logo-area">
                     <div class="kr-title"><i class="fa-solid fa-square-h" style="color:#22c55e;"></i> 전남대학교병원</div>
@@ -317,9 +314,8 @@
                 </h2>
                 <p>8W12F 병동 | 입원 4일차</p>
             </div>
-            
             <div class="current-clock" id="clock">
-                </div>
+            </div>
         </div>
 
         <div class="dashboard-content" id="dashboardContent">
@@ -579,76 +575,73 @@
         dinner:  { name: '저녁',  icon: '🌙', time: '오후 07:00', timeLabel: '저녁 식후' }
     };
 
+    // ★ 약물 리스트 업데이트 완료
+    // 너무 많은 약이 나열되면 화면이 복잡해지므로 성격이 비슷한 약들은 하나로 깔끔하게 묶었습니다.
     const medHistory = {
         morning: [
-            { icon: 'fa-solid fa-pills',  color: '#1a2a6c', name: '트라마돌 50mg',    type: '진통제 · 아침 식후' },
-            { icon: 'fa-solid fa-shield', color: '#00b894', name: '테고프라잔 50mg',  type: '위장 보호제 · 아침 식후' }
+            { icon: 'fa-solid fa-pills', color: '#1a2a6c', name: '아세트아미노펜 (해열진통제)', type: '아침 식후' },
+            { icon: 'fa-solid fa-capsules', color: '#00b894', name: '아세테인·록솔 (가래제거제)', type: '아침 식후' },
+            { icon: 'fa-solid fa-droplet', color: '#f59e0b', name: '트라젠타·자디앙·유글렉스 (당뇨약)', type: '아침 식후' },
+            { icon: 'fa-solid fa-pills', color: '#3b82f6', name: '낙센에프 (소염진통제)', type: '아침 식후' },
+            { icon: 'fa-solid fa-flask', color: '#8b5cf6', name: '케프라액 (항경련제)', type: '아침 식후' },
+            { icon: 'fa-solid fa-shield', color: '#10b981', name: '케이캡 (위장약)', type: '아침 식전' },
+            { icon: 'fa-solid fa-spoon', color: '#ec4899', name: '듀락칸이지시럽 (변비약)', type: '식전/식후' },
+            { icon: 'fa-solid fa-heart-pulse', color: '#ef4444', name: '노바스크 (혈압약)', type: '아침 식후' },
+            { icon: 'fa-solid fa-toilet', color: '#6366f1', name: '방광·전립선약 3종', type: '아침 식후' }
         ],
         lunch: [
-            { icon: 'fa-solid fa-pills',  color: '#1a2a6c', name: '트라마돌 50mg',    type: '진통제 · 점심 식후' }
+            { icon: 'fa-solid fa-pills', color: '#1a2a6c', name: '아세트아미노펜 (해열진통제)', type: '점심 식후' },
+            { icon: 'fa-solid fa-capsules', color: '#00b894', name: '아세테인·록솔 (가래제거제)', type: '점심 식후' }
         ],
         dinner: [
-            { icon: 'fa-solid fa-pills',  color: '#1a2a6c', name: '트라마돌 50mg',    type: '진통제 · 저녁 식후' },
-            { icon: 'fa-solid fa-shield', color: '#00b894', name: '테고프라잔 50mg',  type: '위장 보호제 · 저녁 식후' }
+            { icon: 'fa-solid fa-pills', color: '#1a2a6c', name: '아세트아미노펜 (해열진통제)', type: '저녁 식후' },
+            { icon: 'fa-solid fa-capsules', color: '#00b894', name: '아세테인·록솔 (가래제거제)', type: '저녁 식후' },
+            { icon: 'fa-solid fa-droplet', color: '#f59e0b', name: '트라젠타·유한메트포르민 (당뇨약)', type: '저녁 식후' },
+            { icon: 'fa-solid fa-pills', color: '#3b82f6', name: '낙센에프 (소염진통제)', type: '저녁 식후' },
+            { icon: 'fa-solid fa-flask', color: '#8b5cf6', name: '케프라액·큐팜 XR (항경련제)', type: '저녁 식후' },
+            { icon: 'fa-solid fa-heart', color: '#ef4444', name: '리바로 (고지혈증약)', type: '저녁 식후' }
         ]
     };
 
+    // ★ 안내문 템플릿 생성 함수 (약물명, 효능, 간략설명)
+    // 주석 처리된 <img> 태그에 나중에 실제 이미지 경로만 넣으시면 됩니다!
+    function generateMedCard(name, desc, color) {
+        return `
+            <div class="med-detail" style="border-left-color:${color};" onclick="toggleDetail(this)">
+                <div class="med-header"><strong>💊 ${name}</strong><i class="fa-solid fa-chevron-down"></i></div>
+                <p class="main-desc">${desc}</p>
+                <div class="med-extra">
+                    <div class="photo-placeholder">
+                        <i class="fa-regular fa-image"></i>
+                        <span>여기에 부작용 및<br>주의사항 사진을 올려주세요</span>
+                    </div>
+                    </div>
+            </div>`;
+    }
+
     const medGuides = {
-        morning: `
-            <div class="med-detail" onclick="toggleDetail(this)">
-                <div class="med-header"><strong>💊 트라마돌 (진통제) — 아침</strong><i class="fa-solid fa-chevron-down"></i></div>
-                <p class="main-desc">수술 부위의 통증을 줄여주는 약입니다. 눌러서 자세한 주의사항을 확인하세요.</p>
-                <div class="med-extra">
-                    <div class="info-row">
-                        <div class="info-row-title"><i class="fa-solid fa-triangle-exclamation" style="color:#f59e0b;"></i> 대표적인 부작용</div>
-                        <div class="pictogram-group">
-                            <div class="pictogram-item"><i class="fa-solid fa-arrows-spin" style="color:#3b82f6;"></i><span>어지러움</span></div>
-                            <div class="pictogram-item"><i class="fa-solid fa-face-frown-open" style="color:#10b981;"></i><span>구역·구토</span></div>
-                            <div class="pictogram-item"><i class="fa-solid fa-bed" style="color:#8b5cf6;"></i><span>졸음 유발</span></div>
-                        </div>
-                    </div>
-                    <div class="info-row">
-                        <div class="info-row-title"><i class="fa-solid fa-circle-exclamation" style="color:#ef4444;"></i> 주의사항</div>
-                        <div class="pictogram-group">
-                            <div class="pictogram-item"><i class="fa-solid fa-person-falling" style="color:#ef4444;"></i><span>낙상 주의<br>(보호자 동행)</span></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="med-detail" style="border-left-color:#00b894;" onclick="toggleDetail(this)">
-                <div class="med-header"><strong>💊 테고프라잔 (위장약) — 아침</strong><i class="fa-solid fa-chevron-down"></i></div>
-                <p class="main-desc">진통제로 인한 위 손상을 예방하는 보호막 역할을 합니다.</p>
-            </div>`,
-        lunch: `
-            <div class="med-detail" onclick="toggleDetail(this)">
-                <div class="med-header"><strong>💊 트라마돌 (진통제) — 점심</strong><i class="fa-solid fa-chevron-down"></i></div>
-                <p class="main-desc">점심 식사 후 복용하는 통증 완화 약물입니다. 눌러서 자세한 주의사항을 확인하세요.</p>
-                <div class="med-extra">
-                    <div class="info-row">
-                        <div class="info-row-title"><i class="fa-solid fa-clock" style="color:#3b82f6;"></i> 복용 시간 주의</div>
-                        <div class="pictogram-group">
-                            <div class="pictogram-item"><i class="fa-solid fa-utensils" style="color:#f59e0b;"></i><span>식후 30분 이내<br>복용 권장</span></div>
-                        </div>
-                    </div>
-                </div>
-            </div>`,
-        dinner: `
-            <div class="med-detail" onclick="toggleDetail(this)">
-                <div class="med-header"><strong>💊 트라마돌 (진통제) — 저녁</strong><i class="fa-solid fa-chevron-down"></i></div>
-                <p class="main-desc">밤 동안의 통증 완화를 위한 약물입니다. 눌러서 자세한 주의사항을 확인하세요.</p>
-                <div class="med-extra">
-                    <div class="info-row">
-                        <div class="info-row-title"><i class="fa-solid fa-moon" style="color:#8b5cf6;"></i> 수면 전 주의</div>
-                        <div class="pictogram-group">
-                            <div class="pictogram-item"><i class="fa-solid fa-bed" style="color:#8b5cf6;"></i><span>졸음 유발 주의<br>취침 전 복용</span></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="med-detail" style="border-left-color:#00b894;" onclick="toggleDetail(this)">
-                <div class="med-header"><strong>💊 테고프라잔 (위장약) — 저녁</strong><i class="fa-solid fa-chevron-down"></i></div>
-                <p class="main-desc">속쓰림 방지를 위한 위장 보호 약물입니다.</p>
-            </div>`
+        morning: 
+            generateMedCard('아세트아미노펜정 (해열진통제)', '통증을 줄이고 열을 내리는 역할을 합니다.', '#1a2a6c') +
+            generateMedCard('아세테인·록솔 (가래제거제)', '가래를 묽게 하고 기침을 줄여주어 호흡을 편안하게 돕습니다.', '#00b894') +
+            generateMedCard('트라젠타·자디앙·유글렉스 (당뇨약)', '혈당 수치를 안전하게 조절해 줍니다.', '#f59e0b') +
+            generateMedCard('낙센에프정 (소염진통제)', '염증을 가라앉히고 통증을 덜어줍니다.', '#3b82f6') +
+            generateMedCard('케프라액 (항경련제)', '신경을 안정시켜 경련을 예방합니다. 정해진 용량을 지켜주세요.', '#8b5cf6') +
+            generateMedCard('케이캡 (위식도역류질환)', '위산을 조절하여 속쓰림을 예방합니다. (식전 복용)', '#10b981') +
+            generateMedCard('듀락칸이지시럽 (변비약)', '원활한 배변 활동을 돕는 시럽 형태의 약입니다.', '#ec4899') +
+            generateMedCard('노바스크정 (혈압약)', '혈압을 정상 수치로 유지해 줍니다.', '#ef4444') +
+            generateMedCard('방광·전립선약 3종', '빈뇨를 개선하고 소변을 시원하게 보도록 돕습니다.', '#6366f1'),
+            
+        lunch: 
+            generateMedCard('아세트아미노펜정 (해열진통제)', '점심 식사 후 통증 조절을 위해 복용합니다.', '#1a2a6c') +
+            generateMedCard('아세테인·록솔 (가래제거제)', '가래를 묽게 하고 기침을 줄여주어 호흡을 편안하게 돕습니다.', '#00b894'),
+            
+        dinner: 
+            generateMedCard('아세트아미노펜정 (해열진통제)', '밤 시간 동안의 통증을 줄여줍니다.', '#1a2a6c') +
+            generateMedCard('아세테인·록솔 (가래제거제)', '가래를 묽게 하고 기침을 줄여주어 호흡을 편안하게 돕습니다.', '#00b894') +
+            generateMedCard('트라젠타·유한메트포르민 (당뇨약)', '저녁 식사 후 혈당 수치를 안전하게 조절해 줍니다.', '#f59e0b') +
+            generateMedCard('낙센에프정 (소염진통제)', '염증을 가라앉히고 밤 시간의 통증을 덜어줍니다.', '#3b82f6') +
+            generateMedCard('케프라액·큐팜 XR정 (항경련제)', '밤 동안 신경을 안정시켜 줍니다. 일정한 시간에 복용하세요.', '#8b5cf6') +
+            generateMedCard('리바로정 (고지혈증약)', '혈중 콜레스테롤 수치를 낮추어 혈관을 맑게 합니다.', '#ef4444')
     };
 
     let checkedSlots = { morning: false, lunch: false, dinner: false };
@@ -956,13 +949,11 @@
         setTimeout(() => document.getElementById('dashboardContent').scrollTo({ top: el.offsetTop - 50, behavior: 'smooth' }), 150);
     }
     
-    // ★ 시간 업데이트 로직도 새 디자인에 맞게 변경 ★
     function updateTime() {
         const now = new Date();
         const timeStr = now.toLocaleTimeString('ko-KR', { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' });
         const dateStr = getFormattedDate(now); 
 
-        // 1. 입원화면(대시보드) 시계 업데이트
         const clockEl = document.getElementById('clock');
         if (clockEl) {
             clockEl.innerHTML = `
@@ -976,7 +967,6 @@
             cardLabelEl.innerText = `${dateStr} 복약 현황`;
         }
 
-        // 2. 홈화면 우측 상단 시계 업데이트
         const homeDateEl = document.getElementById('homeDateTime');
         if (homeDateEl) {
             homeDateEl.innerHTML = `
