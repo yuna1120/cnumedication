@@ -162,7 +162,7 @@
         .photo-placeholder span { font-size:12px; color:#64748b; font-weight:700; }
         .med-extra img { width: 100%; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
 
-        /* ★ 복용 기록 탭 및 기록용 아코디언 스타일 */
+        /* 복용 기록 탭 및 기록용 아코디언 스타일 */
         .history-tab-wrap { display: flex; gap: 8px; margin-bottom: 14px; }
         .history-tab { flex: 1; padding: 9px 4px; border-radius: 10px; font-size: 12px; font-weight: 700; text-align: center; cursor: pointer; border: 1.5px solid #e2e8f0; color: #94a3b8; background: #f8fafc; transition: all 0.2s; }
         .history-tab.active { background: #1a2a6c; color: #fff; border-color: #1a2a6c; }
@@ -172,7 +172,6 @@
         .history-record-card { background: #f8fafc; padding: 16px; border-radius: 15px; border-left: 5px solid #00b894; }
         .history-record-card.not-yet { border-left-color: #cbd5e1; }
         
-        /* 히스토리 리스트 항목 (아코디언 형태) */
         .history-med-card { background: #fff; border-radius: 10px; border: 1px solid #e2e8f0; margin-bottom: 8px; cursor: pointer; transition: all 0.3s; overflow: hidden; }
         .history-med-card:last-child { margin-bottom: 0; }
         .history-med-header { display: flex; align-items: center; gap: 10px; padding: 10px 12px; }
@@ -217,7 +216,7 @@
         .nav-item i { font-size: 22px; display: block; margin-bottom: 4px; }
         .nav-item.active { color: #1a2a6c; font-weight: 800; }
 
-        /* 확인 모달 */
+        /* 오버레이 (모달창 공통) */
         .confirm-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 9999; display: none; justify-content: center; align-items: flex-end; }
         .confirm-overlay.open { display: flex; animation: fadeIn 0.2s; }
         .confirm-sheet { background: #fff; width: 100%; max-width: 450px; border-radius: 24px 24px 0 0; padding: 28px 24px 40px; height: 80vh; overflow-y: auto; }
@@ -242,7 +241,6 @@
         .guide-name { font-size: 15px; font-weight: 900; margin-bottom: 5px; }
         .guide-range { font-size: 12px; font-weight: 700; background: #f1f5f9; display: inline-block; padding: 4px 10px; border-radius: 12px; color: #475569; }
 
-        /* 비디오 크게 보기 오버레이 */
         .vid-zoom-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 10000; display: none; justify-content: center; align-items: center; flex-direction: column; }
         .vid-zoom-overlay.open { display: flex; animation: fadeIn 0.2s; }
         .big-video-wrap { width: 250px; height: 250px; border-radius: 50%; overflow: hidden; border: 5px solid #fff; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
@@ -500,6 +498,15 @@
             <button class="sheet-btn cancel" onclick="closeConfirmSheet()">아직 안 먹었어요</button>
             <button class="sheet-btn confirm" onclick="completeTake()">✅ 복용 확인</button>
         </div>
+    </div>
+</div>
+
+<div class="confirm-overlay" id="lateAlertOverlay" onclick="closeLateAlert(event)">
+    <div class="confirm-sheet" onclick="event.stopPropagation()" style="height: auto; padding-bottom: 30px;">
+        <div class="sheet-icon" style="margin-bottom: 15px;"><i class="fa-solid fa-clock" style="color: #ef4444; font-size: 48px;"></i></div>
+        <h3 style="color: #ef4444;">복용 시간이 지났습니다!</h3>
+        <p>복용 예정 시간에서 30분이 지났습니다.<br><strong>약효를 위해 다음부터는<br>제시간에 꼭 챙겨 드세요.</strong></p>
+        <button class="sheet-btn confirm" style="width: 100%; background: #ef4444;" onclick="closeLateAlert()">확인했습니다</button>
     </div>
 </div>
 
@@ -810,6 +817,7 @@
         pendingSlot = null;
     }
 
+    // ★ 복용 확인 완료 시, 늦었을 경우 시스템 alert가 아닌 앱 모달을 띄우는 로직
     function completeTake() {
         if (!pendingSlot) return;
         const slot = pendingSlot;
@@ -823,7 +831,8 @@
         let isOnTime = now <= targetTime; 
 
         if (!isOnTime) {
-            alert("⚠️ 복용 예정 시간에서 30분이 지났습니다.\n\n약효를 위해 다음부터는 제시간에 꼭 챙겨 드세요!");
+            // 시스템 alert를 지우고 새로운 오버레이 모달을 열어줍니다.
+            document.getElementById('lateAlertOverlay').classList.add('open');
         }
 
         checkedSlots[slot] = true;
@@ -834,6 +843,11 @@
         updateWeeklyTracker(); 
 
         if (slot === activeSlot) renderEmptyGuide();
+    }
+    
+    // ★ 경고창 닫기 함수
+    function closeLateAlert() {
+        document.getElementById('lateAlertOverlay').classList.remove('open');
     }
 
     function openHakdungiInfo() { document.getElementById('infoOverlay').classList.add('open'); }
@@ -925,7 +939,6 @@
         let cardHTML = '';
 
         if (isDone) {
-            // ★ 이미 먹은 약의 경우도 아코디언 형태로 생성합니다.
             const medsHTML = medHistory[openSlot].map(m => `
                 <div class="history-med-card" onclick="toggleDetail(this)">
                     <div class="history-med-header">
@@ -959,7 +972,6 @@
                     ${medsHTML}
                 </div>`;
         } else {
-            // ★ 아직 안 먹은 약의 경우도 약을 눌러서 사진을 볼 수 있게 아코디언을 생성합니다. (opacity로 흐리게 표현)
             const notYetMedsHTML = medHistory[openSlot].map(m => `
                 <div class="history-med-card" onclick="toggleDetail(this)">
                     <div class="history-med-header" style="opacity: 0.7;">
@@ -993,7 +1005,6 @@
                 <i class="fa-solid fa-arrow-left"></i> 돌아가기
             </button>`;
 
-        // 약 리스트 자체를 클릭해서 펼쳐보게 만들었으므로 하단의 불필요한 '약물 가이드 사진 보기' 버튼은 제거했습니다.
         document.getElementById('descBoxTitle').innerHTML = `<i class="fa-solid fa-clock-rotate-left"></i> 오늘 복용 기록 조회`;
         document.getElementById('medGuideContainer').innerHTML = tabsHTML + cardHTML + backBtnHTML;
     }
