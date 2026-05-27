@@ -105,7 +105,7 @@
         .day-col { display: flex; flex-direction: column; align-items: center; gap: 6px; }
         .day-circle { width: 28px; height: 28px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 13px; background: #e2e8f0; color: #94a3b8; transition: all 0.3s; font-weight: bold;}
         .day-circle.success { background: #1a2a6c; color: #fff; }
-        .day-circle.fail { background: #fff; color: #ef4444; border: 2.5px solid #facc15; background-color: #fef08a; font-size: 18px; }
+        .day-circle.fail { background: #fff; color: #facc15; border: 2.5px solid #facc15; font-size: 18px; }
         .day-col span { font-size: 12px; font-weight: 800; color: #1a2a6c; }
         .health-gauge-wrap { display: flex; align-items: center; gap: 10px; }
         .gauge-track-bg { flex: 1; height: 14px; background: #bfdbfe; border-radius: 10px; overflow: hidden; border: 1px solid rgba(26,42,108,0.2); }
@@ -120,10 +120,12 @@
         .status-badge.wait { background: rgba(255,255,255,0.2); color: #fff; }
         .status-badge.done { background: #00b894; color: #fff; box-shadow: 0 2px 10px rgba(0,184,148,0.4); }
         
+        /* 복용 기록 바로가기 버튼 */
         .label-right-wrap { display: flex; align-items: center; gap: 8px; }
         .global-history-btn { background: rgba(255,255,255,0.2); border: none; color: #fff; padding: 5px 10px; border-radius: 12px; font-size: 11px; font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 4px; transition: background 0.2s; }
         .global-history-btn:active { background: rgba(255,255,255,0.3); }
 
+        /* 복약 행 */
         .inner-check-list { display: flex; flex-direction: column; gap: 12px; border-top: 1px solid rgba(255,255,255,0.15); padding-top: 16px; }
         .check-item-white { display: flex; justify-content: space-between; align-items: stretch; background: rgba(0,0,0,0.12); padding: 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05); transition: all 0.4s; gap: 10px; }
         .check-item-white.is-done { background: rgba(0,184,148,0.15); border-color: rgba(0,184,148,0.3); align-items: center; }
@@ -134,6 +136,7 @@
         .title-text { font-size: 16px; font-weight: 800; transition: all 0.3s; }
         .title-text.struck { text-decoration: line-through; opacity: 0.6; }
 
+        /* 상태 버튼들 */
         .action-right { display: flex; align-items: center; justify-content: flex-end; gap: 6px; }
         .take-btn { background: #fff; color: #1a2a6c; border: none; padding: 22px 10px; border-radius: 22px; font-weight: 900; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 6px 20px rgba(0,0,0,0.3); transition: all 0.2s; width: 160px; }
         .take-btn i { font-size: 22px; }
@@ -157,17 +160,17 @@
         .med-detail p.main-desc { font-size: 13px; color: #475569; line-height: 1.5; margin: 0; }
         
         .med-extra { max-height: 0; overflow: hidden; opacity: 0; transition: max-height 0.4s ease-in-out, opacity 0.3s ease, margin-top 0.3s; }
-        .med-detail.open .med-extra { max-height: 1200px; opacity: 1; margin-top: 15px; padding-top: 15px; border-top: 1px dashed #cbd5e1; }
+        .med-detail.open .med-extra { max-height: 4000px; opacity: 1; margin-top: 15px; padding-top: 15px; border-top: 1px dashed #cbd5e1; }
         
-        /* 다중 이미지 배치용 Grid 시스템 */
-        .med-photos-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 5px; }
-        .med-photo-item { display: flex; flex-direction: column; align-items: center; background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.02); }
-        .med-photo-item img { width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: 8px; }
-        .photo-lbl { font-size: 12px; font-weight: 800; color: #334155; margin-top: 6px; text-align: center; }
+        /* ★ 세로형 사진 배치 (글씨가 잘리거나 축소되지 않도록 원본 비율 보존) */
+        .med-photos-list { display: flex; flex-direction: column; gap: 15px; margin-top: 10px; }
+        .med-photo-card { display: flex; flex-direction: column; align-items: center; background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 10px; box-shadow: 0 2px 6px rgba(0,0,0,0.02); }
+        .med-photo-card img { width: 100%; height: auto; border-radius: 8px; display: block; }
+        .photo-name-lbl { font-size: 13px; font-weight: 800; color: #1a2a6c; margin-top: 8px; background: #f1f5f9; padding: 4px 12px; border-radius: 8px; text-align: center; }
         
-        .photo-placeholder { background: #f1f5f9; width: 100%; aspect-ratio: 4/3; border-radius: 8px; border: 2px dashed #cbd5e1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; }
-        .photo-placeholder i { font-size: 20px; color: #94a3b8; }
-        .photo-placeholder span { font-size: 10px; color: #64748b; font-weight: bold; text-align: center; line-height: 1.2; }
+        .photo-placeholder { background: #f1f5f9; width: 100%; height: 180px; border-radius: 8px; border: 2px dashed #cbd5e1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; }
+        .photo-placeholder i { font-size: 24px; color: #94a3b8; }
+        .photo-placeholder span { font-size: 11px; color: #64748b; font-weight: bold; text-align: center; line-height: 1.3; }
 
         /* 복용 기록 탭 및 기록용 아코디언 스타일 */
         .history-tab-wrap { display: flex; gap: 8px; margin-bottom: 14px; }
@@ -187,7 +190,7 @@
         .history-med-header .med-type { font-size: 11px; color: #64748b; margin-top: 2px; }
         .history-med-header .toggle-icon { color: #94a3b8; transition: transform 0.3s; margin-left: auto; font-size: 14px; }
         .history-med-card.open .toggle-icon { transform: rotate(180deg); }
-        .history-med-card.open .med-extra { max-height: 1200px; opacity: 1; margin: 0 12px 12px; padding-top: 12px; border-top: 1px dashed #cbd5e1; }
+        .history-med-card.open .med-extra { max-height: 4000px; opacity: 1; margin: 0 12px 12px; padding-top: 12px; border-top: 1px dashed #cbd5e1; }
 
         .nurse-check-badge { background: #10b981; color: #fff; font-size: 12px; font-weight: 800; padding: 6px 12px; border-radius: 20px; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 4px 10px rgba(16,185,129,0.3); }
 
@@ -292,7 +295,6 @@
                 <div class="s-dept">재활의학과 | 1동 1층</div>
                 <div class="s-links"><span>진료내역조회</span><span class="divider">|</span><span>진료비결제</span></div>
             </div>
-            
             <div class="fav-header">
                 <div class="fav-header-texts">
                     <div class="fav-title">나의 즐겨찾기</div>
@@ -618,6 +620,7 @@
     const part3 = "6Yu0lpo1w1hnKED6U";
     const GEMINI_API_KEY = part1 + part2 + part3;
 
+    // ★ 나이 변수: 이 값을 바꾸면 챗봇의 말투가 실시간으로 소아/젊은층/어르신 등으로 자동 변환됩니다.
     let patientAge = 60;
 
     const slotMeta = {
@@ -626,15 +629,14 @@
         dinner:  { name: '저녁',  icon: '🌙', time: '오후 07:00', timeLabel: '저녁 식후' }
     };
 
-    // ★ [데이터 변경] 엑셀 요청사항 반영: 케이캡정 사진 2개 포함, 타 약물도 동일하게 여러 사진 사용 가능하도록 설정
+    // ★ [데이터 변경] 엑셀 데이터 반영, 여러 사진 지원 구조
     const medHistory = {
         morning: [
-            // 케이캡 사진 2개 추가된 부분 (예: 용량이나 앞/뒷면)
+            // 케이캡 사진 2개 
             { icon: 'fa-solid fa-shield', color: '#10b981', name: '케이캡정 (위산분비억제제)', type: '아침 식전/식후', desc: '위산을 조절하여 속쓰림을 예방합니다.', imgs: [{name:'케이캡정 50mg', file:'kcab_50.png'}, {name:'케이캡정 25mg', file:'kcab_25.png'}] },
             { icon: 'fa-solid fa-heart', color: '#ef4444', name: '리바로 (고지혈증약)', type: '아침 식후', desc: '콜레스테롤 수치를 조절합니다.', imgs: [{name:'리바로정', file:'side_livaro.png'}] },
-            // 여러 사진을 올릴 수 있게 만들어진 다중 배열 예시
+            // 당뇨약 4개
             { icon: 'fa-solid fa-droplet', color: '#f59e0b', name: '당뇨약 복합군', type: '아침 식후', desc: '혈당을 안전하게 낮춰줍니다.', imgs: [{name:'자디앙정', file:'side_jadiance.png'}, {name:'트라젠타정', file:'side_trajenta.png'}, {name:'메트포르민', file:'side_metformin.png'}, {name:'유글렉스정', file:'side_euglucon.png'}] },
-            // 다른 약물들 역시 필요시 다중 이미지 지원
             { icon: 'fa-solid fa-heart-pulse', color: '#ef4444', name: '노바스크 (혈압약)', type: '아침 식후', desc: '혈압을 안정적으로 유지합니다.', imgs: [{name:'노바스크', file:'side_novasc.png'}] },
             { icon: 'fa-solid fa-toilet', color: '#6366f1', name: '방광·전립선 조절약', type: '아침 식후', desc: '편안한 배뇨 활동을 돕습니다.', imgs: [{name:'베시케어', file:'side_vesicare.png'}, {name:'베타미가', file:'side_betmiga.png'}, {name:'하루날디', file:'side_harunal.png'}] },
             { icon: 'fa-solid fa-flask', color: '#8b5cf6', name: '큐팜 XR·케프라액 (항경련제)', type: '아침 식후', desc: '신경을 안정시켜 경련을 예방합니다.', imgs: [{name:'큐팜 XR', file:'side_qpam.png'}, {name:'케프라액', file:'side_keppra.png'}] },
@@ -657,22 +659,23 @@
         ]
     };
 
+    // ★ [기능 변경] 사진을 한 장씩 크게 "세로로" 나열하도록 구조 변경
     function generateMedCard(item) {
-        let gridHTML = `<div class="med-photos-grid">`;
+        let listHTML = `<div class="med-photos-list">`;
         item.imgs.forEach(img => {
-            gridHTML += `
-                <div class="med-photo-item">
-                    <img src="${img.file}" alt="${img.name}" onerror="this.onerror=null; this.outerHTML='<div class=\\'photo-placeholder\\'><i class=\\'fa-regular fa-image\\'></i><span>${img.name}<br>사진 배치 구역</span></div>';">
-                    <div class="photo-lbl">${img.name}</div>
+            listHTML += `
+                <div class="med-photo-card">
+                    <img src="${img.file}" alt="${img.name}" onerror="this.onerror=null; this.outerHTML='<div class=\\'photo-placeholder\\'><i class=\\'fa-regular fa-image\\'></i><span>${img.name}<br>안내 사진을 올려주세요</span></div>';">
+                    <div class="photo-name-lbl">${img.name}</div>
                 </div>`;
         });
-        gridHTML += `</div>`;
+        listHTML += `</div>`;
 
         return `
             <div class="med-detail" style="border-left-color:${item.color};" onclick="toggleDetail(this)">
                 <div class="med-header"><strong>💊 ${item.name}</strong><i class="fa-solid fa-chevron-down"></i></div>
                 <p class="main-desc">${item.desc}</p>
-                <div class="med-extra">${gridHTML}</div>
+                <div class="med-extra">${listHTML}</div>
             </div>`;
     }
 
@@ -684,9 +687,10 @@
     const weekDays = ['월', '화', '수', '목', '금', '토', '일'];
     let todayIndex = new Date().getDay() === 0 ? 6 : new Date().getDay() - 1; 
     
+    // ★ 과거 날짜는 기본적으로 완벽 복용(파란 체크 true)으로 설정
     let weeklyHistory = Array.from({length: 7}, (_, i) => {
         if (i < todayIndex) return { morning: true, lunch: true, dinner: true };
-        return { morning: null, lunch: null, dinner: null };
+        return { morning: null, lunch: null, dinner: null }; // 오늘 및 미래는 대기(null)
     });
 
     function getFormattedDate(dateObj) {
@@ -719,6 +723,7 @@
         
         ['mRow','lRow','dRow'].forEach(id => document.getElementById(id).style.display = 'none');
 
+        // ★ 안 눌렀을 때 강제 노란색(false)으로 변경하지 않고 대기(회색) 유지
         if (h >= 5 && h < 11) { 
             activeSlot = 'morning'; 
         } else if (h >= 11 && h < 17) { 
@@ -752,6 +757,7 @@
         updateWeeklyTracker(); 
     }
 
+    // ★ 단 하루라도 지각/미복용(false)시 노란 울상, 3번 모두 성공(true)시만 파란 체크
     function updateWeeklyTracker() {
         let successCount = 0; 
         let html = '';
@@ -830,6 +836,7 @@
         pendingSlot = null;
     }
 
+    // ★ 30분 기한 내 복약 유무 체킹 로직
     function completeTake() {
         if (!pendingSlot) return;
         const slot = pendingSlot;
@@ -936,6 +943,7 @@
 
     function viewHistory(openSlot) { renderHistoryView(openSlot); }
     
+    // ★ 복약 기록창(히스토리) 내부에도 다중 이미지 세로 리스트가 렌더링되도록 업데이트 
     function renderHistoryView(openSlot) {
         const slots = ['morning','lunch','dinner'];
         let tabsHTML = `<div class="history-tab-wrap">`;
@@ -954,15 +962,15 @@
         let cardHTML = '';
 
         const medsHTML = medHistory[openSlot].map(m => {
-            let imgHTML = `<div class="med-photos-grid">`;
+            let listHTML = `<div class="med-photos-list">`;
             m.imgs.forEach(img => {
-                imgHTML += `
-                    <div class="med-photo-item">
-                        <img src="${img.file}" alt="${img.name}" onerror="this.onerror=null; this.outerHTML='<div class=\\'photo-placeholder\\'><i class=\\'fa-regular fa-image\\'></i><span>${img.name}<br>사진 배치 구역</span></div>';">
-                        <div class="photo-lbl">${img.name}</div>
+                listHTML += `
+                    <div class="med-photo-card">
+                        <img src="${img.file}" alt="${img.name}" onerror="this.onerror=null; this.outerHTML='<div class=\\'photo-placeholder\\'><i class=\\'fa-regular fa-image\\'></i><span>${img.name}<br>안내 사진을 올려주세요</span></div>';">
+                        <div class="photo-name-lbl">${img.name}</div>
                     </div>`;
             });
-            imgHTML += `</div>`;
+            listHTML += `</div>`;
 
             return `
                 <div class="history-med-card" onclick="toggleDetail(this)">
@@ -974,7 +982,7 @@
                     </div>
                     <div class="med-extra">
                         <p class="main-desc" style="font-size:13px; color:#475569; margin:0 0 10px;">${m.desc}</p>
-                        ${imgHTML}
+                        ${listHTML}
                     </div>
                 </div>`;
         }).join('');
@@ -1113,6 +1121,7 @@
         }
     }
     
+    // ★ [지능형 동적 처리] 나이(patientAge)에 따라 챗봇 말투가 실시간 자동 변환되는 로직
     async function getGeminiResponse(text) {
         const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent?key=${GEMINI_API_KEY}`;
         
