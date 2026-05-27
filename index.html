@@ -75,6 +75,24 @@
         .current-clock { font-size: 13px; color: #1a2a6c; font-weight: 700; background: #eef2ff; padding: 6px 12px; border-radius: 20px; border: 1px solid #c7d2fe; }
         .dashboard-content { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; padding-bottom: 110px; scroll-behavior: smooth; }
         
+        /* ★ 주간 복약 트래커 (학둥이 영역) ★ */
+        .weekly-tracker { background: #f8fafc; border: 2.5px solid #1a2a6c; border-radius: 20px; padding: 18px; display: flex; align-items: center; gap: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .tracker-left { width: 85px; height: 85px; flex-shrink: 0; display: flex; justify-content: center; align-items: center; background: #fff; border-radius: 50%; border: 2.5px solid #1a2a6c; overflow: hidden; }
+        .tracker-left img { width: 90%; height: 90%; object-fit: contain; }
+        
+        .tracker-right { flex: 1; display: flex; flex-direction: column; gap: 15px; }
+        .week-days { display: flex; justify-content: space-between; padding: 0; }
+        .day-col { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+        .day-circle { width: 28px; height: 28px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 13px; background: #e2e8f0; color: #94a3b8; transition: all 0.3s; font-weight: bold;}
+        .day-circle.success { background: #1a2a6c; color: #fff; }
+        .day-circle.fail { background: #fff; color: #facc15; border: 2.5px solid #facc15; font-size: 18px; }
+        .day-col span { font-size: 12px; font-weight: 800; color: #1a2a6c; }
+        
+        .health-gauge-wrap { display: flex; align-items: center; gap: 10px; }
+        .gauge-track-bg { flex: 1; height: 14px; background: #bfdbfe; border-radius: 10px; overflow: hidden; border: 1px solid rgba(26,42,108,0.2); }
+        .gauge-fill-bar { height: 100%; background: #1a2a6c; width: 100%; transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+        .health-gauge-wrap i.fa-heart { color: #1a2a6c; font-size: 22px; }
+
         /* 메인 카드 */
         .med-card { background: linear-gradient(135deg, #1a2a6c, #2a48ad); border-radius: 25px; padding: 22px; color: white; box-shadow: 0 10px 25px rgba(26,42,108,0.25); }
         .med-card .label { font-size: 14px; opacity: 0.9; margin-bottom: 5px; font-weight: 500; display: flex; justify-content: space-between; align-items: center; }
@@ -82,12 +100,8 @@
         .status-badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; }
         .status-badge.wait { background: rgba(255,255,255,0.2); color: #fff; }
         .status-badge.done { background: #00b894; color: #fff; box-shadow: 0 2px 10px rgba(0,184,148,0.4); }
-        .gauge-container { margin-bottom: 18px; }
-        .progress-track { height: 8px; background: rgba(255,255,255,0.2); border-radius: 10px; overflow: hidden; margin-bottom: 8px; }
-        .progress-bar { height: 100%; background: #00b894; width: 0%; transition: width 0.5s ease-in-out; }
-        .status-labels { display: flex; justify-content: space-between; font-size: 11px; font-weight: 500; opacity: 0.8; }
-
-        /* ★ 복약 행 (check-item-white) */
+        
+        /* 복약 행 */
         .inner-check-list { display: flex; flex-direction: column; gap: 10px; border-top: 1px solid rgba(255,255,255,0.15); padding-top: 14px; }
         .check-item-white { display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.12); padding: 10px 14px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.05); transition: all 0.4s; }
         .check-item-white.is-done { background: rgba(0,184,148,0.15); border-color: rgba(0,184,148,0.3); }
@@ -98,55 +112,14 @@
         .title-text { font-size: 14px; font-weight: 700; transition: all 0.3s; }
         .title-text.struck { text-decoration: line-through; opacity: 0.6; }
 
-        /* ★ 복용 완료 버튼 (활성 상태) */
-        .take-btn {
-            background: #fff;
-            color: #1a2a6c;
-            border: none;
-            padding: 9px 14px;
-            border-radius: 20px;
-            font-weight: 800;
-            font-size: 13px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            white-space: nowrap;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.12);
-            transition: all 0.2s;
-        }
+        /* 복용 완료 버튼 (활성 상태) */
+        .take-btn { background: #fff; color: #1a2a6c; border: none; padding: 9px 14px; border-radius: 20px; font-weight: 800; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 5px; white-space: nowrap; box-shadow: 0 3px 10px rgba(0,0,0,0.12); transition: all 0.2s; }
         .take-btn:active { transform: scale(0.95); }
 
-        /* ★ 복용 기록 버튼 (완료 후) */
-        .history-btn {
-            background: rgba(0,184,148,0.2);
-            color: #fff;
-            border: 1.5px solid rgba(0,184,148,0.6);
-            padding: 8px 13px;
-            border-radius: 20px;
-            font-weight: 700;
-            font-size: 12px;
-            cursor: pointer;
-            display: none;
-            align-items: center;
-            gap: 4px;
-            white-space: nowrap;
-        }
+        /* 복용 기록 버튼 / 완료 뱃지 */
+        .history-btn { background: rgba(0,184,148,0.2); color: #fff; border: 1.5px solid rgba(0,184,148,0.6); padding: 8px 13px; border-radius: 20px; font-weight: 700; font-size: 12px; cursor: pointer; display: none; align-items: center; gap: 4px; white-space: nowrap; }
         .history-btn.visible { display: flex; }
-
-        /* ★ 완료 뱃지 (체크 아이콘 + 텍스트) */
-        .done-badge {
-            display: none;
-            align-items: center;
-            gap: 6px;
-            background: rgba(0,184,148,0.25);
-            border: 1.5px solid rgba(0,184,148,0.5);
-            padding: 7px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 800;
-            color: #fff;
-        }
+        .done-badge { display: none; align-items: center; gap: 6px; background: rgba(0,184,148,0.25); border: 1.5px solid rgba(0,184,148,0.5); padding: 7px 12px; border-radius: 20px; font-size: 12px; font-weight: 800; color: #fff; }
         .done-badge.visible { display: flex; }
 
         /* 약물 가이드 박스 */
@@ -233,7 +206,6 @@
 <body>
 <div class="app-frame" id="appFrame">
 
-    <!-- ===== PAGE 0: 홈 ===== -->
     <div class="page-container" id="page-home">
         <div class="home-content">
             <div class="top-logo-area">
@@ -277,7 +249,6 @@
         </div>
     </div>
 
-    <!-- ===== PAGE 1: 입원 서비스 ===== -->
     <div class="page-container" id="page-inpatient">
         <div class="header-blue">
             <i class="fa-solid fa-chevron-left" onclick="goToHome()" style="cursor:pointer;"></i>
@@ -299,7 +270,6 @@
         </div>
     </div>
 
-    <!-- ===== PAGE 2: 스마트 처방약 대시보드 ===== -->
     <div class="page-container" id="page-meddashboard">
         <div class="header-white">
             <div class="patient-info">
@@ -312,7 +282,23 @@
         </div>
 
         <div class="dashboard-content" id="dashboardContent">
-            <!-- 메인 상태 카드 -->
+            
+            <div class="weekly-tracker">
+                <div class="tracker-left">
+                    <img src="hakdungi_normal.png" id="hakdungiImg" alt="학둥이 상태">
+                </div>
+                <div class="tracker-right">
+                    <div class="week-days" id="weekDaysContainer">
+                        </div>
+                    <div class="health-gauge-wrap">
+                        <div class="gauge-track-bg">
+                            <div class="gauge-fill-bar" id="healthGaugeBar" style="width: 100%;"></div>
+                        </div>
+                        <i class="fa-solid fa-heart"></i>
+                    </div>
+                </div>
+            </div>
+
             <div class="med-card">
                 <div class="label">
                     <span id="cardLabelText">오늘의 복약 현황</span>
@@ -329,7 +315,6 @@
                 </div>
 
                 <div class="inner-check-list">
-                    <!-- 아침 -->
                     <div class="check-item-white" id="mRow" style="display:none;">
                         <div class="check-info-white" id="morningInfo">
                             <i class="slot-icon fa-solid fa-sun" style="color:#fcd34d;"></i>
@@ -351,7 +336,6 @@
                         </div>
                     </div>
 
-                    <!-- 점심 -->
                     <div class="check-item-white" id="lRow" style="display:none;">
                         <div class="check-info-white" id="lunchInfo">
                             <i class="slot-icon fa-solid fa-cloud-sun" style="color:#fb923c;"></i>
@@ -373,7 +357,6 @@
                         </div>
                     </div>
 
-                    <!-- 저녁 -->
                     <div class="check-item-white" id="dRow" style="display:none;">
                         <div class="check-info-white" id="dinnerInfo">
                             <i class="slot-icon fa-solid fa-moon" style="color:#a5b4fc;"></i>
@@ -397,7 +380,6 @@
                 </div>
             </div>
 
-            <!-- 약물 지침 박스 -->
             <div class="description-box">
                 <h3 id="descBoxTitle"><i class="fa-solid fa-capsules"></i> 오늘 처방된 주요 약물 지침</h3>
                 <div id="medGuideContainer"></div>
@@ -405,7 +387,6 @@
         </div>
     </div>
 
-    <!-- ===== PAGE 3: AI 챗봇 ===== -->
     <div class="page-container" id="page-chatbot">
         <div class="chat-header-robot">
             <i class="fa-solid fa-chevron-left" onclick="leaveChatbot()"></i>
@@ -429,7 +410,6 @@
         </div>
     </div>
 
-    <!-- FAB 학둥이 -->
     <div class="global-fab" onclick="goToChatbot()">
         <div class="fab-badge">N</div>
         <video src="hakdungi.mp4" autoplay loop muted playsinline
@@ -437,7 +417,6 @@
         <span>학둥이</span>
     </div>
 
-    <!-- NAV BAR -->
     <div class="nav-bar">
         <div class="nav-item active" id="nav-home" onclick="goToHome()"><i class="fa-solid fa-house"></i>홈</div>
         <div class="nav-item"><i class="fa-solid fa-stethoscope"></i>외래</div>
@@ -447,7 +426,6 @@
     </div>
 </div>
 
-<!-- ===== 복용 확인 바텀 시트 모달 ===== -->
 <div class="confirm-overlay" id="confirmOverlay" onclick="closeConfirm(event)">
     <div class="confirm-sheet" onclick="event.stopPropagation()">
         <div class="sheet-icon" id="sheetIcon">💊</div>
@@ -533,16 +511,26 @@
     };
 
     // ────────────────────────────────────────────
-    //  상태
+    //  상태 및 주간 복약 트래커 로직
+    // ────────────────────────────────────────────
+   // ────────────────────────────────────────────
+    //  상태 및 주간 복약 트래커 로직
     // ────────────────────────────────────────────
     let checkedSlots = { morning: false, lunch: false, dinner: false };
     let activeSlot   = 'morning';
-    let pendingSlot  = null;   // 확인 모달에서 처리 중인 슬롯
+    let pendingSlot  = null;
     let previousClass = 'app-frame';
 
-    // ────────────────────────────────────────────
-    //  시간 감지 → 슬롯 행 표시
-    // ────────────────────────────────────────────
+    // 요일 데이터 (월~일)
+    const weekDays = ['월', '화', '수', '목', '금', '토', '일'];
+    let todayIndex = new Date().getDay() === 0 ? 6 : new Date().getDay() - 1; // 0=월, 6=일
+    
+    // 일주일간의 데이터 (null: 미도래, true: 30분내 성공, false: 지각/실패)
+    let weeklyHistory = Array.from({length: 7}, () => ({ morning: null, lunch: null, dinner: null }));
+    
+    // (이전에 있던 가짜 성공 데이터 채우는 for문은 삭제했습니다!)
+
+    // 시간 감지 → 슬롯 행 표시 및 트래커 갱신
     function checkTimeAndShowRow() {
         const h = new Date().getHours();
         ['mRow','lRow','dRow'].forEach(id => document.getElementById(id).style.display = 'none');
@@ -551,17 +539,67 @@
         else if (h >= 11 && h < 17) { activeSlot = 'lunch';   document.getElementById('lRow').style.display = 'flex'; }
         else                         { activeSlot = 'dinner';  document.getElementById('dRow').style.display = 'flex'; }
 
-        // 이미 완료된 슬롯이면 완료 상태 UI 반영 후 칭찬 화면
         if (checkedSlots[activeSlot]) {
             applyDoneUI(activeSlot);
             renderEmptyGuide();
         } else {
             renderMedGuide(activeSlot);
         }
+        
+        updateWeeklyTracker(); // 트래커 로드
+    }
+
+    // ★ 주간 복약 트래커 & 학둥이 상태 업데이트 함수 ★
+    function updateWeeklyTracker() {
+        let successCount = 0; // 누른 횟수(성공)를 셉니다!
+        let html = '';
+
+        weekDays.forEach((day, index) => {
+            let d = weeklyHistory[index];
+            let statusClass = '';
+            let icon = day; 
+
+            let isDayComplete = (d.morning !== null && d.lunch !== null && d.dinner !== null);
+            let hasFail = (d.morning === false || d.lunch === false || d.dinner === false);
+            let hasSuccess = (d.morning === true || d.lunch === true || d.dinner === true);
+
+            // 성공(파란색) 횟수를 누적합니다.
+            if (d.morning === true) successCount++;
+            if (d.lunch === true) successCount++;
+            if (d.dinner === true) successCount++;
+
+            // UI 표시 (과거/오늘/미래 구분)
+            if (index < todayIndex) {
+                 if (hasFail) { statusClass = 'fail'; icon = '<i class="fa-solid fa-face-frown"></i>'; }
+                 else if (hasSuccess) { statusClass = 'success'; icon = '<i class="fa-solid fa-check"></i>'; }
+            } else if (index === todayIndex) {
+                 if (hasFail) { statusClass = 'fail'; icon = '<i class="fa-solid fa-face-frown"></i>'; }
+                 else if (isDayComplete) { statusClass = 'success'; icon = '<i class="fa-solid fa-check"></i>'; }
+                 else if (hasSuccess) { statusClass = 'success'; icon = day; } // 진행 중
+            }
+            
+            html += `<div class="day-col"><div class="day-circle ${statusClass}">${icon}</div><span>${day}</span></div>`;
+        });
+
+        document.getElementById('weekDaysContainer').innerHTML = html;
+
+        // 건강도 게이지 계산: (성공한 횟수 / 총 21번) * 100
+        let healthPercent = Math.round((successCount / 21) * 100);
+        document.getElementById('healthGaugeBar').style.width = healthPercent + '%';
+
+        // 학둥이 상태 이미지 변경 (게이지가 0부터 차오르므로 기준치를 조정했습니다)
+        let imgEl = document.getElementById('hakdungiImg');
+        if (healthPercent >= 70) {
+            imgEl.src = 'hakdungi_normal.png';  // 게이지가 70% 이상 차면 웃음
+        } else if (healthPercent >= 30) {
+            imgEl.src = 'hakdungi_sad.png'; // 중간 정도 차면 시무룩
+        } else {
+            imgEl.src = 'hakdungi_angry.png'; // 초기에는 화남
+        }
     }
 
     // ────────────────────────────────────────────
-    //  "복용 완료" 버튼 클릭 → 바텀시트 열기
+    //  "복용 완료" 처리 (30분 규칙 적용)
     // ────────────────────────────────────────────
     function confirmTake(slot) {
         pendingSlot = slot;
@@ -570,8 +608,7 @@
 
         document.getElementById('sheetIcon').innerText   = meta.icon;
         document.getElementById('sheetTitle').innerText  = `${meta.name} 약을 복용하셨나요?`;
-        document.getElementById('sheetDesc').innerHTML   =
-            `아래 약을 모두 드셨으면<br><strong>복용 완료</strong> 버튼을 눌러주세요.`;
+        document.getElementById('sheetDesc').innerHTML   = `아래 약을 모두 드셨으면<br><strong>복용 완료</strong> 버튼을 눌러주세요.`;
 
         const medsHTML = meds.map(m => `
             <div class="sheet-med-row">
@@ -586,31 +623,39 @@
         document.getElementById('confirmOverlay').classList.add('open');
     }
 
-    // 모달 외부 클릭 닫기
     function closeConfirm(e) { closeConfirmSheet(); }
     function closeConfirmSheet() {
         document.getElementById('confirmOverlay').classList.remove('open');
         pendingSlot = null;
     }
 
-    // ────────────────────────────────────────────
-    //  최종 복용 완료 처리
-    // ────────────────────────────────────────────
+    // ★ 최종 복용 완료 버튼 클릭 시 로직 ★
     function completeTake() {
         if (!pendingSlot) return;
         const slot = pendingSlot;
         closeConfirmSheet();
 
+        // 30분 이내 복용 여부 체크
+        let targetH = slot === 'morning' ? 8 : slot === 'lunch' ? 13 : 19;
+        let now = new Date();
+        let diffMins = (now.getHours() * 60 + now.getMinutes()) - (targetH * 60);
+        
+        // 시연의 안정성을 위해 '예정시간 ~ 예정시간+30분 이내' 거나 '미리 먹었을 경우' 모두 성공(true)으로 간주합니다.
+        // 예정 시간보다 30분 넘게 늦게 눌렀을 때만 실패(false) 울상이 뜹니다!
+        let isOnTime = diffMins <= 30;
+
         checkedSlots[slot] = true;
+        weeklyHistory[todayIndex][slot] = isOnTime; // 오늘자 데이터 업데이트
+
         applyDoneUI(slot);
         updateProgress();
+        updateWeeklyTracker(); // 트래커 게이지 및 학둥이 표정 실시간 업데이트
 
-        // 현재 활성 슬롯이면 칭찬 화면으로
         if (slot === activeSlot) renderEmptyGuide();
     }
 
     // ────────────────────────────────────────────
-    //  완료 후 UI 변경
+    //  완료 후 UI 및 기타 기능들
     // ────────────────────────────────────────────
     function applyDoneUI(slot) {
         const rowEl    = document.getElementById(slot === 'morning' ? 'mRow' : slot === 'lunch' ? 'lRow' : 'dRow');
@@ -627,14 +672,10 @@
         doneBadge.classList.add('visible');
         histBtn.classList.add('visible');
 
-        // 진행 레이블 업데이트
         const lblMap = { morning: 'lblMorning', lunch: 'lblLunch', dinner: 'lblDinner' };
         document.getElementById(lblMap[slot]).innerHTML = slotMeta[slot].icon + ' ' + slotMeta[slot].name + ' ✓';
     }
 
-    // ────────────────────────────────────────────
-    //  진행률 게이지 & 상태 뱃지
-    // ────────────────────────────────────────────
     function updateProgress() {
         const score = Object.values(checkedSlots).filter(Boolean).length;
         document.getElementById('progressBar').style.width = Math.round((score / 3) * 100) + '%';
@@ -653,9 +694,6 @@
         }
     }
 
-    // ────────────────────────────────────────────
-    //  약물 지침 렌더링
-    // ────────────────────────────────────────────
     function renderMedGuide(slot) {
         const meta = slotMeta[slot];
         document.getElementById('descBoxTitle').innerHTML =
@@ -676,14 +714,9 @@
             </div>`;
     }
 
-    // ────────────────────────────────────────────
-    //  복용 기록 탭 뷰
-    // ────────────────────────────────────────────
     function viewHistory(openSlot) { renderHistoryView(openSlot); }
-
     function renderHistoryView(openSlot) {
         const slots = ['morning','lunch','dinner'];
-
         let tabsHTML = `<div class="history-tab-wrap">`;
         slots.forEach(s => {
             const isDone   = checkedSlots[s];
@@ -739,14 +772,12 @@
                 <i class="fa-solid fa-arrow-left"></i> 돌아가기
             </button>`;
 
-        document.getElementById('descBoxTitle').innerHTML =
-            `<i class="fa-solid fa-clock-rotate-left"></i> 오늘 복용 기록`;
-        document.getElementById('medGuideContainer').innerHTML =
-            tabsHTML + cardHTML + guideBtn + backBtnHTML;
+        document.getElementById('descBoxTitle').innerHTML = `<i class="fa-solid fa-clock-rotate-left"></i> 오늘 복용 기록`;
+        document.getElementById('medGuideContainer').innerHTML = tabsHTML + cardHTML + guideBtn + backBtnHTML;
     }
 
     // ────────────────────────────────────────────
-    //  페이지 네비게이션
+    //  페이지 전환 및 시계 기능
     // ────────────────────────────────────────────
     function setNavActive(id) {
         document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
@@ -772,19 +803,14 @@
         el.classList.toggle('open');
         setTimeout(() => document.getElementById('dashboardContent').scrollTo({ top: el.offsetTop - 50, behavior: 'smooth' }), 150);
     }
-
-    // ────────────────────────────────────────────
-    //  시계
-    // ────────────────────────────────────────────
     function updateTime() {
-        document.getElementById('clock').innerText =
-            new Date().toLocaleTimeString('ko-KR', { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        document.getElementById('clock').innerText = new Date().toLocaleTimeString('ko-KR', { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' });
     }
     setInterval(updateTime, 1000); updateTime();
-    checkTimeAndShowRow();
+    checkTimeAndShowRow(); // 초기 로딩 시 트래커 세팅
 
     // ────────────────────────────────────────────
-    //  챗봇 (Gemini)
+    //  챗봇 엔진 (Gemini 3.1 Flash Lite - 오류 수정 완료)
     // ────────────────────────────────────────────
     const chatInput = document.getElementById('chatInput');
     const micBtn    = document.getElementById('micBtn');
@@ -825,18 +851,16 @@
             loading.innerHTML = `⚠️ 오류: ${e.message}`;
         }
     }
-   async function getGeminiResponse(text) {
-        // 완벽하게 통제되는 가장 빠른 모델: Gemini 3.1 Flash Lite
+    
+    async function getGeminiResponse(text) {
         const url  = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent?key=${GEMINI_API_KEY}`;
         
         const body = {
-            // 💡 Gemini 전용 기능: 모델의 뇌(규칙)를 완벽하게 고정합니다.
             systemInstruction: {
                 parts: [{ 
                     text: "당신은 전남대병원의 어르신 전용 AI 복약 비서입니다. 환자의 질문에만 직접적으로 대답하세요. 전문 의학 용어는 피하고, 어르신이 이해하기 쉽게 2~3문장 이내로 다정하고 따뜻하게 대답해주세요. 절대로 생각하는 과정이나 영어, 기호 등을 화면에 출력하지 마세요." 
                 }]
             },
-            // 💡 오직 환자의 순수 질문만 전달됩니다.
             contents: [{
                 role: "user",
                 parts: [{ text: text }]
@@ -850,10 +874,8 @@
         });
         
         const data = await res.json();
-        
         if (!res.ok) throw new Error(data.error?.message || '알 수 없는 오류');
         
-        // 찌꺼기 텍스트 가위질 없이도 깔끔하게 바로 출력됩니다!
         return data.candidates[0].content.parts[0].text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').trim();
     }
 </script>
