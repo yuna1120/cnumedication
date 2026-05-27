@@ -162,7 +162,6 @@
         .photo-placeholder { background:#f1f5f9; padding:25px; text-align:center; border-radius:12px; border:2px dashed #cbd5e1; display:flex; flex-direction:column; align-items:center; gap:8px; }
         .photo-placeholder i { font-size:28px; color:#94a3b8; }
         .photo-placeholder span { font-size:12px; color:#64748b; font-weight:700; }
-        .med-extra img { width: 100%; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
 
         /* 복용 기록 탭 및 기록용 아코디언 스타일 */
         .history-tab-wrap { display: flex; gap: 8px; margin-bottom: 14px; }
@@ -271,7 +270,7 @@
 
             <div class="patient-box-light">
                 <div class="left-info">
-                    <div class="name-row">김재철 님 <span class="my-badge">MY</span></div>
+                    <div class="name-row">김*철 님 <span class="my-badge">MY</span></div>
                     <div class="patient-num">환자등록번호 12345678</div>
                 </div>
                 <div class="right-btns">
@@ -331,7 +330,7 @@
         <div class="header-white">
             <div class="patient-info">
                 <h2 onclick="goToInpatient()" style="cursor:pointer;">
-                    <i class="fa-solid fa-chevron-left" style="font-size:16px; color:#94a3b8; margin-right:4px;"></i>김재철 님! 좋은 하루 되세요
+                    <i class="fa-solid fa-chevron-left" style="font-size:16px; color:#94a3b8; margin-right:4px;"></i>김*철 님! 좋은 하루 되세요
                 </h2>
                 <p>8W12F 병동 | 입원 4일차</p>
             </div>
@@ -467,7 +466,7 @@
         </div>
         <div class="chat-area" id="chatBox">
             <div style="text-align:center; color:#94a3b8; font-size:12px; margin-bottom:5px;">오늘</div>
-            <div class="msg ai">김재철 님!, 안녕하세요! 🙂 좋은 하루 되세요.<br><br>궁금하신 점이 있으시면 아래 <strong>마이크</strong> 버튼을 누르고 편하게 말씀해 주세요.</div>
+            <div class="msg ai">김*철 님!, 안녕하세요! 🙂 좋은 하루 되세요.<br><br>궁금하신 점이 있으시면 아래 <strong>마이크</strong> 버튼을 누르고 편하게 말씀해 주세요.</div>
         </div>
         <div class="chat-input-bar">
             <i class="fa-solid fa-microphone" id="micBtn" onclick="startDictation()"></i>
@@ -617,72 +616,70 @@
         dinner:  { name: '저녁',  icon: '🌙', time: '오후 07:00', timeLabel: '저녁 식후' }
     };
 
+    // ★ 각 약물별로 불러올 부작용 사진 이미지 파일명을 지정했습니다. (img: '파일명.png')
     const medHistory = {
         morning: [
-            // ★ 케이캡정 이름을 원래 요청하신 대로 원복했습니다.
-            { icon: 'fa-solid fa-shield', color: '#10b981', name: '케이캡정 (위산분비억제제)', type: '아침 식전/식후' },
-            { icon: 'fa-solid fa-heart', color: '#ef4444', name: '리바로 (고지혈증약)', type: '아침 식후' },
-            { icon: 'fa-solid fa-droplet', color: '#f59e0b', name: '자디앙·트라젠타·메트포르민·유글렉스 (당뇨약)', type: '아침 식후' },
-            { icon: 'fa-solid fa-heart-pulse', color: '#ef4444', name: '노바스크 (혈압약)', type: '아침 식후' },
-            { icon: 'fa-solid fa-toilet', color: '#6366f1', name: '베시케어·베타미가·하루날디 (방광·전립선약)', type: '아침 식후' },
-            { icon: 'fa-solid fa-flask', color: '#8b5cf6', name: '큐팜 XR·케프라액 (항경련제)', type: '아침 식후' },
-            { icon: 'fa-solid fa-pills', color: '#3b82f6', name: '낙센에프 (소염진통제)', type: '아침 식후' },
-            { icon: 'fa-solid fa-pills', color: '#1a2a6c', name: '아세트아미노펜 (해열진통제)', type: '아침 식후' },
-            { icon: 'fa-solid fa-capsules', color: '#00b894', name: '아세테인·록솔 (가래약)', type: '아침 식후' }
+            { icon: 'fa-solid fa-shield', color: '#10b981', name: '케이캡정 (위산분비억제제)', type: '아침 식전/식후', img: 'side_kcab.png' },
+            { icon: 'fa-solid fa-heart', color: '#ef4444', name: '리바로 (고지혈증약)', type: '아침 식후', img: 'side_livaro.png' },
+            { icon: 'fa-solid fa-droplet', color: '#f59e0b', name: '자디앙·트라젠타·메트포르민·유글렉스 (당뇨약)', type: '아침 식후', img: 'side_dm.png' },
+            { icon: 'fa-solid fa-heart-pulse', color: '#ef4444', name: '노바스크 (혈압약)', type: '아침 식후', img: 'side_novasc.png' },
+            { icon: 'fa-solid fa-toilet', color: '#6366f1', name: '베시케어·베타미가·하루날디 (방광·전립선약)', type: '아침 식후', img: 'side_bladder.png' },
+            { icon: 'fa-solid fa-flask', color: '#8b5cf6', name: '큐팜 XR·케프라액 (항경련제)', type: '아침 식후', img: 'side_qpam.png' },
+            { icon: 'fa-solid fa-pills', color: '#3b82f6', name: '낙센에프 (소염진통제)', type: '아침 식후', img: 'side_naxen.png' },
+            { icon: 'fa-solid fa-pills', color: '#1a2a6c', name: '아세트아미노펜 (해열진통제)', type: '아침 식후', img: 'side_tylenol.png' },
+            { icon: 'fa-solid fa-capsules', color: '#00b894', name: '아세테인·록솔 (가래약)', type: '아침 식후', img: 'side_sputum.png' }
         ],
         lunch: [
-            { icon: 'fa-solid fa-pills', color: '#1a2a6c', name: '아세트아미노펜 (해열진통제)', type: '점심 식후' },
-            { icon: 'fa-solid fa-pills', color: '#3b82f6', name: '낙센에프 (소염진통제)', type: '점심 식후' },
-            { icon: 'fa-solid fa-capsules', color: '#00b894', name: '아세테인·록솔 (가래약)', type: '점심 식후' }
+            { icon: 'fa-solid fa-pills', color: '#1a2a6c', name: '아세트아미노펜 (해열진통제)', type: '점심 식후', img: 'side_tylenol.png' },
+            { icon: 'fa-solid fa-pills', color: '#3b82f6', name: '낙센에프 (소염진통제)', type: '점심 식후', img: 'side_naxen.png' },
+            { icon: 'fa-solid fa-capsules', color: '#00b894', name: '아세테인·록솔 (가래약)', type: '점심 식후', img: 'side_sputum.png' }
         ],
         dinner: [
-            { icon: 'fa-solid fa-spoon', color: '#ec4899', name: '듀락칸이지시럽 (변비약)', type: '저녁 식후' },
-            { icon: 'fa-solid fa-flask', color: '#8b5cf6', name: '큐팜 XR·케프라액 (항경련제)', type: '저녁 식후' },
-            { icon: 'fa-solid fa-droplet', color: '#f59e0b', name: '트라젠타·메트포르민 (당뇨약)', type: '저녁 식후' },
-            { icon: 'fa-solid fa-pills', color: '#3b82f6', name: '낙센에프 (소염진통제)', type: '저녁 식후' },
-            { icon: 'fa-solid fa-pills', color: '#1a2a6c', name: '아세트아미노펜 (해열진통제)', type: '저녁 식후' },
-            { icon: 'fa-solid fa-capsules', color: '#00b894', name: '아세테인·록솔 (가래약)', type: '저녁 식후' }
+            { icon: 'fa-solid fa-spoon', color: '#ec4899', name: '듀락칸이지시럽 (변비약)', type: '저녁 식후', img: 'side_dulcolax.png' },
+            { icon: 'fa-solid fa-flask', color: '#8b5cf6', name: '큐팜 XR·케프라액 (항경련제)', type: '저녁 식후', img: 'side_qpam.png' },
+            { icon: 'fa-solid fa-droplet', color: '#f59e0b', name: '트라젠타·메트포르민 (당뇨약)', type: '저녁 식후', img: 'side_dm.png' },
+            { icon: 'fa-solid fa-pills', color: '#3b82f6', name: '낙센에프 (소염진통제)', type: '저녁 식후', img: 'side_naxen.png' },
+            { icon: 'fa-solid fa-pills', color: '#1a2a6c', name: '아세트아미노펜 (해열진통제)', type: '저녁 식후', img: 'side_tylenol.png' },
+            { icon: 'fa-solid fa-capsules', color: '#00b894', name: '아세테인·록솔 (가래약)', type: '저녁 식후', img: 'side_sputum.png' }
         ]
     };
 
-    function generateMedCard(name, desc, color) {
+    // ★ 약물 가이드 블록 생성 시 img 태그가 포함되도록 수정 (이미지가 없으면 이름으로 안내)
+    function generateMedCard(name, desc, color, imgSrc) {
         return `
             <div class="med-detail" style="border-left-color:${color};" onclick="toggleDetail(this)">
                 <div class="med-header"><strong>💊 ${name}</strong><i class="fa-solid fa-chevron-down"></i></div>
                 <p class="main-desc">${desc}</p>
                 <div class="med-extra">
-                    <div class="photo-placeholder">
-                        <i class="fa-regular fa-image"></i>
-                        <span>여기에 부작용 및<br>주의사항 사진을 올려주세요</span>
-                    </div>
+                    <img src="${imgSrc}" alt="${name} 부작용" style="width:100%; border-radius:12px; box-shadow:0 4px 10px rgba(0,0,0,0.05);" onerror="this.onerror=null; this.outerHTML='<div class=\\'photo-placeholder\\'><i class=\\'fa-regular fa-image\\'></i><span>${imgSrc}<br>사진을 올려주세요</span></div>';">
                 </div>
             </div>`;
     }
 
     const medGuides = {
         morning: 
-            generateMedCard('케이캡정 (위산분비억제제)', '위산을 조절하여 속쓰림을 예방합니다.', '#10b981') +
-            generateMedCard('리바로정 (고지혈증약)', '혈중 콜레스테롤 수치를 낮추어 혈관을 맑게 합니다.', '#ef4444') +
-            generateMedCard('자디앙·트라젠타·메트포르민·유글렉스 (당뇨약)', '혈당 수치를 안전하게 조절해 줍니다.', '#f59e0b') +
-            generateMedCard('노바스크정 (혈압약)', '혈압을 정상 수치로 유지해 줍니다.', '#ef4444') +
-            generateMedCard('베시케어·베타미가·하루날디 (방광/전립선약)', '요실금을 예방하고 소변을 시원하게 보도록 돕습니다.', '#6366f1') +
-            generateMedCard('큐팜 XR정·케프라액 (항경련제)', '신경을 안정시켜 경련을 예방합니다. 정해진 용량을 지켜주세요.', '#8b5cf6') +
-            generateMedCard('낙센에프정 (소염진통제)', '염증을 가라앉히고 통증을 덜어줍니다.', '#3b82f6') +
-            generateMedCard('아세트아미노펜정 (해열진통제)', '통증을 줄이고 열을 내리는 역할을 합니다.', '#1a2a6c') +
-            generateMedCard('아세테인캡슐·록솔정 (가래약)', '가래를 묽게 하고 기침을 줄여주어 호흡을 편안하게 돕습니다.', '#00b894'),
+            generateMedCard('케이캡정 (위산분비억제제)', '위산을 조절하여 속쓰림을 예방합니다.', '#10b981', 'side_kcab.png') +
+            generateMedCard('리바로정 (고지혈증약)', '혈중 콜레스테롤 수치를 낮추어 혈관을 맑게 합니다.', '#ef4444', 'side_livaro.png') +
+            generateMedCard('자디앙·트라젠타·메트포르민·유글렉스 (당뇨약)', '혈당 수치를 안전하게 조절해 줍니다.', '#f59e0b', 'side_dm.png') +
+            generateMedCard('노바스크정 (혈압약)', '혈압을 정상 수치로 유지해 줍니다.', '#ef4444', 'side_novasc.png') +
+            generateMedCard('베시케어·베타미가·하루날디 (방광/전립선약)', '요실금을 예방하고 소변을 시원하게 보도록 돕습니다.', '#6366f1', 'side_bladder.png') +
+            generateMedCard('큐팜 XR정·케프라액 (항경련제)', '신경을 안정시켜 경련을 예방합니다. 정해진 용량을 지켜주세요.', '#8b5cf6', 'side_qpam.png') +
+            generateMedCard('낙센에프정 (소염진통제)', '염증을 가라앉히고 통증을 덜어줍니다.', '#3b82f6', 'side_naxen.png') +
+            generateMedCard('아세트아미노펜정 (해열진통제)', '통증을 줄이고 열을 내리는 역할을 합니다.', '#1a2a6c', 'side_tylenol.png') +
+            generateMedCard('아세테인캡슐·록솔정 (가래약)', '가래를 묽게 하고 기침을 줄여주어 호흡을 편안하게 돕습니다.', '#00b894', 'side_sputum.png'),
             
         lunch: 
-            generateMedCard('아세트아미노펜정 (해열진통제)', '점심 식사 후 통증 조절을 위해 복용합니다.', '#1a2a6c') +
-            generateMedCard('낙센에프정 (소염진통제)', '염증을 가라앉히고 통증을 덜어줍니다.', '#3b82f6') +
-            generateMedCard('아세테인캡슐·록솔정 (가래약)', '가래를 묽게 하고 기침을 줄여주어 호흡을 편안하게 돕습니다.', '#00b894'),
+            generateMedCard('아세트아미노펜정 (해열진통제)', '점심 식사 후 통증 조절을 위해 복용합니다.', '#1a2a6c', 'side_tylenol.png') +
+            generateMedCard('낙센에프정 (소염진통제)', '염증을 가라앉히고 통증을 덜어줍니다.', '#3b82f6', 'side_naxen.png') +
+            generateMedCard('아세테인캡슐·록솔정 (가래약)', '가래를 묽게 하고 기침을 줄여주어 호흡을 편안하게 돕습니다.', '#00b894', 'side_sputum.png'),
             
         dinner: 
-            generateMedCard('듀락칸이지시럽 (변비약)', '원활한 배변 활동을 돕는 시럽 형태의 약입니다.', '#ec4899') +
-            generateMedCard('큐팜 XR정·케프라액 (항경련제)', '밤 동안 신경을 안정시켜 줍니다. 일정한 시간에 복용하세요.', '#8b5cf6') +
-            generateMedCard('트라젠타 듀오·유한메트포르민 (당뇨약)', '저녁 식사 후 혈당 수치를 안전하게 조절해 줍니다.', '#f59e0b') +
-            generateMedCard('낙센에프정 (소염진통제)', '염증을 가라앉히고 밤 시간의 통증을 덜어줍니다.', '#3b82f6') +
-            generateMedCard('아세트아미노펜정 (해열진통제)', '밤 시간 동안의 통증을 줄여줍니다.', '#1a2a6c') +
-            generateMedCard('아세테인캡슐·록솔정 (가래약)', '가래를 묽게 하고 기침을 줄여주어 호흡을 편안하게 돕습니다.', '#00b894')
+            generateMedCard('듀락칸이지시럽 (변비약)', '원활한 배변 활동을 돕는 시럽 형태의 약입니다.', '#ec4899', 'side_dulcolax.png') +
+            generateMedCard('큐팜 XR정·케프라액 (항경련제)', '밤 동안 신경을 안정시켜 줍니다. 일정한 시간에 복용하세요.', '#8b5cf6', 'side_qpam.png') +
+            generateMedCard('트라젠타 듀오·유한메트포르민 (당뇨약)', '저녁 식사 후 혈당 수치를 안전하게 조절해 줍니다.', '#f59e0b', 'side_dm.png') +
+            generateMedCard('낙센에프정 (소염진통제)', '염증을 가라앉히고 밤 시간의 통증을 덜어줍니다.', '#3b82f6', 'side_naxen.png') +
+            generateMedCard('아세트아미노펜정 (해열진통제)', '밤 시간 동안의 통증을 줄여줍니다.', '#1a2a6c', 'side_tylenol.png') +
+            generateMedCard('아세테인캡슐·록솔정 (가래약)', '가래를 묽게 하고 기침을 줄여주어 호흡을 편안하게 돕습니다.', '#00b894', 'side_sputum.png')
     };
 
     let checkedSlots = { morning: false, lunch: false, dinner: false };
@@ -693,6 +690,7 @@
     const weekDays = ['월', '화', '수', '목', '금', '토', '일'];
     let todayIndex = new Date().getDay() === 0 ? 6 : new Date().getDay() - 1; 
     
+    // ★ 과거 날짜는 무조건 기본값으로 파란색 체크(true) 처리
     let weeklyHistory = Array.from({length: 7}, (_, i) => {
         if (i < todayIndex) return { morning: true, lunch: true, dinner: true };
         return { morning: null, lunch: null, dinner: null };
@@ -728,17 +726,14 @@
         
         ['mRow','lRow','dRow'].forEach(id => document.getElementById(id).style.display = 'none');
 
-        // ★ [버그 수정] 시간이 지났는데 버튼을 안 눌렀을 때만 false로 실패 처리합니다.
+        // ★ 안 눌렀을 때 강제로 노란 표정(false)으로 만들던 로직 삭제 (그대로 회색 유지)
         if (h >= 5 && h < 11) { 
             activeSlot = 'morning'; 
         } else if (h >= 11 && h < 17) { 
             activeSlot = 'lunch';   
-            if (weeklyHistory[todayIndex].morning === null) weeklyHistory[todayIndex].morning = false;
             checkedSlots.morning = true; 
         } else { 
             activeSlot = 'dinner';  
-            if (weeklyHistory[todayIndex].morning === null) weeklyHistory[todayIndex].morning = false;
-            if (weeklyHistory[todayIndex].lunch === null) weeklyHistory[todayIndex].lunch = false;
             checkedSlots.morning = true; 
             checkedSlots.lunch = true;
         }
@@ -765,7 +760,7 @@
         updateWeeklyTracker(); 
     }
 
-    // ★ [로직 수정] 하루 3번을 '모두 30분 내'에 복용완료 했으면 파란 체크, 하나라도 실패(false)면 노란 울상
+    // ★ 주간 트래커 상태 완벽 설정
     function updateWeeklyTracker() {
         let successCount = 0; 
         let html = '';
@@ -775,9 +770,9 @@
             let statusClass = '';
             let icon = day; 
 
-            // 단 한 번이라도 false(지각/미복용)가 기록되면 실패(노란색)
+            // 단 한 번이라도 false(지각 복용) 기록이 있으면 노란 울상
             let hasFail = (d.morning === false || d.lunch === false || d.dinner === false);
-            // 3번의 약을 모두 true(정상복용)로 완료했으면 성공(파란색)
+            // 3번의 약을 모두 true(30분 내 완벽 복용)로 마쳤을 때만 파란 체크
             let allSuccess = (d.morning === true && d.lunch === true && d.dinner === true);
 
             if (d.morning === true) successCount++;
@@ -791,6 +786,7 @@
                 statusClass = 'success'; 
                 icon = '<i class="fa-solid fa-check"></i>';
             }
+            // hasFail도 아니고 allSuccess도 아니면(즉, 대기중) 기본 회색 상태 유지
 
             html += `<div class="day-col"><div class="day-circle ${statusClass}">${icon}</div><span>${day}</span></div>`;
         });
@@ -846,19 +842,19 @@
         pendingSlot = null;
     }
 
-    // ★ 복용 완료 버튼을 누를 때, 30분 이내에 눌렀는지 체크
+    // ★ 복용 완료 버튼 클릭 시각을 체크하여 지각 여부(노란 표정/파란 체크) 결정
     function completeTake() {
         if (!pendingSlot) return;
         const slot = pendingSlot;
         closeConfirmSheet();
 
-        // 아침 8시, 점심 1시(13시), 저녁 7시(19시) 기준 + 30분 제한
         let targetHours = { morning: 8, lunch: 13, dinner: 19 };
         let targetTime = new Date();
-        targetTime.setHours(targetHours[slot], 30, 0);
+        targetTime.setHours(targetHours[slot], 30, 0); // 30분 이내 제한
 
         let now = new Date();
-        let isOnTime = now <= targetTime; // 현재 시간이 목표시간(+30분)보다 전이면 true(성공), 넘었으면 false(실패/지각)
+        // 30분 이내에 눌렀으면 true, 30분 지각해서 눌렀으면 false
+        let isOnTime = now <= targetTime; 
 
         if (!isOnTime) {
             document.getElementById('lateAlertOverlay').classList.add('open');
@@ -967,6 +963,7 @@
         let cardHTML = '';
 
         if (isDone) {
+            // ★ 복약 기록 화면에도 사진이 나오게 img 설정 적용
             const medsHTML = medHistory[openSlot].map(m => `
                 <div class="history-med-card" onclick="toggleDetail(this)">
                     <div class="history-med-header">
@@ -976,10 +973,7 @@
                         <i class="fa-solid fa-chevron-down toggle-icon"></i>
                     </div>
                     <div class="med-extra">
-                        <div class="photo-placeholder">
-                            <i class="fa-regular fa-image"></i>
-                            <span>여기에 부작용 및<br>주의사항 사진을 올려주세요</span>
-                        </div>
+                        <img src="${m.img}" alt="${m.name} 부작용" style="width:100%; border-radius:12px; box-shadow:0 4px 10px rgba(0,0,0,0.05);" onerror="this.onerror=null; this.outerHTML='<div class=\\'photo-placeholder\\'><i class=\\'fa-regular fa-image\\'></i><span>${m.img}<br>사진을 올려주세요</span></div>';">
                     </div>
                 </div>`).join('');
                 
@@ -1008,10 +1002,7 @@
                         <i class="fa-solid fa-chevron-down toggle-icon"></i>
                     </div>
                     <div class="med-extra">
-                        <div class="photo-placeholder">
-                            <i class="fa-regular fa-image"></i>
-                            <span>여기에 부작용 및<br>주의사항 사진을 올려주세요</span>
-                        </div>
+                        <img src="${m.img}" alt="${m.name} 부작용" style="width:100%; border-radius:12px; box-shadow:0 4px 10px rgba(0,0,0,0.05);" onerror="this.onerror=null; this.outerHTML='<div class=\\'photo-placeholder\\'><i class=\\'fa-regular fa-image\\'></i><span>${m.img}<br>사진을 올려주세요</span></div>';">
                     </div>
                 </div>`).join('');
                 
@@ -1132,15 +1123,16 @@
         }
     }
     
-    // ★ 챗봇 뇌(systemInstruction)에 환자(김재철 님)의 약물 데이터를 완벽하게 주입했습니다.
+    // ★ 챗봇 뇌(systemInstruction)에 연령 맞춤 설정과 약물 데이터를 주입했습니다.
     async function getGeminiResponse(text) {
         const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent?key=${GEMINI_API_KEY}`;
         
-        const sysPrompt = "당신은 전남대병원의 어르신 전용 AI 복약 비서입니다. 환자(김재철 님)는 현재 아래의 약을 복용 중입니다.\n" +
+        const sysPrompt = "당신은 전남대병원의 어르신 전용 AI 복약 비서입니다. 환자의 이름은 '김*철'입니다. " +
+            "환자는 고령의 어르신이므로 반드시 공손하고 다정하며 친근한 어르신 맞춤형 존댓말로 대답하세요. 환자는 현재 아래의 약을 복용 중입니다.\n" +
             "- 아침: 케이캡정(위산분비억제제), 리바로(고지혈증약), 자디앙/트라젠타/메트포르민/유글렉스(당뇨약), 노바스크(혈압약), 베시케어/베타미가/하루날디(방광·전립선약), 큐팜 XR/케프라액(항경련제), 낙센에프(소염진통제), 아세트아미노펜(해열진통제), 아세테인/록솔(가래약)\n" +
             "- 점심: 아세트아미노펜, 낙센에프, 아세테인/록솔\n" +
             "- 저녁: 듀락칸이지시럽(변비약), 큐팜 XR/케프라액, 트라젠타/메트포르민, 낙센에프, 아세트아미노펜, 아세테인/록솔\n" +
-            "환자가 본인의 약에 대해 물어보면 반드시 이 목록을 바탕으로 어르신이 이해하기 쉽게 2~3문장 이내로 다정하고 따뜻하게 대답하세요. 전문 의학 용어는 피하고, 절대로 생각하는 과정이나 영어, 특수 기호 등을 화면에 출력하지 마세요.";
+            "환자가 약에 대해 물어보면 이 목록을 바탕으로 어르신이 이해하기 쉽게 2~3문장 이내로 대답하세요. 전문 의학 용어는 피하고, 절대로 생각하는 과정이나 영어, 특수 기호 등을 화면에 출력하지 마세요.";
 
         const body = {
             systemInstruction: { parts: [{ text: sysPrompt }] },
