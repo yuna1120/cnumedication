@@ -21,15 +21,14 @@
         .app-name { color: white; font-size: 11px; font-weight: 600; text-shadow: 0 1px 2px rgba(0,0,0,0.5); text-align: center; }
         .badge { position: absolute; top: -5px; right: -5px; background: #ff3b30; color: white; font-size: 12px; font-weight: 800; padding: 2px 6px; border-radius: 10px; border: 2px solid #fff; }
 
-        /* 🍎 학둥이 위젯 (배경 흰색으로 변경) */
+        /* 🍎 학둥이 위젯 */
         .hakdungi-widget {
             grid-column: span 2; grid-row: span 2; background: #ffffff; border-radius: 24px; padding: 15px; position: relative; box-shadow: 0 4px 15px rgba(0,0,0,0.15); cursor: pointer; display: flex; flex-direction: column; overflow: hidden; z-index: 20;
         }
         .widget-title { font-size: 15px; font-weight: 900; color: #1e3a8a; letter-spacing: -0.5px; margin-bottom: 2px; position: relative; z-index: 5;}
-        /* 멘트 색상 진하게 변경 */
         .widget-sub { font-size: 11px; font-weight: 800; color: #1e293b; letter-spacing: -0.5px; position: relative; z-index: 5;}
         
-        /* 🥚 위젯 안의 달걀 모양 (파란색) - 스크립트에서 동적 제어를 위해 transition 추가 */
+        /* 🥚 위젯 안의 달걀 모양 (기본 파란색) */
         .widget-egg {
             position: absolute; bottom: 12px; left: 12px; width: 75px; height: 115px; background: #1a2a6c; border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; box-shadow: 0 5px 10px rgba(0,0,0,0.3); z-index: 5; border: 2px solid rgba(255,255,255,0.2); transition: all 0.4s ease;
         }
@@ -285,17 +284,7 @@
             <div class="widget-sub">약을 드셔야 학둥이도 건강해져요!</div>
             
             <div class="widget-egg" id="widget-egg-container">
-                <div class="egg-slot"><i class="fa-solid fa-sun" style="color:#fcd34d;"></i> 아침약</div>
-                <div style="display:flex; align-items: baseline; gap:2px;">
-                    <div class="egg-time-hr">1</div>
-                    <div class="egg-time-min">시간</div>
                 </div>
-                <div style="display:flex; align-items: baseline; gap:2px; margin-top:2px;">
-                    <div class="egg-time-hr" style="font-size: 18px;">23</div>
-                    <div class="egg-time-min">분</div>
-                </div>
-                <div class="egg-status">초과</div>
-            </div>
             
             <div class="widget-vid-wrap">
                 <video id="widget-hakdungi-vid" src="hakdungi_normal.mp4" autoplay loop muted playsinline></video>
@@ -957,7 +946,6 @@
         updateProgress();
         updateWeeklyTracker(); 
         
-        // ★ 앱에서 복용 확인 시 아이폰 위젯 즉시 업데이트
         initIPhoneWidget();
 
         if (slot === activeSlot) renderEmptyGuide();
@@ -1260,44 +1248,82 @@
         document.getElementById('appFrame').style.display = 'none';
     }
 
+    /* 🍎 위젯 계산 시스템 전면 수정 (먹어야 할 다음 약물 매칭 및 완료 상태 추적) */
     function initIPhoneWidget() {
         const now = new Date();
         const hrStr = String(now.getHours()).padStart(2, '0');
         const minStr = String(now.getMinutes()).padStart(2, '0');
         document.getElementById('ios-time').innerText = `${hrStr}:${minStr}`;
 
+        const eggContainer = document.getElementById('widget-egg-container');
+
+        // 1. 오늘 3가지 시간대 약을 전부 다 복용한 경우
+        const totalScore = Object.values(checkedSlots).filter(Boolean).length;
+        if (totalScore === 3) {
+            eggContainer.style.background = '#00b894';
+            eggContainer.style.borderColor = 'rgba(255,255,255,0.4)';
+            eggContainer.innerHTML = `
+                <div class="egg-slot"><i class="fa-solid fa-star" style="color:#ffffff;"></i> 오늘복약</div>
+                <i class="fa-solid fa-circle-check" style="font-size: 34px; color: white; margin: 8px 0; drop-shadow: 0 2px 4px rgba(0,0,0,0.15);"></i>
+                <div class="egg-status" style="color: #fff; font-weight: 800; font-size: 12px;">모두 완료!</div>
+            `;
+            return;
+        }
+
+        // 2. 현재 시각과 복용 상태를 판별하여 '다음에 먹어야 할 타겟 약' 설정
         const currentHour = now.getHours();
         let targetSlot = '';
         let targetHour = 0;
         let iconHtml = '';
         let slotKey = '';
+        let isTomorrow = false;
 
-        if (currentHour >= 5 && currentHour < 11) {
+        if (currentHour < 8) {
+            // 오전 8시 전: 오늘 아침약 대기 중
             targetSlot = '아침약'; targetHour = 8; iconHtml = '<i class="fa-solid fa-sun" style="color:#fcd34d;"></i>'; slotKey = 'morning';
-        } else if (currentHour >= 11 && currentHour < 17) {
-            targetSlot = '점심약'; targetHour = 13; iconHtml = '<i class="fa-solid fa-cloud-sun" style="color:#fb923c;"></i>'; slotKey = 'lunch';
+        } else if (currentHour >= 8 && currentHour < 13) {
+            // 아침~점심 사이
+            if (!checkedSlots.morning) {
+                targetSlot = '아침약'; targetHour = 8; iconHtml = '<i class="fa-solid fa-sun" style="color:#fcd34d;"></i>'; slotKey = 'morning';
+            } else {
+                targetSlot = '점심약'; targetHour = 13; iconHtml = '<i class="fa-solid fa-cloud-sun" style="color:#fb923c;"></i>'; slotKey = 'lunch';
+            }
+        } else if (currentHour >= 13 && currentHour < 19) {
+            // 점심~저녁 사이
+            if (!checkedSlots.lunch) {
+                targetSlot = '점심약'; targetHour = 13; iconHtml = '<i class="fa-solid fa-cloud-sun" style="color:#fb923c;"></i>'; slotKey = 'lunch';
+            } else {
+                targetSlot = '저녁약'; targetHour = 19; iconHtml = '<i class="fa-solid fa-moon" style="color:#a5b4fc;"></i>'; slotKey = 'dinner';
+            }
         } else {
-            targetSlot = '저녁약'; targetHour = 19; iconHtml = '<i class="fa-solid fa-moon" style="color:#a5b4fc;"></i>'; slotKey = 'dinner';
+            // 저녁 19시 이후
+            if (!checkedSlots.dinner) {
+                targetSlot = '저녁약'; targetHour = 19; iconHtml = '<i class="fa-solid fa-moon" style="color:#a5b4fc;"></i>'; slotKey = 'dinner';
+            } else {
+                // 오늘 저녁약까지 성공적으로 마쳤으나 이전 누락분이 있거나 밤늦은 휴식 시간대인 경우 -> 내일 아침약 타겟팅
+                targetSlot = '아침약'; targetHour = 8; iconHtml = '<i class="fa-solid fa-sun" style="color:#fcd34d;"></i>'; slotKey = 'morning';
+                isTomorrow = true;
+            }
         }
 
-        const eggContainer = document.getElementById('widget-egg-container');
-
-        // ★ 앱 안에서 약을 복용했다고 확인한 경우 (위젯 알약 색상 변경 및 완료 표시)
-        if (checkedSlots[slotKey]) {
+        // 3. 위젯 내부 드로잉 처리
+        if (checkedSlots[slotKey] && !isTomorrow) {
             eggContainer.style.background = '#00b894';
             eggContainer.style.borderColor = 'rgba(255,255,255,0.4)';
             eggContainer.innerHTML = `
                 <div class="egg-slot">${iconHtml} ${targetSlot}</div>
-                <i class="fa-solid fa-circle-check" style="font-size: 34px; color: white; margin: 6px 0; drop-shadow: 0 2px 4px rgba(0,0,0,0.2);"></i>
-                <div class="egg-status" style="color: #fff; font-weight: 800; font-size: 12px; opacity: 1;">복용 완료</div>
+                <i class="fa-solid fa-circle-check" style="font-size: 34px; color: white; margin: 6px 0; drop-shadow: 0 2px 4px rgba(0,0,0,0.15);"></i>
+                <div class="egg-status" style="color: #fff; font-weight: 800; font-size: 12px;">복용 완료</div>
             `;
         } else {
-            // 아직 복용하지 않은 경우 (파란색 유지, 남은 시간 카운트다운)
             eggContainer.style.background = '#1a2a6c';
             eggContainer.style.borderColor = 'rgba(255,255,255,0.2)';
 
             let targetTime = new Date();
             targetTime.setHours(targetHour, 0, 0);
+            if (isTomorrow) {
+                targetTime.setDate(targetTime.getDate() + 1);
+            }
 
             let diffMs = now - targetTime; 
             let isPast = diffMs > 0;
@@ -1306,7 +1332,7 @@
             let m = diffMins % 60;
 
             eggContainer.innerHTML = `
-                <div class="egg-slot">${iconHtml} ${targetSlot}</div>
+                <div class="egg-slot" style="color: white;">${iconHtml} ${targetSlot}</div>
                 <div style="display:flex; align-items: baseline; gap:2px;">
                     <div class="egg-time-hr">${h}</div>
                     <div class="egg-time-min">시간</div>
