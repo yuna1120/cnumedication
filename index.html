@@ -21,7 +21,7 @@
         .app-name { color: white; font-size: 11px; font-weight: 600; text-shadow: 0 1px 2px rgba(0,0,0,0.5); text-align: center; }
         .badge { position: absolute; top: -5px; right: -5px; background: #ff3b30; color: white; font-size: 12px; font-weight: 800; padding: 2px 6px; border-radius: 10px; border: 2px solid #fff; }
 
-        /* 🍎 학둥이 위젯 */
+        /* 🍎 학둥이 위젯 (배경 흰색) */
         .hakdungi-widget {
             grid-column: span 2; grid-row: span 2; background: #ffffff; border-radius: 24px; padding: 15px; position: relative; box-shadow: 0 4px 15px rgba(0,0,0,0.15); cursor: pointer; display: flex; flex-direction: column; overflow: hidden; z-index: 20;
         }
@@ -764,6 +764,7 @@
             </div>`;
     }
 
+    /* 초깃값을 전부 안 먹은 상태로 변경했습니다 */
     let checkedSlots = { morning: false, lunch: false, dinner: false };
     let activeSlot   = 'morning';
     let pendingSlot  = null;
@@ -802,15 +803,13 @@
         const h = new Date().getHours();
         ['mRow','lRow','dRow'].forEach(id => document.getElementById(id).style.display = 'none');
 
+        // 앱 내부에서 보여줄 현재의 '기본' 슬롯 시간대 설정
         if (h >= 5 && h < 11) { 
             activeSlot = 'morning'; 
         } else if (h >= 11 && h < 17) { 
             activeSlot = 'lunch';   
-            checkedSlots.morning = true; 
         } else { 
             activeSlot = 'dinner';  
-            checkedSlots.morning = true; 
-            checkedSlots.lunch = true;
         }
 
         const rowId = activeSlot === 'morning' ? 'mRow' : activeSlot === 'lunch' ? 'lRow' : 'dRow';
@@ -1248,7 +1247,7 @@
         document.getElementById('appFrame').style.display = 'none';
     }
 
-    /* 🍎 위젯 계산 시스템 전면 수정 (먹어야 할 다음 약물 매칭 및 완료 상태 추적) */
+    /* 🍎 위젯 계산 시스템 전면 수정 (시간대별 타겟 및 미복용 우선 확인) */
     function initIPhoneWidget() {
         const now = new Date();
         const hrStr = String(now.getHours()).padStart(2, '0');
@@ -1256,10 +1255,43 @@
         document.getElementById('ios-time').innerText = `${hrStr}:${minStr}`;
 
         const eggContainer = document.getElementById('widget-egg-container');
+        const currentHour = now.getHours();
+        
+        let targetSlot = '';
+        let targetHour = 0;
+        let iconHtml = '';
+        let slotKey = '';
+        let dayOffset = 0; // 0=오늘, 1=내일, -1=어제
 
-        // 1. 오늘 3가지 시간대 약을 전부 다 복용한 경우
+        // 1. 현재 시간대 기준 '가장 급한(아직 안 먹은)' 약이 무엇인지 찾기
+        if (currentHour >= 5 && currentHour < 11) {
+            // 오전 5시 ~ 11시 사이
+            if (!checkedSlots.morning) { targetSlot = '아침약'; targetHour = 8; slotKey = 'morning'; iconHtml = '<i class="fa-solid fa-sun" style="color:#fcd34d;"></i>'; }
+            else { targetSlot = '점심약'; targetHour = 13; slotKey = 'lunch'; iconHtml = '<i class="fa-solid fa-cloud-sun" style="color:#fb923c;"></i>'; }
+        }
+        else if (currentHour >= 11 && currentHour < 17) {
+            // 오전 11시 ~ 오후 5시 사이
+            if (!checkedSlots.lunch) { targetSlot = '점심약'; targetHour = 13; slotKey = 'lunch'; iconHtml = '<i class="fa-solid fa-cloud-sun" style="color:#fb923c;"></i>'; }
+            else { targetSlot = '저녁약'; targetHour = 19; slotKey = 'dinner'; iconHtml = '<i class="fa-solid fa-moon" style="color:#a5b4fc;"></i>'; }
+        }
+        else {
+            // 오후 5시 ~ 다음날 새벽 5시 사이
+            if (!checkedSlots.dinner) { 
+                targetSlot = '저녁약'; targetHour = 19; slotKey = 'dinner'; iconHtml = '<i class="fa-solid fa-moon" style="color:#a5b4fc;"></i>';
+                // 자정이 넘었으면 '어제 저녁 7시'가 기준이 되어야 함
+                if (currentHour < 5) dayOffset = -1; 
+            } else { 
+                targetSlot = '아침약'; targetHour = 8; slotKey = 'morning'; iconHtml = '<i class="fa-solid fa-sun" style="color:#fcd34d;"></i>';
+                // 오늘 저녁에 약을 먹고 확인 중이라면 기준은 '내일 아침 8시'
+                if (currentHour >= 17) dayOffset = 1; 
+            }
+        }
+
+        // 2. 화면에 그리기
         const totalScore = Object.values(checkedSlots).filter(Boolean).length;
-        if (totalScore === 3) {
+        
+        // 하루치 3개를 다 먹었고, 타겟이 내일(또는 다음 사이클) 아침을 가리키고 있을 때
+        if (totalScore === 3 && slotKey === 'morning' && dayOffset === 1) {
             eggContainer.style.background = '#00b894';
             eggContainer.style.borderColor = 'rgba(255,255,255,0.4)';
             eggContainer.innerHTML = `
@@ -1270,44 +1302,8 @@
             return;
         }
 
-        // 2. 현재 시각과 복용 상태를 판별하여 '다음에 먹어야 할 타겟 약' 설정
-        const currentHour = now.getHours();
-        let targetSlot = '';
-        let targetHour = 0;
-        let iconHtml = '';
-        let slotKey = '';
-        let isTomorrow = false;
-
-        if (currentHour < 8) {
-            // 오전 8시 전: 오늘 아침약 대기 중
-            targetSlot = '아침약'; targetHour = 8; iconHtml = '<i class="fa-solid fa-sun" style="color:#fcd34d;"></i>'; slotKey = 'morning';
-        } else if (currentHour >= 8 && currentHour < 13) {
-            // 아침~점심 사이
-            if (!checkedSlots.morning) {
-                targetSlot = '아침약'; targetHour = 8; iconHtml = '<i class="fa-solid fa-sun" style="color:#fcd34d;"></i>'; slotKey = 'morning';
-            } else {
-                targetSlot = '점심약'; targetHour = 13; iconHtml = '<i class="fa-solid fa-cloud-sun" style="color:#fb923c;"></i>'; slotKey = 'lunch';
-            }
-        } else if (currentHour >= 13 && currentHour < 19) {
-            // 점심~저녁 사이
-            if (!checkedSlots.lunch) {
-                targetSlot = '점심약'; targetHour = 13; iconHtml = '<i class="fa-solid fa-cloud-sun" style="color:#fb923c;"></i>'; slotKey = 'lunch';
-            } else {
-                targetSlot = '저녁약'; targetHour = 19; iconHtml = '<i class="fa-solid fa-moon" style="color:#a5b4fc;"></i>'; slotKey = 'dinner';
-            }
-        } else {
-            // 저녁 19시 이후
-            if (!checkedSlots.dinner) {
-                targetSlot = '저녁약'; targetHour = 19; iconHtml = '<i class="fa-solid fa-moon" style="color:#a5b4fc;"></i>'; slotKey = 'dinner';
-            } else {
-                // 오늘 저녁약까지 성공적으로 마쳤으나 이전 누락분이 있거나 밤늦은 휴식 시간대인 경우 -> 내일 아침약 타겟팅
-                targetSlot = '아침약'; targetHour = 8; iconHtml = '<i class="fa-solid fa-sun" style="color:#fcd34d;"></i>'; slotKey = 'morning';
-                isTomorrow = true;
-            }
-        }
-
-        // 3. 위젯 내부 드로잉 처리
-        if (checkedSlots[slotKey] && !isTomorrow) {
+        // 만약 찾아낸 타겟 약을 이미 복용한 상태라면 (대기 중인 다음 약 시간이 아직 많이 남았을 때)
+        if (checkedSlots[slotKey] && dayOffset !== 1) {
             eggContainer.style.background = '#00b894';
             eggContainer.style.borderColor = 'rgba(255,255,255,0.4)';
             eggContainer.innerHTML = `
@@ -1316,14 +1312,14 @@
                 <div class="egg-status" style="color: #fff; font-weight: 800; font-size: 12px;">복용 완료</div>
             `;
         } else {
+            // 안 먹은 약에 대한 카운트다운 (시간 초과 또는 시간 남음) 표시
             eggContainer.style.background = '#1a2a6c';
             eggContainer.style.borderColor = 'rgba(255,255,255,0.2)';
 
             let targetTime = new Date();
-            targetTime.setHours(targetHour, 0, 0);
-            if (isTomorrow) {
-                targetTime.setDate(targetTime.getDate() + 1);
-            }
+            targetTime.setHours(targetHour, 0, 0, 0);
+            if (dayOffset === 1) targetTime.setDate(targetTime.getDate() + 1);
+            if (dayOffset === -1) targetTime.setDate(targetTime.getDate() - 1);
 
             let diffMs = now - targetTime; 
             let isPast = diffMs > 0;
