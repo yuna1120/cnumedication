@@ -105,8 +105,7 @@
         .day-col { display: flex; flex-direction: column; align-items: center; gap: 6px; }
         
         /* ★ 달걀 모양 및 계란후라이 모양 CSS */
-        .day-egg { width: 28px; height: 36px; border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; display: flex; justify-content: center; align-items: center; font-size: 14px; background: #e2e8f0; color: #94a3b8; transition: all 0.3s; font-weight: bold; }
-        .day-egg.success { background: #1a2a6c; color: #fff; }
+        .day-egg { width: 28px; height: 36px; border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; display: flex; justify-content: center; align-items: center; font-size: 14px; background: #e2e8f0; color: #94a3b8; transition: all 0.5s ease-out; font-weight: bold; border: 1.5px solid #cbd5e1; box-shadow: inset 0 0 5px rgba(0,0,0,0.05); }
         
         .egg-fail { width: 34px; height: 34px; background: #fff; border-radius: 40% 60% 65% 35% / 40% 45% 55% 60%; border: 1.5px solid #cbd5e1; display: flex; justify-content: center; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
         .egg-yolk { width: 16px; height: 16px; background: #facc15; border-radius: 50%; display: flex; justify-content: center; align-items: center; }
@@ -748,7 +747,7 @@
         updateWeeklyTracker(); 
     }
 
-    // ★ 게이지 및 달걀/계란후라이 UI 로직 적용
+    // ★ 차오르는 달걀 및 계란후라이 UI 로직
     function updateWeeklyTracker() {
         let baseSuccessCount = 21; // 기본 100% 시작
         let html = '';
@@ -758,10 +757,14 @@
             
             // 3번 중 한 번이라도 실패(false)면 계란후라이
             let hasFail = (d.morning === false || d.lunch === false || d.dinner === false);
-            // 3번 모두 성공(true)이면 달걀 안에 체크
-            let allSuccess = (d.morning === true && d.lunch === true && d.dinner === true);
+            
+            // 하루 중 복약 성공 횟수 계산 (0, 1, 2, 3)
+            let successCount = 0;
+            if (d.morning === true) successCount++;
+            if (d.lunch === true) successCount++;
+            if (d.dinner === true) successCount++;
 
-            // 실패한 횟수만큼 점수 차감 (100% -> 차감 방식)
+            // 전체 건강 게이지 차감을 위한 계산 (실패한 횟수만큼 깎임)
             if (d.morning === false) baseSuccessCount--;
             if (d.lunch === false) baseSuccessCount--;
             if (d.dinner === false) baseSuccessCount--;
@@ -771,10 +774,14 @@
                 let eggIcon = `<div class="egg-fail"><div class="egg-yolk"><i class="fa-solid fa-face-frown" style="color:#b45309; font-size:10px;"></i></div></div>`;
                 html += `<div class="day-col">${eggIcon}<span>${day}</span></div>`;
             } else {
-                // 달걀 모양 UI
-                let eggClass = allSuccess ? 'success' : '';
-                let checkIcon = allSuccess ? '<i class="fa-solid fa-check"></i>' : '';
-                html += `<div class="day-col"><div class="day-egg ${eggClass}">${checkIcon}</div><span>${day}</span></div>`;
+                // 달걀이 먹은 횟수만큼 차오르는 UI
+                let fillPercent = (successCount / 3) * 100;
+                let eggStyle = `background: linear-gradient(to top, #1a2a6c ${fillPercent}%, #e2e8f0 ${fillPercent}%);`;
+                
+                // 3번 다 먹으면(100%) 하얀색 체크 표시 추가
+                let checkIcon = (successCount === 3) ? '<i class="fa-solid fa-check" style="color:#fff;"></i>' : '';
+                
+                html += `<div class="day-col"><div class="day-egg" style="${eggStyle}">${checkIcon}</div><span>${day}</span></div>`;
             }
         });
 
