@@ -412,18 +412,14 @@
                         </div>
                     </div>
 
-                   <div class="check-item-white" style="background: rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.05);">
-                        <div class="check-info-white" style="opacity: 0.6;">
-                            <i class="slot-icon fa-solid fa-cloud-sun" style="color:#cbd5e1;"></i>
+                    <div class="check-item-white" id="lRow" style="display:none;">
+                        <div class="check-info-white" id="lunchInfo">
+                            <i class="slot-icon fa-solid fa-cloud-sun" style="color:#fb923c;"></i>
                             <div>
-                                <div class="title-text" style="color:#94a3b8;">점심 식후</div>
-                                <div class="time-text" style="color:#cbd5e1;">복용 대상 아님</div>
+                                <div class="title-text" id="lunchTitle">점심 식후</div>
+                                <div class="time-text">오후 01:00</div>
                             </div>
                         </div>
-        <div class="action-right" style="padding-right: 15px; color:#cbd5e1; font-weight: 800; font-size: 13px;">
-            <i class="fa-solid fa-ban"></i> 약 없음
-        </div>
-    </div>
                         <div class="action-right">
                             <button class="take-btn" id="lunchTakeBtn" onclick="confirmTake('lunch')">
                                 <i class="fa-solid fa-check"></i> 복용 확인
@@ -636,10 +632,15 @@
     // ★ [데이터 변경] 약 이름 전체 명시 및 괄호 안에 효능 효과 기재 완료
     const medHistory = {
         morning: [
-            { icon: 'fa-solid fa-shield', color: '#10b981', name: '케이캡정 (위산분비억제제)', type: '아침 식전', desc: '위산을 조절하여 속쓰림을 예방합니다.', imgs: [{name:'케이캡정 50mg', file:'kcab_50.png'}] },
+            { icon: 'fa-solid fa-shield', color: '#10b981', name: '케이캡정 (위산분비억제제)', type: '아침 식전/식후', desc: '위산을 조절하여 속쓰림을 예방합니다.', imgs: [{name:'케이캡정 50mg', file:'kcab_50.png'}, {name:'케이캡정 25mg', file:'kcab_25.png'}] },
             { icon: 'fa-solid fa-heart', color: '#ef4444', name: '리바로정 (고지혈증약)', type: '아침 식후', desc: '콜레스테롤 수치를 조절합니다.', imgs: [{name:'리바로정', file:'side_livaro.png'}] },
             { icon: 'fa-solid fa-droplet', color: '#f59e0b', name: '자디앙·트라젠타·메트포르민·유글렉스 (당뇨약)', type: '아침 식후', desc: '혈당을 안전하게 낮춰줍니다.', imgs: [{name:'자디앙정', file:'side_jadiance.png'}, {name:'트라젠타정', file:'side_trajenta.png'}, {name:'메트포르민', file:'side_metformin.png'}, {name:'유글렉스정', file:'side_euglucon.png'}] },
-            { icon: 'fa-solid fa-toilet', color: '#6366f1', name: '베타미가 (과민성방광약)', type: '아침 식후', desc: '편안한 배뇨 활동을 돕습니다.', imgs: [{name:'베시케어', file:'side_vesicare.png'}, {name:'베타미가', file:'side_betmiga.png'}, {name:'하루날디', file:'side_harunal.png'}] },
+            { icon: 'fa-solid fa-heart-pulse', color: '#ef4444', name: '노바스크 (혈압약)', type: '아침 식후', desc: '혈압을 안정적으로 유지합니다.', imgs: [{name:'노바스크', file:'side_novasc.png'}] },
+            { icon: 'fa-solid fa-toilet', color: '#6366f1', name: '베시케어·베타미가·하루날디 (방광·전립선약)', type: '아침 식후', desc: '편안한 배뇨 활동을 돕습니다.', imgs: [{name:'베시케어', file:'side_vesicare.png'}, {name:'베타미가', file:'side_betmiga.png'}, {name:'하루날디', file:'side_harunal.png'}] },
+            { icon: 'fa-solid fa-flask', color: '#8b5cf6', name: '큐팜 XR·케프라액 (항경련제)', type: '아침 식후', desc: '신경을 안정시켜 경련을 예방합니다.', imgs: [{name:'큐팜 XR', file:'side_qpam.png'}, {name:'케프라액', file:'side_keppra.png'}] },
+            { icon: 'fa-solid fa-pills', color: '#3b82f6', name: '낙센에프 (소염진통제)', type: '아침 식후', desc: '관절 염증과 통증을 완화합니다.', imgs: [{name:'낙센에프', file:'side_naxen.png'}] },
+            { icon: 'fa-solid fa-pills', color: '#1a2a6c', name: '아세트아미노펜 (해열진통제)', type: '아침 식후', desc: '기본 통증 조절 및 열을 내려줍니다.', imgs: [{name:'아세트아미노펜', file:'side_tylenol.png'}] },
+            { icon: 'fa-solid fa-capsules', color: '#00b894', name: '아세테인·록솔 (가래약)', type: '아침 식후', desc: '가래를 삭이고 호흡을 편안하게 유도합니다.', imgs: [{name:'아세테인', file:'side_acethein.png'}, {name:'록솔정', file:'side_loxol.png'}] }
         ],
         lunch: [
             { icon: 'fa-solid fa-pills', color: '#1a2a6c', name: '아세트아미노펜 (해열진통제)', type: '점심 식후', desc: '점심시간 통증 제어를 유도합니다.', imgs: [{name:'아세트아미노펜', file:'side_tylenol.png'}] },
@@ -844,38 +845,22 @@
         pendingSlot = null;
     }
 
+    // ★ 30분 기한 내 복약 유무 체킹 로직
     function completeTake() {
-    if (!pendingSlot) return;
-    const slot = pendingSlot;
-    closeConfirmSheet();
+        if (!pendingSlot) return;
+        const slot = pendingSlot;
+        closeConfirmSheet();
 
-    // 1. 선택한 약(아침/저녁) 완료 처리
-    checkedSlots[slot] = true;
-    
-    // 2. 점심은 약이 없으므로, 어느 것이든 누르면 점심(lunch)도 자동 완료 처리
-    checkedSlots.lunch = true; 
+        let targetHours = { morning: 8, lunch: 13, dinner: 19 };
+        let targetTime = new Date();
+        targetTime.setHours(targetHours[slot], 30, 0);
 
-    // 3. 30분 기한 체크 로직 (기존 유지)
-    let targetHours = { morning: 8, dinner: 19 }; // 점심(lunch)은 버튼이 없으므로 제외
-    let targetTime = new Date();
-    targetTime.setHours(targetHours[slot], 30, 0);
-    
-    let now = new Date();
-    if (now > targetTime) {
-        document.getElementById('lateAlertOverlay').classList.add('open');
-    }
+        let now = new Date();
+        let isOnTime = now <= targetTime; 
 
-    // 4. 점심 자동 완료 UI 반영 (점심이 자동으로 완료되므로)
-    applyDoneUI(slot);
-    
-    // ★ [핵심] 점심 약 항목이 있다면 완료 상태로 바꿈
-    if(document.getElementById('lunchDoneBadge')) {
-        document.getElementById('lunchDoneBadge').classList.add('visible');
-    }
-
-    updateProgress();
-    updateWeeklyTracker();
-}
+        if (!isOnTime) {
+            document.getElementById('lateAlertOverlay').classList.add('open');
+        }
 
         checkedSlots[slot] = true;
         weeklyHistory[todayIndex][slot] = isOnTime; 
@@ -924,33 +909,21 @@
     }
 
     function updateProgress() {
-    // 점심은 약이 없으므로 항상 완료(true) 상태로 간주합니다.
-    checkedSlots.lunch = true; 
-    
-    // 이제 morning, lunch, dinner가 모두 true가 될 수 있으므로 3으로 나누면 정확합니다.
-    const score = Object.values(checkedSlots).filter(Boolean).length;
-    
-    // 게이지 바 업데이트 (최대 3개 중 몇 개가 완료되었는지 계산)
-    document.getElementById('progressBar').style.width = Math.round((score / 3) * 100) + '%';
+        const score = Object.values(checkedSlots).filter(Boolean).length;
+        document.getElementById('progressBar').style.width = Math.round((score / 3) * 100) + '%';
 
-    const badge = document.getElementById('statusBadge');
-    const display = document.getElementById('mainTimeDisplay');
+        const badge = document.getElementById('statusBadge');
+        const display = document.getElementById('mainTimeDisplay');
 
-    // 3개가 모두 완료(아침, 점심자동, 저녁)되면 완료 표시
-    if (score === 3) {
-        badge.innerText = '오늘 완료 🎉'; 
-        badge.className = 'status-badge done';
-        display.innerText = '오늘 모든 약 복용 완료!'; 
-    } else if (score > 0) {
-        badge.innerText = '진행 중'; 
-        badge.className = 'status-badge done';
-        // 아직 덜 먹었을 때의 문구
-        display.innerText = '남은 약을 챙겨주세요';
-    } else {
-        badge.innerText = '대기 중'; 
-        badge.className = 'status-badge wait';
+        if (score === 3) {
+            badge.innerText = '완료 🎉'; badge.className = 'status-badge done';
+            display.innerText = '오늘 복약 모두 완료!'; 
+        } else if (score > 0) {
+            badge.innerText = '진행 중'; badge.className = 'status-badge done';
+        } else {
+            badge.innerText = '대기 중'; badge.className = 'status-badge wait';
+        }
     }
-}
 
     function renderMedGuide(slot) {
         const meta = slotMeta[slot];
