@@ -257,45 +257,44 @@
 
         .confirm-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 9999; display: none; justify-content: center; align-items: flex-end; }
         .confirm-overlay.open { display: flex; animation: fadeIn 0.2s; }
-       .confirm-sheet { 
-    background: #fff; 
-    width: 100%; 
-    max-width: 450px; 
-    border-radius: 24px 24px 0 0; 
-    padding: 20px 20px 30px; 
-    
-    /* 👇 높이를 65%로 슬림하게 줄이고, 전체 창이 스크롤되는 것을 막습니다 */
-    height: 65vh; 
-    overflow: hidden; 
-    
-    display: flex;
-    flex-direction: column;
-}
+        .confirm-sheet { 
+            background: #fff; 
+            width: 100%; 
+            max-width: 450px; 
+            border-radius: 24px 24px 0 0; 
+            padding: 20px 20px 30px; 
+            
+            /* 높이 고정 및 잘림 해제하여 원래대로 길게 표시 */
+            height: auto; 
+            max-height: 85vh; 
+            
+            display: flex;
+            flex-direction: column;
+        }
         .confirm-sheet .sheet-icon { font-size: 44px; text-align: center; margin-bottom: 10px; }
         .confirm-sheet h3 { font-size: 18px; font-weight: 900; color: #1e293b; margin: 0 0 8px; text-align: center; }
-       .confirm-sheet p { 
-    font-size: 14px; 
-    color: #64748b; 
-    /* margin-bottom: 24px; 👈 기존 간격을 절반으로 줄임 */
-    margin-bottom: 12px; 
-    text-align: center; 
-    line-height: 1.6; 
-}
+        .confirm-sheet p { 
+            font-size: 14px; 
+            color: #64748b; 
+            margin-bottom: 12px; 
+            text-align: center; 
+            line-height: 1.6; 
+        }
         .confirm-sheet .sheet-meds { 
-    background: #f8fafc; 
-    border-radius: 12px; 
-    padding: 10px 14px; 
-    margin-bottom: 15px; 
-    display: flex; 
-    flex-direction: column; 
-    gap: 8px; 
-    
-    /* 👇 핵심: 약 목록 박스의 높이를 딱 제한하고, 이 안에서만 스크롤이 작동하게 합니다 */
-    flex: 1;
-    min-height: 0;
-    overflow-y: auto; 
-    border: 1px solid #e2e8f0;
-}
+            background: #f8fafc; 
+            border-radius: 12px; 
+            padding: 10px 14px; 
+            margin-bottom: 15px; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 8px; 
+            
+            /* 이 영역만 스크롤 되도록 유지 */
+            flex: 1;
+            min-height: 0;
+            overflow-y: auto; 
+            border: 1px solid #e2e8f0;
+        }
         .confirm-sheet .sheet-med-row { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 700; color: #334155; }
         .sheet-btn-group { display: flex; gap: 10px; }
         .sheet-btn { flex: 1; padding: 14px; border-radius: 14px; font-size: 15px; font-weight: 800; border: none; cursor: pointer; }
@@ -318,32 +317,22 @@
         .big-video-wrap video { width: 100%; height: 100%; object-fit: cover; }
         .close-zoom-text { color: #fff; font-size: 15px; font-weight: 800; margin-top: 25px; display: flex; align-items: center; gap: 8px; cursor: pointer; }
 
-        /* 🔥 새롭게 바뀐 앱 가이드 슬라이더 스타일 (꽉 찬 Flex 레이아웃) */
         .guide-slider-wrap { overflow: hidden; width: 100%; flex: 1; display: flex; flex-direction: column; min-height: 0; margin-bottom: 10px; position: relative; }
         .guide-track { display: flex; transition: transform 0.35s cubic-bezier(0.25, 0.8, 0.25, 1); width: 100%; height: 100%; }
         
-        /* 각 슬라이드는 가이드 창을 꽉 채우는 Flex 컨테이너 */
         .guide-slide { flex: 0 0 100%; width: 100%; height: 100%; background: #f8fafc; border-radius: 12px; padding: 15px; text-align: center; border: 1px solid #e2e8f0; box-sizing: border-box; display: flex; flex-direction: column; }
         
-        /* 이미지/비디오가 남는 공간 전체를 꽉 채우도록 설정 */
         .guide-slide img.media, .guide-slide video.media { 
-    flex: 1; 
-    min-height: 0; 
-    width: 100%; 
-    
-    /* 1. 높이 제한을 살짝 여유 있게 조절 (약 40% ~ 45% 추천) */
-    max-height: 42%; 
-    
-    /* 2. 🌟 핵심: cover(짤림) 대신 contain으로 변경하여 전체 화면이 다 나오게 함 */
-    object-fit: contain; 
-    
-    /* 3. 여백 및 배경 스타일 */
-    border-radius: 8px; 
-    background: #f1f5f9; /* 여백 공간을 채워줄 깔끔한 회색 배경 */
-    margin-bottom: 12px; 
-}
+            flex: 1; 
+            min-height: 0; 
+            width: 100%; 
+            max-height: 42%; 
+            object-fit: contain; 
+            border-radius: 8px; 
+            background: #f1f5f9;
+            margin-bottom: 12px; 
+        }
         
-        /* 학둥이 7가지 상태 그리드 공간 꽉 채우기 */
         .hakdungi-7grid { 
             flex: 1; min-height: 0; display: flex; flex-wrap: wrap; justify-content: center; align-content: center; gap: 8px; 
             margin-bottom: 15px; background: #fff; padding: 10px; border-radius: 12px; border: 1px dashed #cbd5e1; overflow: hidden; 
@@ -739,7 +728,7 @@
 </div>
 
 <div class="confirm-overlay" id="guideOverlay" onclick="closeGuideOverlay(event)">
-    <div class="confirm-sheet" onclick="event.stopPropagation()" style="height: 78vh; display: flex; flex-direction: column; padding: 20px 20px 25px;">
+    <div class="confirm-sheet" onclick="event.stopPropagation()" style="height: auto; padding-bottom: 25px;">
         
         <h3 style="margin: 5px 0 3px; flex-shrink: 0; text-align: center; font-size: 17px;">
             <i class="fa-solid fa-book-open" style="color:#1a2a6c;"></i> 스마트 앱 사용 가이드
@@ -752,59 +741,45 @@
             <div class="guide-track" id="guideTrack" style="display: flex; width: 100%; height: 100%; transition: transform 0.35s ease;">
                 
                 <div class="guide-slide" style="flex: 0 0 100%; width: 100%; height: 100%; background: #f8fafc; border-radius: 12px; padding: 12px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; border: 1px solid #e2e8f0;">
-                    <img class="media" src="guide_img_1.png" alt="가이드 1" style="max-height: 48%; object-fit: contain; width: 100%; margin: 0 auto 10px; border-radius: 8px; background: #fff;" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjIwMCI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI2YxZjVmOSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LXNpemU9IjE0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjOTRhM2I4Ij5ndWlkZV9pbWdfMS5wbmc8L3RleHQ+PC9zdmc+'">
+                    <img class="media" src="guide_img_1.png" alt="가이드 1" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjIwMCI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI2YxZjVmOSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LXNpemU9IjE0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjOTRhM2I4Ij5ndWlkZV9pbWdfMS5wbmc8L3RleHQ+PC9zdmc+'">
                     <h4 style="margin: 0 0 4px; font-size: 15px; color: #1a2a6c; font-weight: 900;">1. 스마트 메인 화면</h4>
                     <p style="margin: 0; font-size: 12.5px; color: #64748b; line-height: 1.4; word-break: keep-all;">환자 정보와 나의 일정, 즐겨찾기 메뉴를 한눈에 확인할 수 있습니다.</p>
                 </div>
                 
                 <div class="guide-slide" style="flex: 0 0 100%; width: 100%; height: 100%; background: #f8fafc; border-radius: 12px; padding: 12px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; border: 1px solid #e2e8f0;">
-                    <video class="media" src="guide_confirm.mp4" autoplay loop muted playsinline style="max-height: 48%; object-fit: contain; width: 100%; margin: 0 auto 10px; border-radius: 8px; background: #fff;"></video>
+                    <video class="media" src="guide_confirm.mp4" autoplay loop muted playsinline></video>
                     <h4 style="margin: 0 0 4px; font-size: 15px; color: #1a2a6c; font-weight: 900;">2. 복용 확인하기</h4>
                     <p style="margin: 0; font-size: 12.5px; color: #64748b; line-height: 1.4; word-break: keep-all;">매일 약을 제때 복용하고 <strong>복용 확인</strong>을 눌러주세요. 앱을 통해 빠짐없이 관리할 수 있습니다.</p>
                 </div>
                 
                 <div class="guide-slide" style="flex: 0 0 100%; width: 100%; height: 100%; background: #f8fafc; border-radius: 12px; padding: 12px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; border: 1px solid #e2e8f0;">
-                    <video class="media" src="guide_med_info.mp4" autoplay loop muted playsinline style="max-height: 48%; object-fit: contain; width: 100%; margin: 0 auto 10px; border-radius: 8px; background: #fff;"></video>
+                    <video class="media" src="guide_med_info.mp4" autoplay loop muted playsinline></video>
                     <h4 style="margin: 0 0 4px; font-size: 15px; color: #1a2a6c; font-weight: 900;">3. 스마트 약물 지침</h4>
                     <p style="margin: 0; font-size: 12.5px; color: #64748b; line-height: 1.4; word-break: keep-all;">자신이 복용하는 약의 상세 정보와 <strong>효능, 주의사항</strong>을 앱에서 즉시 확인할 수 있습니다.</p>
                 </div>
 
                 <div class="guide-slide" style="flex: 0 0 100%; width: 100%; height: 100%; background: #f8fafc; border-radius: 12px; padding: 12px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; border: 1px solid #e2e8f0;">
-                    <div class="hakdungi-7grid" style="max-height: 48%; display: flex; flex-wrap: wrap; justify-content: center; align-content: center; gap: 6px; margin: 0 auto 10px; background: #fff; padding: 8px; border-radius: 12px; border: 1px dashed #cbd5e1; width: 100%; box-sizing: border-box;">
-                        <video src="hakdungi_heart.mp4" autoplay loop muted playsinline style="width: 20%; aspect-ratio: 1/1; border-radius: 50%; object-fit: cover; background: #f8fafc;"></video>
-                        <video src="hakdungi_normal.mp4" autoplay loop muted playsinline style="width: 20%; aspect-ratio: 1/1; border-radius: 50%; object-fit: cover; background: #f8fafc;"></video>
-                        <video src="hakdungi_angry.mp4" autoplay loop muted playsinline style="width: 20%; aspect-ratio: 1/1; border-radius: 50%; object-fit: cover; background: #f8fafc;"></video>
-                        <video src="hakdungi_cry.mp4" autoplay loop muted playsinline style="width: 20%; aspect-ratio: 1/1; border-radius: 50%; object-fit: cover; background: #f8fafc;"></video>
-                        <video src="hakdungi_shiver.mp4" autoplay loop muted playsinline style="width: 20%; aspect-ratio: 1/1; border-radius: 50%; object-fit: cover; background: #f8fafc;"></video>
-                        <video src="hakdungi_sleep.mp4" autoplay loop muted playsinline style="width: 20%; aspect-ratio: 1/1; border-radius: 50%; object-fit: cover; background: #f8fafc;"></video>
-                        <video src="hakdungi_sleep_angry.mp4" autoplay loop muted playsinline style="width: 20%; aspect-ratio: 1/1; border-radius: 50%; object-fit: cover; background: #f8fafc;"></video>
+                    <div class="hakdungi-7grid">
+                        <video src="hakdungi_heart.mp4" autoplay loop muted playsinline></video>
+                        <video src="hakdungi_normal.mp4" autoplay loop muted playsinline></video>
+                        <video src="hakdungi_angry.mp4" autoplay loop muted playsinline></video>
+                        <video src="hakdungi_cry.mp4" autoplay loop muted playsinline></video>
+                        <video src="hakdungi_shiver.mp4" autoplay loop muted playsinline></video>
+                        <video src="hakdungi_sleep.mp4" autoplay loop muted playsinline></video>
+                        <video src="hakdungi_sleep_angry.mp4" autoplay loop muted playsinline></video>
                     </div>
                     <h4 style="margin: 0 0 4px; font-size: 15px; color: #1a2a6c; font-weight: 900;">4. 학둥이의 다양한 기분</h4>
                     <p style="margin: 0; font-size: 12.5px; color: #64748b; line-height: 1.4; word-break: keep-all;">약을 잘 챙겨 먹으면 학둥이의 기분이 좋아져요! 시간에 따라 총 <strong>7가지 모습</strong>으로 변합니다.</p>
                 </div>
 
                 <div class="guide-slide" style="flex: 0 0 100%; width: 100%; height: 100%; background: #f8fafc; border-radius: 12px; padding: 12px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; border: 1px solid #e2e8f0;">
-                    <img class="media" src="guide_img_3.png" alt="가이드 3" style="max-height: 48%; object-fit: contain; width: 100%; margin: 0 auto 10px; border-radius: 8px; background: #fff;" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjIwMCI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI2YxZjVmOSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LXNpemU9IjE0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjOTRhM2I4Ij5ndWlkZV9pbWdfMy5wbmc8L3RleHQ+PC9zdmc+'">
+                    <img class="media" src="guide_img_3.png" alt="가이드 3" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjIwMCI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI2YxZjVmOSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LXNpemU9IjE0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjOTRhM2I4Ij5ndWlkZV9pbWdfMy5wbmc8L3RleHQ+PC9zdmc+'">
                     <h4 style="margin: 0 0 4px; font-size: 15px; color: #1a2a6c; font-weight: 900;">5. AI 학둥이 챗봇</h4>
                     <p style="margin: 0; font-size: 12.5px; color: #64748b; line-height: 1.4; word-break: keep-all;">궁금한 점은 음성이나 텍스트로 언제든지 <strong>AI 학둥이</strong>에게 편하게 물어보세요.</p>
                 </div>
 
             </div>
         </div>
-
-        <div class="guide-dots" id="guideDots" style="display: flex; justify-content: center; gap: 6px; margin: 8px 0 12px; flex-shrink: 0;">
-            <div class="guide-dot active"></div>
-            <div class="guide-dot"></div>
-            <div class="guide-dot"></div>
-            <div class="guide-dot"></div>
-            <div class="guide-dot"></div>
-        </div>
-        
-        <div style="text-align: center; margin-top: auto; flex-shrink: 0;">
-            <button class="sheet-btn confirm" style="width: 100%; max-width: 200px; padding: 11px 0; font-size: 14.5px; border-radius: 25px; box-shadow: 0 4px 10px rgba(26,42,108,0.15); border: none; background: #1a2a6c; color: #fff; font-weight: bold; cursor: pointer;" onclick="closeGuideOverlay()">확인했습니다</button>
-        </div>
-    </div>
-</div>
 
         <div class="guide-dots" id="guideDots">
             <div class="guide-dot active"></div>
@@ -815,7 +790,7 @@
         </div>
         
         <div style="text-align: center; margin-top: auto; flex-shrink: 0;">
-            <button class="sheet-btn confirm" style="width: auto; padding: 12px 36px; font-size: 15px; border-radius: 25px; box-shadow: 0 4px 10px rgba(26,42,108,0.2);" onclick="closeGuideOverlay()">확인했습니다</button>
+            <button class="sheet-btn confirm" style="width: 100%; max-width: 200px; padding: 11px 0; font-size: 14.5px; border-radius: 25px; box-shadow: 0 4px 10px rgba(26,42,108,0.15); border: none; background: #1a2a6c; color: #fff; font-weight: bold; cursor: pointer;" onclick="closeGuideOverlay()">확인했습니다</button>
         </div>
     </div>
 </div>
