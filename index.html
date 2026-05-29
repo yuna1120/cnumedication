@@ -95,7 +95,7 @@
         .schedule-box-dark { background: #1a2a6c; border-radius: 15px; padding: 25px 20px 20px; color: #fff; margin-bottom: 30px; text-align: center; box-shadow: 0 10px 20px rgba(26,42,108,0.15); }
         .schedule-box-dark .s-date { font-size: 15px; font-weight: 500; opacity: 0.9; margin-bottom: 5px; }
         .schedule-box-dark .s-time { font-size: 32px; font-weight: 900; margin-bottom: 15px; letter-spacing: 1px; }
-        .schedule-box-dark .s-dept { inline-block; background: rgba(255,255,255,0.15); padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; margin-bottom: 25px; border: 1px solid rgba(255,255,255,0.2); }
+        .schedule-box-dark .s-dept { display: inline-block; background: rgba(255,255,255,0.15); padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; margin-bottom: 25px; border: 1px solid rgba(255,255,255,0.2); }
         .schedule-box-dark .s-links { border-top: 1px solid rgba(255,255,255,0.15); padding-top: 15px; display: flex; justify-content: center; align-items: center; gap: 20px; font-size: 14px; font-weight: 500; }
         .schedule-box-dark .s-links span { cursor: pointer; opacity: 0.9; }
         .schedule-box-dark .s-links .divider { color: rgba(255,255,255,0.3); }
@@ -320,23 +320,29 @@
         .guide-slider-wrap { overflow: hidden; width: 100%; flex: 1; display: flex; flex-direction: column; min-height: 0; margin-bottom: 10px; position: relative; }
         .guide-track { display: flex; transition: transform 0.35s cubic-bezier(0.25, 0.8, 0.25, 1); width: 100%; height: 100%; }
         
-        .guide-slide { flex: 0 0 100%; width: 100%; height: 100%; background: #f8fafc; border-radius: 12px; padding: 15px; text-align: center; border: 1px solid #e2e8f0; box-sizing: border-box; display: flex; flex-direction: column; }
+        /* 🔥 가이드 슬라이드 마우스 드래그 방해 방지 및 내용 길 때 잘림 방지 (수정) */
+        .guide-slide { 
+            flex: 0 0 100%; width: 100%; height: 100%; background: #f8fafc; border-radius: 12px; padding: 15px; text-align: center; border: 1px solid #e2e8f0; box-sizing: border-box; display: flex; flex-direction: column; 
+            -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; overflow-y: auto;
+        }
         
+        /* 🔥 가이드 이미지 높이를 낮춰 하단 글씨 잘림 완전 방지 (수정) */
         .guide-slide img.media, .guide-slide video.media { 
-    width: 100%;
-    height: auto;
-    max-height: 55vh; /* 화면 높이에 맞춰 적절히 최대 크기 제한 */
-    object-fit: contain; 
-    background: #f1f5f9;
-    margin-bottom: 12px;
-    border-radius: 8px;
-}
+            width: 100%;
+            height: auto;
+            max-height: 45vh; /* 기존 55vh에서 줄여 글씨 공간 확보 */
+            object-fit: contain; 
+            background: #f1f5f9;
+            margin-bottom: 12px;
+            border-radius: 8px;
+            pointer-events: none;
+        }
         
         .hakdungi-7grid { 
             flex: 1; min-height: 0; display: flex; flex-wrap: wrap; justify-content: center; align-content: center; gap: 8px; 
             margin-bottom: 15px; background: #fff; padding: 10px; border-radius: 12px; border: 1px dashed #cbd5e1; overflow: hidden; 
         }
-        .hakdungi-7grid video { width: calc(25% - 8px); max-width: 65px; aspect-ratio: 1/1; border-radius: 50%; object-fit: cover; border: 1px solid #e2e8f0; background: #f8fafc; }
+        .hakdungi-7grid video { width: calc(25% - 8px); max-width: 65px; aspect-ratio: 1/1; border-radius: 50%; object-fit: cover; border: 1px solid #e2e8f0; background: #f8fafc; pointer-events: none; }
         
         .guide-slide h4 { margin: 0 0 8px; font-size: 16px; color: #1a2a6c; font-weight: 900; flex-shrink: 0; }
         .guide-slide p { margin: 0; font-size: 13px; color: #64748b; line-height: 1.5; word-break: keep-all; flex-shrink: 0; }
@@ -809,7 +815,7 @@
 </div>
 
 <div class="confirm-overlay" id="infoOverlay" onclick="closeHakdungiInfo(event)">
-    <div class="confirm-sheet" onclick="event.stopPropagation()" style="padding-bottom:20px; background:#f4f6f9;">
+    <div class="confirm-sheet" onclick="event.stopPropagation()" style="padding-bottom:20px; background:#f4f6f9; overflow-y:auto;">
         <h3 style="margin-bottom: 5px; margin-top:5px;"><i class="fa-solid fa-clipboard-question" style="color:#1a2a6c;"></i> 학둥이 상태 안내</h3>
         <p style="margin-bottom: 15px; font-size:13px; color:#64748b;">동그란 영상을 누르면 학둥이를 크게 볼 수 있어요!</p>
         
@@ -1143,7 +1149,7 @@
         closeReportOverlay();
     }
 
-    /* 🔥 가이드 슬라이더 JS */
+    /* 🔥 가이드 슬라이더 JS (PC + 모바일 통합 지원되도록 수정) */
     let currentSlide = 0;
     let startX = 0;
     let isDragging = false;
@@ -1153,7 +1159,7 @@
         const track = document.getElementById('guideTrack');
         const dots = document.querySelectorAll('.guide-dot');
         
-        track.style.transform = `translateX(-${currentSlide * 100}%)`;
+        if (track) track.style.transform = `translateX(-${currentSlide * 100}%)`;
         
         dots.forEach((dot, index) => {
             if(index === currentSlide) dot.classList.add('active');
@@ -1163,16 +1169,16 @@
 
     function initGuideSlider() {
         const track = document.getElementById('guideTrack');
+        if (!track) return;
         
-        track.addEventListener('touchstart', e => {
-            startX = e.touches[0].clientX;
+        const dragStart = (xPos) => {
+            startX = xPos;
             isDragging = true;
-        }, {passive: true});
-        
-        track.addEventListener('touchend', e => {
-            if(!isDragging) return;
+        };
+
+        const dragEnd = (endX) => {
+            if (!isDragging) return;
             isDragging = false;
-            const endX = e.changedTouches[0].clientX;
             const diffX = startX - endX;
             
             if (diffX > 45) {
@@ -1181,7 +1187,30 @@
                 if(currentSlide > 0) currentSlide--;
             }
             updateSliderUI();
+        };
+
+        // 1. 모바일 터치
+        track.addEventListener('touchstart', e => {
+            dragStart(e.touches[0].clientX);
         }, {passive: true});
+        
+        track.addEventListener('touchend', e => {
+            dragEnd(e.changedTouches[0].clientX);
+        }, {passive: true});
+
+        // 2. 노트북/PC 마우스 추가
+        track.addEventListener('mousedown', e => {
+            if (e.target.tagName === 'IMG' || e.target.tagName === 'VIDEO') e.preventDefault();
+            dragStart(e.clientX);
+        });
+
+        track.addEventListener('mouseup', e => {
+            dragEnd(e.clientX);
+        });
+
+        track.addEventListener('mouseleave', e => {
+            if (isDragging) dragEnd(e.clientX);
+        });
     }
 
     function openGuideOverlay() {
