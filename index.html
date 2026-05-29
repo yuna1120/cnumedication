@@ -13,7 +13,7 @@
             background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
             position: relative; display: flex; flex-direction: column; overflow: hidden;
         }
-        .ios-status-bar { display: flex; justify-content: space-between; padding: 15px 25px; color: white; font-weight: 800; font-size: 14px; }
+        .ios-status-bar { display: flex; justify-content: space-between; align-items: center; padding: 15px 25px; color: white; font-weight: 800; font-size: 14px; z-index: 50; }
         .ios-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px 10px; padding: 20px; z-index: 10; }
         .app-icon-wrap { display: flex; flex-direction: column; align-items: center; gap: 5px; cursor: pointer; z-index: 20; }
         .app-icon { width: 65px; height: 65px; border-radius: 16px; display: flex; justify-content: center; align-items: center; font-size: 30px; color: white; box-shadow: 0 4px 10px rgba(0,0,0,0.1); overflow: hidden; position: relative; }
@@ -21,14 +21,12 @@
         .app-name { color: white; font-size: 11px; font-weight: 600; text-shadow: 0 1px 2px rgba(0,0,0,0.5); text-align: center; }
         .badge { position: absolute; top: -5px; right: -5px; background: #ff3b30; color: white; font-size: 12px; font-weight: 800; padding: 2px 6px; border-radius: 10px; border: 2px solid #fff; }
 
-        /* 🍎 학둥이 위젯 (배경 흰색) */
         .hakdungi-widget {
             grid-column: span 2; grid-row: span 2; background: #ffffff; border-radius: 24px; padding: 15px; position: relative; box-shadow: 0 4px 15px rgba(0,0,0,0.15); cursor: pointer; display: flex; flex-direction: column; overflow: hidden; z-index: 20;
         }
-        .widget-title { font-size: 15px; font-weight: 900; color: #1e3a8a; letter-spacing: -0.5px; margin-bottom: 2px; position: relative; z-index: 5;}
-        .widget-sub { font-size: 11px; font-weight: 800; color: #1e293b; letter-spacing: -0.5px; position: relative; z-index: 5;}
+        .widget-title { font-size: 13.5px; font-weight: 900; color: #1e3a8a; letter-spacing: -1px; margin-bottom: 2px; position: relative; z-index: 5; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
+        .widget-sub { font-size: 10px; font-weight: 800; color: #1e293b; letter-spacing: -1px; position: relative; z-index: 5; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
         
-        /* 🥚 위젯 안의 달걀 모양 (기본 파란색) */
         .widget-egg {
             position: absolute; bottom: 12px; left: 12px; width: 75px; height: 115px; background: #1a2a6c; border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; box-shadow: 0 5px 10px rgba(0,0,0,0.3); z-index: 5; border: 2px solid rgba(255,255,255,0.2); transition: all 0.4s ease;
         }
@@ -37,7 +35,6 @@
         .egg-time-min { font-size: 13px; font-weight: 700; }
         .egg-status { font-size: 11px; font-weight: 700; margin-top: 5px; color: #cbd5e1;}
 
-        /* 위젯 영상 둥글게 */
         .widget-vid-wrap {
             position: absolute; bottom: -5px; right: -25px; width: 140px; height: 140px; border-radius: 50%; overflow: hidden; z-index: 1; display: flex; justify-content: center; align-items: center;
         }
@@ -45,7 +42,21 @@
 
         .ios-dock { margin-top: auto; margin-bottom: 10px; margin-left: 15px; margin-right: 15px; background: rgba(255,255,255,0.3); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-radius: 30px; padding: 15px; display: flex; justify-content: space-around; align-items: center; z-index: 10;}
 
-        /* 앱 실행 시 아이폰 숨기기 */
+        .ios-push-noti {
+            position: absolute; top: -100px; left: 50%; transform: translateX(-50%); width: 92%;
+            background: rgba(255,255,255,0.85); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); 
+            border-radius: 20px; padding: 14px 15px; display: flex; gap: 12px; z-index: 100;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15); cursor: pointer;
+            animation: slideDownPush 0.7s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+            animation-delay: 1.5s;
+        }
+        .ios-push-noti img { width: 42px; height: 42px; border-radius: 10px; object-fit: cover; background: #fff; }
+        .push-content { flex: 1; }
+        .push-header { font-size: 11px; font-weight: 700; color: #64748b; display: flex; justify-content: space-between; margin-bottom: 3px; }
+        .push-title { font-size: 14px; font-weight: 900; color: #1e293b; margin-bottom: 2px; }
+        .push-desc { font-size: 13px; font-weight: 500; color: #334155; }
+        @keyframes slideDownPush { 0% { top: -100px; opacity: 0; } 100% { top: 40px; opacity: 1; } }
+
         .home-indicator-wrap { position: absolute; bottom: 0; left: 0; width: 100%; height: 30px; display: flex; justify-content: center; align-items: flex-end; padding-bottom: 8px; z-index: 9999; }
         .home-indicator { width: 130px; height: 5px; background: #000; border-radius: 10px; cursor: pointer; opacity: 0.8; }
     </style>
@@ -63,7 +74,6 @@
         .show-meddashboard #page-home, .show-meddashboard #page-inpatient, .show-meddashboard #page-meddashboard, .show-meddashboard #page-chatbot { transform: translateX(-200%); }
         .show-chatbot #page-home, .show-chatbot #page-inpatient, .show-chatbot #page-meddashboard, .show-chatbot #page-chatbot { transform: translateX(-300%); }
 
-        /* PAGE 0 ~ 3 스타일 요약 */
         .home-content { flex: 1; overflow-y: auto; padding: 25px 20px 100px; }
         .home-top-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 25px; }
         .top-logo-area { display: flex; align-items: center; gap: 10px; }
@@ -207,19 +217,28 @@
         .history-med-card .med-photos-list { margin: 15px 0 0 0; }
         .nurse-check-badge { background: #10b981; color: #fff; font-size: 12px; font-weight: 800; padding: 6px 12px; border-radius: 20px; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 4px 10px rgba(16,185,129,0.3); }
 
-        .global-fab { position: absolute; bottom: 100px; right: 20px; width: 70px; height: 70px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; z-index: 100; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); }
+        .global-fab { position: absolute; bottom: 100px; width: 70px; height: 70px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; z-index: 100; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); }
         .global-fab:active { transform: scale(0.95); }
         .global-fab span { font-size: 11px; font-weight: 800; color: #1a2a6c; letter-spacing: -0.5px; margin-top: 3px; }
+        
+        .chatbot-fab { right: 20px; }
+        .guide-fab { left: 20px; }
+        
         .fab-badge { position: absolute; top: 0; right: 2px; background: #ef4444; color: white; font-size: 10px; font-weight: bold; padding: 3px 6px; border-radius: 10px; border: 2px solid #fff; z-index: 2; }
-        .fab-vid-wrap { width: 55px; height: 55px; background: #fff; border-radius: 50%; box-shadow: 0 4px 15px rgba(26,42,108,0.15); overflow: hidden; border: 2px solid #e2e8f0; }
+        .fab-vid-wrap { width: 55px; height: 55px; background: #fff; border-radius: 50%; box-shadow: 0 4px 15px rgba(26,42,108,0.15); overflow: hidden; border: 2px solid #e2e8f0; display:flex; justify-content:center; align-items:center; }
         .fab-vid-wrap video { width: 100%; height: 100%; object-fit: cover; }
+        
         .show-chatbot .global-fab { transform: scale(0); opacity: 0; pointer-events: none; }
 
         .chat-header-robot { background: #fff; padding: 22px 22px 18px; display: flex; align-items: center; gap: 14px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
         .chat-header-robot i.fa-chevron-left { color: #94a3b8; font-size: 22px; cursor: pointer; }
-        .robot-icon-wrap { width: 48px; height: 48px; background: #fff; border-radius: 50%; border: 1px solid #e2e8f0; overflow: hidden; display: flex; justify-content: center; align-items: center; }
+        .robot-icon-wrap { width: 48px; height: 48px; background: #fff; border-radius: 50%; border: 1px solid #e2e8f0; overflow: hidden; display: flex; justify-content: center; align-items: center; flex-shrink: 0;}
         .chat-header-robot h2 { font-size: 20px; margin: 0; color: #1e293b; font-weight: 900; }
         .chat-header-robot p { margin: 3px 0 0; color: #64748b; font-size: 12px; }
+        
+        .report-btn { margin-left: auto; background: #f1f5f9; border: none; padding: 6px 12px; border-radius: 12px; font-size: 12px; font-weight: 800; color: #1a2a6c; cursor: pointer; display: flex; align-items: center; gap: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .report-btn:active { background: #e2e8f0; }
+
         .chat-area { flex: 1; padding: 18px; overflow-y: auto; display: flex; flex-direction: column; gap: 14px; padding-bottom: 85px; scroll-behavior: smooth; }
         .msg { padding: 12px 16px; border-radius: 18px; font-size: 14px; max-width: 80%; box-shadow: 0 2px 5px rgba(0,0,0,0.05); line-height: 1.6; word-wrap: break-word; }
         .msg.ai { background: #fff; align-self: flex-start; border-left: 4px solid #1a2a6c; border-bottom-left-radius: 4px; }
@@ -238,16 +257,50 @@
 
         .confirm-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 9999; display: none; justify-content: center; align-items: flex-end; }
         .confirm-overlay.open { display: flex; animation: fadeIn 0.2s; }
-        .confirm-sheet { background: #fff; width: 100%; max-width: 450px; border-radius: 24px 24px 0 0; padding: 28px 24px 40px; height: 80vh; overflow-y: auto; }
+       .confirm-sheet { 
+    background: #fff; 
+    width: 100%; 
+    max-width: 450px; 
+    border-radius: 24px 24px 0 0; 
+    padding: 20px 20px 30px; 
+    
+    /* 👇 높이를 65%로 슬림하게 줄이고, 전체 창이 스크롤되는 것을 막습니다 */
+    height: 65vh; 
+    overflow: hidden; 
+    
+    display: flex;
+    flex-direction: column;
+}
         .confirm-sheet .sheet-icon { font-size: 44px; text-align: center; margin-bottom: 10px; }
         .confirm-sheet h3 { font-size: 18px; font-weight: 900; color: #1e293b; margin: 0 0 8px; text-align: center; }
-        .confirm-sheet p { font-size: 14px; color: #64748b; margin: 0 0 24px; text-align: center; line-height: 1.6; }
-        .confirm-sheet .sheet-meds { background: #f8fafc; border-radius: 12px; padding: 14px; margin-bottom: 22px; display: flex; flex-direction: column; gap: 12px; }
+       .confirm-sheet p { 
+    font-size: 14px; 
+    color: #64748b; 
+    /* margin-bottom: 24px; 👈 기존 간격을 절반으로 줄임 */
+    margin-bottom: 12px; 
+    text-align: center; 
+    line-height: 1.6; 
+}
+        .confirm-sheet .sheet-meds { 
+    background: #f8fafc; 
+    border-radius: 12px; 
+    padding: 10px 14px; 
+    margin-bottom: 15px; 
+    display: flex; 
+    flex-direction: column; 
+    gap: 8px; 
+    
+    /* 👇 핵심: 약 목록 박스의 높이를 딱 제한하고, 이 안에서만 스크롤이 작동하게 합니다 */
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto; 
+    border: 1px solid #e2e8f0;
+}
         .confirm-sheet .sheet-med-row { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 700; color: #334155; }
         .sheet-btn-group { display: flex; gap: 10px; }
         .sheet-btn { flex: 1; padding: 14px; border-radius: 14px; font-size: 15px; font-weight: 800; border: none; cursor: pointer; }
         .sheet-btn.cancel { background: #f1f5f9; color: #64748b; }
-        .sheet-btn.confirm { background: #1a2a6c; color: #fff; }
+        .sheet-btn.confirm { background: #1a2a6c; color: #fff; transition: background 0.2s; }
         .sheet-btn.confirm:active { background: #0f1d4a; }
         @keyframes fadeIn { from{opacity:0} to{opacity:1} }
         
@@ -264,13 +317,43 @@
         .big-video-wrap { width: 250px; height: 250px; border-radius: 50%; overflow: hidden; border: 5px solid #fff; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
         .big-video-wrap video { width: 100%; height: 100%; object-fit: cover; }
         .close-zoom-text { color: #fff; font-size: 15px; font-weight: 800; margin-top: 25px; display: flex; align-items: center; gap: 8px; cursor: pointer; }
+
+        /* 🔥 새롭게 바뀐 앱 가이드 슬라이더 스타일 (꽉 찬 Flex 레이아웃) */
+        .guide-slider-wrap { overflow: hidden; width: 100%; flex: 1; display: flex; flex-direction: column; min-height: 0; margin-bottom: 10px; position: relative; }
+        .guide-track { display: flex; transition: transform 0.35s cubic-bezier(0.25, 0.8, 0.25, 1); width: 100%; height: 100%; }
+        
+        /* 각 슬라이드는 가이드 창을 꽉 채우는 Flex 컨테이너 */
+        .guide-slide { flex: 0 0 100%; width: 100%; height: 100%; background: #f8fafc; border-radius: 12px; padding: 15px; text-align: center; border: 1px solid #e2e8f0; box-sizing: border-box; display: flex; flex-direction: column; }
+        
+        /* 이미지/비디오가 남는 공간 전체를 꽉 채우도록 설정 */
+        .guide-slide img.media, .guide-slide video.media { 
+            flex: 1; min-height: 0; width: 100%; object-fit: cover; 
+            border-radius: 8px; border: 1px dashed #cbd5e1; background: #fff; margin-bottom: 15px; 
+        }
+        
+        /* 학둥이 7가지 상태 그리드 공간 꽉 채우기 */
+        .hakdungi-7grid { 
+            flex: 1; min-height: 0; display: flex; flex-wrap: wrap; justify-content: center; align-content: center; gap: 8px; 
+            margin-bottom: 15px; background: #fff; padding: 10px; border-radius: 12px; border: 1px dashed #cbd5e1; overflow: hidden; 
+        }
+        .hakdungi-7grid video { width: calc(25% - 8px); max-width: 65px; aspect-ratio: 1/1; border-radius: 50%; object-fit: cover; border: 1px solid #e2e8f0; background: #f8fafc; }
+        
+        .guide-slide h4 { margin: 0 0 8px; font-size: 16px; color: #1a2a6c; font-weight: 900; flex-shrink: 0; }
+        .guide-slide p { margin: 0; font-size: 13px; color: #64748b; line-height: 1.5; word-break: keep-all; flex-shrink: 0; }
+        
+        .guide-dots { display: flex; justify-content: center; gap: 8px; margin: 10px 0 15px; flex-shrink: 0; }
+        .guide-dot { width: 8px; height: 8px; border-radius: 50%; background: #cbd5e1; transition: 0.3s; }
+        .guide-dot.active { background: #1a2a6c; width: 20px; border-radius: 4px; }
     </style>
 </head>
 <body>
 
 <div id="iphone-home">
     <div class="ios-status-bar">
-        <div id="ios-time">09:41</div>
+        <div id="ios-time" style="display: flex; align-items: center; gap: 5px;">
+            09:41 
+            <img src="status_hakdungi_icon.png" alt="icon" style="width: 14px; height: 14px; border-radius: 50%; object-fit: cover;" onerror="this.style.display='none'">
+        </div>
         <div>
             <i class="fa-solid fa-signal" style="font-size:12px;"></i>
             <i class="fa-solid fa-wifi" style="margin: 0 4px; font-size:12px;"></i>
@@ -278,19 +361,16 @@
         </div>
     </div>
 
-    <div class="ios-grid">
-        <div class="hakdungi-widget" onclick="openAppFromWidget()">
-            <div class="widget-title">백*선님! 약은 드셨나요?</div>
-            <div class="widget-sub">약을 드셔야 학둥이도 건강해져요!</div>
-            
-            <div class="widget-egg" id="widget-egg-container">
-                </div>
-            
-            <div class="widget-vid-wrap">
-                <video id="widget-hakdungi-vid" src="hakdungi_normal.mp4" autoplay loop muted playsinline></video>
-            </div>
+    <div class="ios-push-noti" onclick="openAppFromWidget()">
+        <img src="push_app_icon.png" alt="앱 아이콘" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MiIgaGVpZ2h0PSI0MiI+PHJlY3Qgd2lkdGg9IjQyIiBoZWlnaHQ9IjQyIiBmaWxsPSIjMWEyYTZjIiByeD0iMTAiLz48dGV4dCB4PSIyMSIgeT0iMjUiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiNmZmYiIHRleHQtYW5jaG9yPSJtaWRkbGUiPu2VmTwvdGV4dD48L3N2Zz4='">
+        <div class="push-content">
+            <div class="push-header"><span>전남대병원 스마트 앱</span> <span>지금</span></div>
+            <div class="push-title">약 복용 시간입니다!</div>
+            <div class="push-desc">백*선님, 잊지 말고 약을 챙겨 드세요.</div>
         </div>
+    </div>
 
+    <div class="ios-grid">
         <div class="app-icon-wrap">
             <div class="app-icon" style="background: white;"><i class="fa-regular fa-calendar" style="color: #ff3b30;"></i></div>
             <div class="app-name">Calendar</div>
@@ -324,6 +404,18 @@
         <div class="app-icon-wrap">
             <div class="app-icon" style="background: #1c1c1e;"><i class="fa-solid fa-chart-line" style="color: #0a84ff;"></i></div>
             <div class="app-name">Stocks</div>
+        </div>
+
+        <div class="hakdungi-widget" onclick="openAppFromWidget()">
+            <div class="widget-title">백*선님! 약은 드셨나요?</div>
+            <div class="widget-sub">약을 드셔야 학둥이도 건강해져요!</div>
+            
+            <div class="widget-egg" id="widget-egg-container">
+                </div>
+            
+            <div class="widget-vid-wrap">
+                <video id="widget-hakdungi-vid" src="hakdungi_normal.mp4" autoplay loop muted playsinline></video>
+            </div>
         </div>
 
         <div class="app-icon-wrap" onclick="openAppFromIcon()">
@@ -573,6 +665,9 @@
                 <h2>AI 학둥이</h2>
                 <p>무엇이든 물어보세요! (음성 지원)</p>
             </div>
+            <button class="report-btn" onclick="openReportOverlay()">
+                <i class="fa-solid fa-bullhorn"></i> 건의
+            </button>
         </div>
         <div class="chat-area" id="chatBox">
             <div style="text-align:center; color:#94a3b8; font-size:12px; margin-bottom:5px;">오늘</div>
@@ -585,12 +680,19 @@
         </div>
     </div>
 
-    <div class="global-fab" onclick="goToChatbot()">
+    <div class="global-fab chatbot-fab" onclick="goToChatbot()">
         <div class="fab-badge">N</div>
         <div class="fab-vid-wrap">
             <video src="hakdungi.mp4" autoplay loop muted playsinline></video>
         </div>
         <span>학둥이</span>
+    </div>
+
+    <div class="global-fab guide-fab" onclick="openGuideOverlay()">
+        <div class="fab-vid-wrap" style="background:#f8fafc;">
+            <i class="fa-solid fa-book-open" style="font-size: 24px; color: #1a2a6c;"></i>
+        </div>
+        <span>가이드</span>
     </div>
 
     <div class="nav-bar">
@@ -621,6 +723,83 @@
         <h3 style="color: #ef4444;">복용 시간이 지났습니다!</h3>
         <p>복용 예정 시간에서 30분이 지났습니다.<br><strong>약효를 위해 다음부터는<br>제시간에 꼭 챙겨 드세요.</strong></p>
         <button class="sheet-btn confirm" style="width: 100%; background: #ef4444;" onclick="closeLateAlert()">확인했습니다</button>
+    </div>
+</div>
+
+<div class="confirm-overlay" id="guideOverlay" onclick="closeGuideOverlay(event)">
+    <div class="confirm-sheet" onclick="event.stopPropagation()" style="height: 80vh; display: flex; flex-direction: column; padding: 25px 20px;">
+        <h3 style="margin-top:5px; flex-shrink: 0;"><i class="fa-solid fa-book-open" style="color:#1a2a6c;"></i> 스마트 앱 사용 가이드</h3>
+        <p style="margin-bottom:15px; font-size:13px; color:#64748b; flex-shrink: 0;">화면을 좌우로 스와이프하며 사용법을 알아보세요.</p>
+        
+        <div class="guide-slider-wrap">
+            <div class="guide-track" id="guideTrack">
+                
+                <div class="guide-slide">
+                    <img class="media" src="guide_img_1.png" alt="가이드 1" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjIwMCI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI2YxZjVmOSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LXNpemU9IjE0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjOTRhM2I4Ij5ndWlkZV9pbWdfMS5wbmc8L3RleHQ+PC9zdmc+'">
+                    <h4>1. 스마트 메인 화면</h4>
+                    <p>환자 정보와 나의 일정, 즐겨찾기 메뉴를 한눈에 확인할 수 있습니다.</p>
+                </div>
+                
+                <div class="guide-slide">
+                    <video class="media" src="guide_confirm.mp4" autoplay loop muted playsinline></video>
+                    <h4>2. 복용 확인하기</h4>
+                    <p>매일 약을 제때 복용하고 <strong>복용 확인</strong>을 눌러주세요. 앱을 통해 빠짐없이 관리할 수 있습니다.</p>
+                </div>
+                
+                <div class="guide-slide">
+                    <video class="media" src="guide_med_info.mp4" autoplay loop muted playsinline></video>
+                    <h4>3. 스마트 약물 지침</h4>
+                    <p>자신이 복용하는 약의 상세 정보와 <strong>효능, 주의사항</strong>을 앱에서 즉시 확인할 수 있습니다.</p>
+                </div>
+
+                <div class="guide-slide">
+                    <div class="hakdungi-7grid">
+                        <video src="hakdungi_heart.mp4" autoplay loop muted playsinline></video>
+                        <video src="hakdungi_normal.mp4" autoplay loop muted playsinline></video>
+                        <video src="hakdungi_angry.mp4" autoplay loop muted playsinline></video>
+                        <video src="hakdungi_cry.mp4" autoplay loop muted playsinline></video>
+                        <video src="hakdungi_shiver.mp4" autoplay loop muted playsinline></video>
+                        <video src="hakdungi_sleep.mp4" autoplay loop muted playsinline></video>
+                        <video src="hakdungi_sleep_angry.mp4" autoplay loop muted playsinline></video>
+                    </div>
+                    <h4>4. 학둥이의 다양한 기분</h4>
+                    <p>약을 잘 챙겨 먹으면 학둥이의 기분이 좋아져요! 시간에 따라 총 <strong>7가지 모습</strong>으로 변합니다.</p>
+                </div>
+
+                <div class="guide-slide">
+                    <img class="media" src="guide_img_3.png" alt="가이드 3" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjIwMCI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI2YxZjVmOSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LXNpemU9IjE0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjOTRhM2I4Ij5ndWlkZV9pbWdfMy5wbmc8L3RleHQ+PC9zdmc+'">
+                    <h4>5. AI 학둥이 챗봇</h4>
+                    <p>궁금한 점은 음성이나 텍스트로 언제든지 <strong>AI 학둥이</strong>에게 편하게 물어보세요.</p>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="guide-dots" id="guideDots">
+            <div class="guide-dot active"></div>
+            <div class="guide-dot"></div>
+            <div class="guide-dot"></div>
+            <div class="guide-dot"></div>
+            <div class="guide-dot"></div>
+        </div>
+        
+        <div style="text-align: center; margin-top: auto; flex-shrink: 0;">
+            <button class="sheet-btn confirm" style="width: auto; padding: 12px 36px; font-size: 15px; border-radius: 25px; box-shadow: 0 4px 10px rgba(26,42,108,0.2);" onclick="closeGuideOverlay()">확인했습니다</button>
+        </div>
+    </div>
+</div>
+
+<div class="confirm-overlay" id="reportOverlay" onclick="closeReportOverlay(event)">
+    <div class="confirm-sheet" onclick="event.stopPropagation()" style="height: auto; padding-bottom: 25px;">
+        <h3 style="margin-top:5px; margin-bottom:10px;"><i class="fa-solid fa-bullhorn" style="color:#1a2a6c;"></i> 건의 및 불편사항</h3>
+        <p style="font-size: 13px; color: #64748b; margin-bottom: 15px;">앱 사용 중 불편한 점이나 건의사항을 남겨주시면<br>더 나은 서비스를 위해 적극 반영하겠습니다.</p>
+        
+        <textarea id="reportText" style="width: 100%; height: 140px; padding: 15px; border-radius: 12px; border: 1px solid #cbd5e1; font-size: 14px; resize: none; font-family: inherit; background: #f8fafc; outline: none; margin-bottom: 20px;" placeholder="여기에 내용을 자세히 입력해주세요..."></textarea>
+        
+        <div class="sheet-btn-group">
+            <button class="sheet-btn cancel" onclick="closeReportOverlay()">취소</button>
+            <button class="sheet-btn confirm" onclick="submitReport()">제출하기</button>
+        </div>
     </div>
 </div>
 
@@ -764,7 +943,6 @@
             </div>`;
     }
 
-    /* 초깃값을 전부 안 먹은 상태로 변경했습니다 */
     let checkedSlots = { morning: false, lunch: false, dinner: false };
     let activeSlot   = 'morning';
     let pendingSlot  = null;
@@ -803,7 +981,6 @@
         const h = new Date().getHours();
         ['mRow','lRow','dRow'].forEach(id => document.getElementById(id).style.display = 'none');
 
-        // 앱 내부에서 보여줄 현재의 '기본' 슬롯 시간대 설정
         if (h >= 5 && h < 11) { 
             activeSlot = 'morning'; 
         } else if (h >= 11 && h < 17) { 
@@ -878,9 +1055,7 @@
             else imgEl.src = 'hakdungi_shiver.mp4';
         }
         
-        if(imgEl.play) {
-            imgEl.play().catch(e => {});
-        }
+        if(imgEl.play) imgEl.play().catch(e => {});
         
         const widgetVid = document.getElementById('widget-hakdungi-vid');
         if(widgetVid && widgetVid.getAttribute('src') !== imgEl.src) {
@@ -953,6 +1128,66 @@
     function closeLateAlert() { document.getElementById('lateAlertOverlay').classList.remove('open'); }
     function openHakdungiInfo() { document.getElementById('infoOverlay').classList.add('open'); }
     function closeHakdungiInfo(e) { document.getElementById('infoOverlay').classList.remove('open'); }
+    
+    function openReportOverlay() { document.getElementById('reportOverlay').classList.add('open'); }
+    function closeReportOverlay(e) { document.getElementById('reportOverlay').classList.remove('open'); document.getElementById('reportText').value = ''; }
+    function submitReport() {
+        const text = document.getElementById('reportText').value;
+        if (!text.trim()) { alert('건의하실 내용을 입력해주세요.'); return; }
+        alert('소중한 의견이 성공적으로 접수되었습니다.\n더 나은 서비스를 위해 노력하겠습니다!');
+        closeReportOverlay();
+    }
+
+    /* 🔥 가이드 슬라이더 JS */
+    let currentSlide = 0;
+    let startX = 0;
+    let isDragging = false;
+    const totalSlides = 5;
+
+    function updateSliderUI() {
+        const track = document.getElementById('guideTrack');
+        const dots = document.querySelectorAll('.guide-dot');
+        
+        track.style.transform = `translateX(-${currentSlide * 100}%)`;
+        
+        dots.forEach((dot, index) => {
+            if(index === currentSlide) dot.classList.add('active');
+            else dot.classList.remove('active');
+        });
+    }
+
+    function initGuideSlider() {
+        const track = document.getElementById('guideTrack');
+        
+        track.addEventListener('touchstart', e => {
+            startX = e.touches[0].clientX;
+            isDragging = true;
+        }, {passive: true});
+        
+        track.addEventListener('touchend', e => {
+            if(!isDragging) return;
+            isDragging = false;
+            const endX = e.changedTouches[0].clientX;
+            const diffX = startX - endX;
+            
+            if (diffX > 45) {
+                if(currentSlide < totalSlides - 1) currentSlide++;
+            } else if (diffX < -45) {
+                if(currentSlide > 0) currentSlide--;
+            }
+            updateSliderUI();
+        }, {passive: true});
+    }
+
+    function openGuideOverlay() {
+        currentSlide = 0;
+        updateSliderUI();
+        document.getElementById('guideOverlay').classList.add('open');
+    }
+    
+    function closeGuideOverlay(e) {
+        document.getElementById('guideOverlay').classList.remove('open');
+    }
     
     function playBigVid(src) {
         const bigVid = document.getElementById('bigHakdungiVid');
@@ -1228,8 +1463,6 @@
         return data.candidates[0].content.parts[0].text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').trim();
     }
 
-
-    /* ====== 아이폰 클릭 완벽 수정 & 위젯 시간 업데이트 ====== */
     function openAppFromWidget() {
         document.getElementById('iphone-home').style.display = 'none';
         document.getElementById('appFrame').style.display = 'flex';
@@ -1247,12 +1480,13 @@
         document.getElementById('appFrame').style.display = 'none';
     }
 
-    /* 🍎 위젯 계산 시스템 전면 수정 (시간대별 타겟 및 미복용 우선 확인) */
     function initIPhoneWidget() {
         const now = new Date();
         const hrStr = String(now.getHours()).padStart(2, '0');
         const minStr = String(now.getMinutes()).padStart(2, '0');
-        document.getElementById('ios-time').innerText = `${hrStr}:${minStr}`;
+        
+        const iosTimeEl = document.getElementById('ios-time');
+        iosTimeEl.innerHTML = `${hrStr}:${minStr} <img src="status_hakdungi_icon.png" alt="icon" style="width:14px; height:14px; border-radius:50%; object-fit:cover; margin-left:3px;" onerror="this.style.display='none'">`;
 
         const eggContainer = document.getElementById('widget-egg-container');
         const currentHour = now.getHours();
@@ -1261,36 +1495,28 @@
         let targetHour = 0;
         let iconHtml = '';
         let slotKey = '';
-        let dayOffset = 0; // 0=오늘, 1=내일, -1=어제
+        let dayOffset = 0; 
 
-        // 1. 현재 시간대 기준 '가장 급한(아직 안 먹은)' 약이 무엇인지 찾기
         if (currentHour >= 5 && currentHour < 11) {
-            // 오전 5시 ~ 11시 사이
             if (!checkedSlots.morning) { targetSlot = '아침약'; targetHour = 8; slotKey = 'morning'; iconHtml = '<i class="fa-solid fa-sun" style="color:#fcd34d;"></i>'; }
             else { targetSlot = '점심약'; targetHour = 13; slotKey = 'lunch'; iconHtml = '<i class="fa-solid fa-cloud-sun" style="color:#fb923c;"></i>'; }
         }
         else if (currentHour >= 11 && currentHour < 17) {
-            // 오전 11시 ~ 오후 5시 사이
             if (!checkedSlots.lunch) { targetSlot = '점심약'; targetHour = 13; slotKey = 'lunch'; iconHtml = '<i class="fa-solid fa-cloud-sun" style="color:#fb923c;"></i>'; }
             else { targetSlot = '저녁약'; targetHour = 19; slotKey = 'dinner'; iconHtml = '<i class="fa-solid fa-moon" style="color:#a5b4fc;"></i>'; }
         }
         else {
-            // 오후 5시 ~ 다음날 새벽 5시 사이
             if (!checkedSlots.dinner) { 
                 targetSlot = '저녁약'; targetHour = 19; slotKey = 'dinner'; iconHtml = '<i class="fa-solid fa-moon" style="color:#a5b4fc;"></i>';
-                // 자정이 넘었으면 '어제 저녁 7시'가 기준이 되어야 함
                 if (currentHour < 5) dayOffset = -1; 
             } else { 
                 targetSlot = '아침약'; targetHour = 8; slotKey = 'morning'; iconHtml = '<i class="fa-solid fa-sun" style="color:#fcd34d;"></i>';
-                // 오늘 저녁에 약을 먹고 확인 중이라면 기준은 '내일 아침 8시'
                 if (currentHour >= 17) dayOffset = 1; 
             }
         }
 
-        // 2. 화면에 그리기
         const totalScore = Object.values(checkedSlots).filter(Boolean).length;
         
-        // 하루치 3개를 다 먹었고, 타겟이 내일(또는 다음 사이클) 아침을 가리키고 있을 때
         if (totalScore === 3 && slotKey === 'morning' && dayOffset === 1) {
             eggContainer.style.background = '#00b894';
             eggContainer.style.borderColor = 'rgba(255,255,255,0.4)';
@@ -1302,7 +1528,6 @@
             return;
         }
 
-        // 만약 찾아낸 타겟 약을 이미 복용한 상태라면 (대기 중인 다음 약 시간이 아직 많이 남았을 때)
         if (checkedSlots[slotKey] && dayOffset !== 1) {
             eggContainer.style.background = '#00b894';
             eggContainer.style.borderColor = 'rgba(255,255,255,0.4)';
@@ -1312,7 +1537,6 @@
                 <div class="egg-status" style="color: #fff; font-weight: 800; font-size: 12px;">복용 완료</div>
             `;
         } else {
-            // 안 먹은 약에 대한 카운트다운 (시간 초과 또는 시간 남음) 표시
             eggContainer.style.background = '#1a2a6c';
             eggContainer.style.borderColor = 'rgba(255,255,255,0.2)';
 
@@ -1341,6 +1565,8 @@
             `;
         }
     }
+    
+    initGuideSlider();
     
     setInterval(initIPhoneWidget, 60000);
     initIPhoneWidget();
