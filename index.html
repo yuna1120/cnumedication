@@ -59,6 +59,13 @@
 
         .home-indicator-wrap { position: absolute; bottom: 0; left: 0; width: 100%; height: 30px; display: flex; justify-content: center; align-items: flex-end; padding-bottom: 8px; z-index: 9999; }
         .home-indicator { width: 130px; height: 5px; background: #000; border-radius: 10px; cursor: pointer; opacity: 0.8; }
+            /* 표정 안내 창(infoOverlay)만 화면 중앙에서 위로 50px만큼 더 올리는 코드 */
+        #infoOverlay {
+            align-items: center !important; 
+        }
+        #infoOverlay .confirm-sheet {
+            margin-top: -50px; 
+        }
     </style>
 
     <style>
@@ -840,7 +847,7 @@
                 <div class="guide-range">건강도 60~79%</div>
             </div>
         </div>
-
+    
         <div class="guide-card">
             <div class="guide-vid-circle" onclick="playBigVid('hakdungi_angry.mp4')">
                 <video src="hakdungi_angry.mp4" autoplay loop muted playsinline></video>
